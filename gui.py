@@ -38,6 +38,9 @@ class App:
             # Разделительная строка
             tk.Frame(root, height=5).pack(fill='x')  # Добавляем пустую строку для разделения
 
+            # TODO Добавление пути для сохранения итоговой таблицы.
+
+
         # Кнопки "Погнали" и "Забить"
         button_frame = tk.Frame(root)
         button_frame.pack(pady=10)
@@ -49,22 +52,22 @@ class App:
         clear_button.pack(side='left', padx=5)
 
     def browse_file(self, entry):
-        """Открывает диалог выбора файла."""
-        file_path = filedialog.askopenfilename()
-        if file_path:
+        """Открывает диалог выбора файлов."""
+        file_paths = filedialog.askopenfilenames()  # Позволяем выбирать несколько файлов
+        if file_paths:
             entry.delete(0, tk.END)  # Очищаем текущее значение
-            entry.insert(0, file_path)  # Вставляем выбранный путь
+            entry.insert(0, '; '.join(file_paths))  # Вставляем выбранные пути через точку с запятой
 
     def start_process(self):
         """Запускает процесс обработки."""
-        vmc_path = self.file_paths[0].get()  # Путь из первого текстового поля
-        hb_path = self.file_paths[1].get()   # Путь из второго текстового поля
-        rc_path = self.file_paths[2].get()   # Путь из третьего текстового поля
-        st_path = self.file_paths[3].get()   # Путь из четвертого текстового поля
-        cd_paths = self.file_paths[4].get()  # Путь из пятого текстового поля, если несколько
+        vmc_paths = self.file_paths[0].get()  # Путь из первого текстового поля
+        rc_paths = self.file_paths[1].get()   # Путь из второго текстового поля
+        st_paths = self.file_paths[2].get()   # Путь из третьего текстового поля
+        cd_paths = self.file_paths[3].get()   # Путь из четвертого текстового поля
+        hb_paths = self.file_paths[4].get()  # Путь из пятого текстового поля, если несколько
 
         # Вызываем функцию из get_xlsx с нашим словарем
-        get_xlsx.handle_request(vmc_path, hb_path, rc_path, st_path, cd_paths)
+        get_xlsx.handle_request(vmc_paths, hb_paths, rc_paths, st_paths, cd_paths)  # Преобразуем строки в списки
 
         print("Запуск обработки...")
 
