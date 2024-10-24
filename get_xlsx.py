@@ -4,7 +4,9 @@ import datetime
 from os.path import join, abspath
 from typing import Dict, List
 
-def handle_request(vmc, hb, rc, st, cd):
+import parser
+
+def handle_request(vmc='', hb='', rc='', st='', cd=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
     files_dict = {
@@ -31,24 +33,27 @@ def handle_request(vmc, hb, rc, st, cd):
     }
 
     # Удаляем ключи, у которых значения пустые массивы
-    files_dict = {key: value for key, value in files_dict.items() if value['path']}
+    files_dict = {
+        key: value for key, value in files_dict.items() if value['path']
+    }
 
     # Проверка файлов, правильно ли они раскиданы по путям
     for file_info in files_dict.values():
         check_files(file_info['path'], file_info['check'])
 
-    # Получение данных и запихивание их в словари
-
-    # Объединение словарей
+    # Получение данных и запихивание их в словарь
+    for key, value in files_dict.items():
+        weld_data = parser.parse_weld_data(value['path'], key)
 
     # Сравнение словарей
 
     # Сотавление итоговой таблицы
 
     # Здесь будет логика обработки файлов
-    print("Обработка файлов...")
-    for key, value in files_dict.items():
-        print(f"{key}: {value}")
+    with open('file_processing_log.txt', 'w', encoding='utf-8') as log_file:
+        log_file.write("Обработка файлов...\n")
+        for key, value in weld_data.items():
+            log_file.write(f"{key}: {value}\n")
 
 def check_files(paths, check_keys):
     """Проверяет каждый файл в paths на наличие check_keys в первых 10 
@@ -78,4 +83,12 @@ def check_files(paths, check_keys):
 
         except Exception as e:
             print(f"Ошибка при проверке файла {path}: {e}")
+
+if __name__ == '__main__':
+    vmc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_VMC.xlsx'
+    hb = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_HB.xlsx'
+    rc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_RC.xlsx'
+    st = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_ST.xlsx'
+    cd = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_CD.xlsx'
+    handle_request(vmc, hb, rc, st, cd)
 
