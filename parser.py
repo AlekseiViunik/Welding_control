@@ -18,6 +18,8 @@ def parse_weld_data(paths, key):
        контроля. Поскольку файлов много, как и страниц в каждом файле,
        как и самих швов на страницах, то операция будет проходить довольно
        долго."""
+    
+    # TODO убрать return
     for path in paths:
         wb = openpyxl.load_workbook(path, read_only=True)
         for sheet in wb.worksheets:
