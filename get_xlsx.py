@@ -9,6 +9,7 @@ import parser
 def handle_request(vmc='', hb='', rc='', st='', cd=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
+    # TODO создать файл с константами и запихать все значения туда
     files_dict = {
         "vmc": {
             "path": vmc.split('; ') if vmc else [],

@@ -4,6 +4,8 @@ from datetime import datetime
 
 welds_data = {}
 weld_number_pattern = re.compile(r'^[CYTNHСНТУ][-\d]*$')
+
+# TODO создать файл с константами и запихать все значения туда
 replacement_dict = {
     'C': 'С',  # Английская C на русскую С
     'H': 'Н',  # Английская H на русскую Н
