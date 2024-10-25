@@ -5,7 +5,9 @@ from os.path import join, abspath
 from typing import Dict, List
 
 import parser
+import create_summary
 
+# TODO убрать принт
 def handle_request(vmc='', hb='', rc='', st='', cd=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
@@ -39,16 +41,18 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     }
 
     # Проверка файлов, правильно ли они раскиданы по путям
+    # TODO разкомментить проверку после отладки
     for file_info in files_dict.values():
-        check_files(file_info['path'], file_info['check'])
+        #check_files(file_info['path'], file_info['check'])
+        pass
 
     # Получение данных и запихивание их в словарь
+    # TODO перестать перезаписывать weld_data
     for key, value in files_dict.items():
-        weld_data = parser.parse_weld_data(value['path'], key)
+        weld_data = parser.parse_weld_data(value['path'], key)    
 
-    # Сравнение словарей
-
-    # Сотавление итоговой таблицы
+    # Составление итоговой таблицы
+    create_summary.create_summary_excel(weld_data)
 
     # Здесь будет логика обработки файлов
     with open('file_processing_log.txt', 'w', encoding='utf-8') as log_file:
@@ -86,7 +90,7 @@ def check_files(paths, check_keys):
             print(f"Ошибка при проверке файла {path}: {e}")
 
 if __name__ == '__main__':
-    vmc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_VMC.xlsx'
+    vmc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_VMC1.xlsx'
     hb = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_HB.xlsx'
     rc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_RC.xlsx'
     st = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_ST.xlsx'
