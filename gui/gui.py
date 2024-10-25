@@ -6,7 +6,7 @@ GUI гллавного экрана. На нем мы выбираем файл�
 import tkinter as tk
 from tkinter import filedialog
 
-import get_xlsx
+from logic import get_xlsx
 
 class App:
     def __init__(self, root):
