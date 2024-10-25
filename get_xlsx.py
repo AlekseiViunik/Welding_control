@@ -57,22 +57,15 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     # Проверка файлов, правильно ли они раскиданы по путям
     # TODO разкомментить проверку после отладки
     for file_info in files_dict.values():
-        check_files(file_info['path'], file_info['check'])
+        #check_files(file_info['path'], file_info['check'])
         pass
 
     # Получение данных и запихивание их в словарь
-    # TODO перестать перезаписывать weld_data
     for key, value in files_dict.items():
-        weld_data = parser.parse_weld_data(value['path'], key)    
+        parser.parse_weld_data(value['path'], key)
 
     # Составление итоговой таблицы
-    create_summary.create_summary_excel(weld_data)
-
-    # Здесь будет логика обработки файлов
-    with open('file_processing_log.txt', 'w', encoding='utf-8') as log_file:
-        log_file.write("Обработка файлов...\n")
-        for key, value in weld_data.items():
-            log_file.write(f"{key}: {value}\n")
+    create_summary.create_summary_excel(parser.welds_data)
 
 def check_files(paths, check_keys):
     """Проверяет каждый файл в paths на наличие check_keys в первых 10 
