@@ -21,6 +21,7 @@ import create_summary
 import parser
 
 from gui.messagebox import show_error
+from default_settings.gui_settings import PATH_DIVIDER
 
 
 # TODO убрать принт. Добавить аннотации.
@@ -30,23 +31,23 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     # TODO создать файл с константами и запихать все значения туда
     files_dict = {
         "vmc": {
-            "path": vmc.split('; ') if vmc else [],
+            "path": vmc.split(PATH_DIVIDER) if vmc else [],
             "check": ["визуальн"]
         },
         "hb": {
-            "path": hb.split('; ') if hb else [],
+            "path": hb.split(PATH_DIVIDER) if hb else [],
             "check": ["твердост", "твёрдост"]
         },
         "rc": {
-            "path": rc.split('; ') if rc else [],
+            "path": rc.split(PATH_DIVIDER) if rc else [],
             "check": ["радиограф", "ультразвук"]
         },
         "st": {
-            "path": st.split('; ') if st else [],
+            "path": st.split(PATH_DIVIDER) if st else [],
             "check": ["флуоресцент"]
         },
         "cd": {
-            "path": cd.split('; ') if cd else [],
+            "path": cd.split(PATH_DIVIDER) if cd else [],
             "check": ["капилляр"]
         },
     }
@@ -97,7 +98,7 @@ def check_files(paths, check_keys):
 
             # Если совпадений не найдено, выбрасываем исключение
             if not found:
-                show_error(f"Файл {filename} не содержит нужные ключи в первых 10 строках.")
+                show_error(f"Я не верю, что {filename} находится в нужном поле.")
                 break
 
         except Exception as e:
