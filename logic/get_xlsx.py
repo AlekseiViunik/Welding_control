@@ -2,7 +2,7 @@
 Этот файл принимает пути файлов, которые были указаны на главном окне
 интерфейса пользователя. И выполняет с файлами по указанным путям 
 следующие действия:
-1. Используя ключевые слова проходит по файлам и проверяет, привальный ли файл
+1. Используя ключевые слова проходит по файлам и проверяет, правильный ли файл
    лежит в указанном пути. Например путь к файлу ВИК должен указывать на
    файл протоколов визуально-измерительного контроля, а не, например, на
    протокол замеров твердости.
@@ -22,6 +22,11 @@ import parser
 
 from gui.messagebox import show_error
 from default_settings.gui_settings import PATH_DIVIDER
+from default_settings.logic_settings import (
+    VMC_CHECK_KEYS, HB_CHECK_KEYS, RC_CHECK_KEYS, ST_CHECK_KEYS, 
+    CD_CHECK_KEYS, FILEPATH_DIVIDER, EXTENSION_DIVIDER, EXTENSIONS,
+    MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE
+)
 
 
 # TODO убрать принт. Добавить аннотации.
@@ -32,23 +37,23 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     files_dict = {
         "vmc": {
             "path": vmc.split(PATH_DIVIDER) if vmc else [],
-            "check": ["визуальн"]
+            "check": VMC_CHECK_KEYS
         },
         "hb": {
             "path": hb.split(PATH_DIVIDER) if hb else [],
-            "check": ["твердост", "твёрдост"]
+            "check": HB_CHECK_KEYS
         },
         "rc": {
             "path": rc.split(PATH_DIVIDER) if rc else [],
-            "check": ["радиограф", "ультразвук"]
+            "check": RC_CHECK_KEYS
         },
         "st": {
             "path": st.split(PATH_DIVIDER) if st else [],
-            "check": ["флуоресцент"]
+            "check": ST_CHECK_KEYS
         },
         "cd": {
             "path": cd.split(PATH_DIVIDER) if cd else [],
-            "check": ["капилляр"]
+            "check": CD_CHECK_KEYS
         },
     }
 
@@ -75,28 +80,25 @@ def check_files(paths, check_keys):
        строках. Это необходимо, чтобы понять, в том ли текстовом поле 
        загружен файл. Это важно для последующей обработки файлов."""
     for path in paths:
-        filename = path.split('/')[-1]
-        file_extension = path.split('.')[-1]
-        if file_extension not in ['xlsx', 'xls', 'csv']:
+        filename = path.split(FILEPATH_DIVIDER)[-1]
+        file_extension = filename.split(EXTENSION_DIVIDER)[-1]
+        if file_extension not in EXTENSIONS:
             show_error(f"Какой-то непонятный файл тут: {path}")
             break
         try:
-            # Открываем файл
             wb = openpyxl.load_workbook(path)
             sheet = wb.active  # Получаем первую страницу
 
             # Флаг, чтобы определить, найдено ли совпадение
             found = False
 
-            # Проверяем первые 10 строк первого столбца
-            for row in range(1, 11):  # Строки 1-10
+            # Проверяем первые N строк первого столбца
+            for row in range(MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE):
                 cell_value = sheet.cell(row=row, column=1).value
-                # Проверяем, если ячейка не пустая и содержит одно из check_keys
                 if cell_value and any(key in str(cell_value) for key in check_keys):
                     found = True
-                    break  # Выходим из цикла, если найдено совпадение
+                    break
 
-            # Если совпадений не найдено, выбрасываем исключение
             if not found:
                 show_error(f"Я не верю, что {filename} находится в нужном поле.")
                 break
