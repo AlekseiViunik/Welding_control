@@ -6,7 +6,8 @@
 TITLE = "Dates Control" # Default: "Dates COntrol"
 
 # Размеры стартового окна
-GEOMETRY = "600x400" # Default: "600x400"
+MAIN_WINDOW_WIDTH = 600 # Default: 600
+MAIN_WINDOW_HEIGHT = 400 # Default: 400
 
 # =====================Настройки для лейблов=========================
 
