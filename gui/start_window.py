@@ -21,7 +21,7 @@ class App:
         self.root = root
         self.root.title(TITLE)
         self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{MAIN_WINDOW_HEIGHT}")
-        self.center_window()
+        self.center_window(self.root, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT)
 
         self.file_paths = []
 
@@ -72,6 +72,20 @@ class App:
                 width=BUTTONS_WIDTH
                 )
             button.pack(side=FRAME_BUTTONS_SIDE, padx=FRAME_BUTTONS_PADX)
+    def center_window(self, window, width, height):
+        """Центрирует главное окно на экране."""
+
+        # Получаем размеры экрана
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # Вычисляем координаты для центрирования окна
+        x = (screen_width // 2) - (width // 2)
+        y = (screen_height // 2) - (height // 2)
+
+        window_position = f"{width}x{height}+{x}+{y}"
+        # Устанавливаем позицию окна
+        window.geometry(window_position)
 
     def browse_file(self, entry):
         """Открывает диалог выбора файлов."""
@@ -91,8 +105,6 @@ class App:
         # Вызываем функцию из get_xlsx с нашим словарем
         get_xlsx.handle_request(vmc_paths, hb_paths, rc_paths, st_paths, cd_paths)  # Преобразуем строки в списки
 
-        print("Запуск обработки...")
-
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
@@ -102,22 +114,6 @@ class App:
         """Открывает окно настроек."""
         # TODO реализовать метод
         pass
-
-    def center_window(self):
-        """Центрирует главное окно на экране."""
-        window_width = 600  # Ширина вашего окна
-        window_height = 400  # Высота вашего окна
-
-        # Получаем размеры экрана
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-
-        # Вычисляем координаты для центрирования окна
-        x = (screen_width // 2) - (window_width // 2)
-        y = (screen_height // 2) - (window_height // 2)
-
-        # Устанавливаем позицию окна
-        self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 if __name__ == "__main__":
     root = tk.Tk()
