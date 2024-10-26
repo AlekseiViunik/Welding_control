@@ -13,7 +13,9 @@ from default_settings.gui_settings import (
     FRAME_BUTTON_TEXT, FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX,
     FRAME_BUTTON_SIDE, DIVIDER_HEIGHT, DIVIDER_FILL_AXIS, BUTTONS_WIDTH,
     FRAME_BUTTONS_PADX, FRAME_BUTTONS_SIDE, BUTTONS_FRAME_PADY, BUTTON_TEXTS,
-    FIRST_ELEMENT, PATH_DIVIDER, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT
+    FIRST_ELEMENT, PATH_DIVIDER, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT,
+    INFO_LABEL_TEXT, INFO_WINDOW_HEIGHT, INFO_LABEL_PADX, INFO_LABEL_PADY,
+    INFO_WINDOW_TITLE, INFO_WINDOW_WIDTH
     )
 from logic import get_xlsx
 
@@ -91,19 +93,28 @@ class App:
 
     def browse_file(self, entry):
         """Открывает диалог выбора файлов."""
-        file_paths = filedialog.askopenfilenames()  # Позволяем выбирать несколько файлов
+        file_paths = filedialog.askopenfilenames()
         if file_paths:
-            entry.delete(FIRST_ELEMENT, tk.END)  # Очищаем текущее значение
-            entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(file_paths))  # Вставляем выбранные пути через точку с запятой
+            entry.delete(FIRST_ELEMENT, tk.END)
+            entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(file_paths))
 
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title("Информация")
-        self.info_window.geometry("200x100")  # Размеры окна
-        self.center_window(self.info_window, 200, 100)
+        self.info_window.title(INFO_WINDOW_TITLE)
+        self.info_window.geometry(f"{INFO_WINDOW_WIDTH}x{INFO_WINDOW_HEIGHT}")
+        self.center_window(
+            self.info_window,
+            INFO_WINDOW_WIDTH,
+            INFO_WINDOW_HEIGHT
+            )
 
-        label = tk.Label(self.info_window, text="Работа пошла...", padx=20, pady=20)
+        label = tk.Label(
+            self.info_window,
+            text=INFO_LABEL_TEXT,
+            padx=INFO_LABEL_PADX,
+            pady=INFO_LABEL_PADY
+            )
         label.pack()
 
     def start_process(self):
