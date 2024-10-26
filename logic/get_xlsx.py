@@ -20,6 +20,8 @@ import openpyxl
 import create_summary
 import parser
 
+from gui.messagebox import show_error
+
 
 # TODO убрать принт. Добавить аннотации.
 def handle_request(vmc='', hb='', rc='', st='', cd=''):
@@ -57,8 +59,8 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     # Проверка файлов, правильно ли они раскиданы по путям
     # TODO разкомментить проверку после отладки
     for file_info in files_dict.values():
-        #check_files(file_info['path'], file_info['check'])
-        pass
+        check_files(file_info['path'], file_info['check'])
+        #pass
 
     # Получение данных и запихивание их в словарь
     for key, value in files_dict.items():
@@ -73,6 +75,10 @@ def check_files(paths, check_keys):
        загружен файл. Это важно для последующей обработки файлов."""
     for path in paths:
         filename = path.split('/')[-1]
+        file_extension = path.split('.')[-1]
+        if file_extension not in ['xlsx', 'xls', 'csv']:
+            show_error(f"Какой-то непонятный файл тут: {path}")
+            break
         try:
             # Открываем файл
             wb = openpyxl.load_workbook(path)
@@ -91,10 +97,12 @@ def check_files(paths, check_keys):
 
             # Если совпадений не найдено, выбрасываем исключение
             if not found:
-                raise ValueError(f"Файл {filename} не содержит нужные ключи в первых 10 строках.")
+                show_error(f"Файл {filename} не содержит нужные ключи в первых 10 строках.")
+                break
 
         except Exception as e:
-            print(f"Ошибка при проверке файла {path}: {e}")
+            show_error(f"Ошибка при проверке файла {path}: {e}")
+            break
 
 if __name__ == '__main__':
     vmc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_VMC1.xlsx'
