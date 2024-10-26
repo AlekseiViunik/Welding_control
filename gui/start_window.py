@@ -101,22 +101,8 @@ class App:
         self.info_window = tk.Toplevel(self.root)
         self.info_window.title("Информация")
         self.info_window.geometry("200x100")  # Размеры окна
-    
-        # Получаем размеры экрана
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-    
-        # Получаем размеры окна
-        window_width = 200
-        window_height = 100
-    
-        # Вычисляем координаты для центрирования окна
-        x = (screen_width // 2) - (window_width // 2)
-        y = (screen_height // 2) - (window_height // 2)
-    
-        # Устанавливаем позицию окна
-        self.info_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
-    
+        self.center_window(self.info_window, 200, 100)
+
         label = tk.Label(self.info_window, text="Работа пошла...", padx=20, pady=20)
         label.pack()
 
