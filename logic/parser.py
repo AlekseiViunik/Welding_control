@@ -25,17 +25,13 @@ import re
 import openpyxl
 from datetime import datetime
 
+from default_settings.logic_settings import (
+    WELD_ID_REGEXP, REPLACEMENT_DICT, DATE_REGEXP, DATE_FORMAT
+)
+
 # TODO подключить Redis(?) для хранения данных вместо словаря
 welds_data = {}
-weld_number_pattern = re.compile(r'^[CYTNHСНТУ][-\d]*$')
-
-# TODO создать файл с константами и запихать все значения туда
-replacement_dict = {
-    'C': 'С',  # Английская C на русскую С
-    'H': 'Н',  # Английская H на русскую Н
-    'T': 'Т',  # Английская T на русскую Т
-    'Y': 'У'   # Английская Y на русскую У
-}
+weld_number_pattern = re.compile(WELD_ID_REGEXP)
 
 def parse_weld_data(paths, key):
     """Парсим все страницы переданных файлов в поисках номеров швов и дат
@@ -52,8 +48,8 @@ def parse_weld_data(paths, key):
                     weld_number_pattern.match(weld_number)):
                     date_found = False
                     weld_number_ru = (
-                        replacement_dict[weld_number[0]] + weld_number[1:]
-                        if weld_number[0] in replacement_dict
+                        REPLACEMENT_DICT[weld_number[0]] + weld_number[1:]
+                        if weld_number[0] in REPLACEMENT_DICT
                         else weld_number
                     )
                     if weld_number_ru not in welds_data.keys():
@@ -61,22 +57,23 @@ def parse_weld_data(paths, key):
                     for cell in row[1:]:
                         cell_value = cell.value
                         if isinstance(cell_value, datetime):
-                            welds_data[weld_number_ru][key] = cell_value.strftime("%m/%d/%Y")  # Форматируем дату
+                            welds_data[weld_number_ru][key] = cell_value.strftime(DATE_FORMAT)
                             date_found = True
                             break
                         elif (isinstance(cell_value, str) and 
                               re.search(
-                                  r'\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4}',
+                                  DATE_REGEXP,
                                   cell_value
                               )):
                             try:
                                 # Пытаемся разобрать строку как дату
                                 date_found = True
                                 date = datetime.strptime(
-                                    cell_value, "%m/%d/%Y"
+                                    cell_value,
+                                    DATE_FORMAT
                                 )
                                 welds_data[weld_number_ru] = {
-                                    key: date.strftime("%m/%d/%Y")
+                                    key: date.strftime(DATE_FORMAT)
                                 }
                                 break
                             except ValueError:
