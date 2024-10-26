@@ -66,6 +66,9 @@ class App:
         clear_button = tk.Button(button_frame, text="Забить", command=self.clear_entries)
         clear_button.pack(side='left', padx=5)
 
+        settings_button = tk.Button(button_frame, text="Настройки", command=None)
+        settings_button.pack(side='left', padx=5)
+
     def browse_file(self, entry):
         """Открывает диалог выбора файлов."""
         file_paths = filedialog.askopenfilenames()  # Позволяем выбирать несколько файлов
