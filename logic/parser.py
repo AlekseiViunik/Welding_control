@@ -25,6 +25,7 @@ import re
 import openpyxl
 from datetime import datetime
 
+# TODO подключить Redis(?) для хранения данных вместо словаря
 welds_data = {}
 weld_number_pattern = re.compile(r'^[CYTNHСНТУ][-\d]*$')
 
