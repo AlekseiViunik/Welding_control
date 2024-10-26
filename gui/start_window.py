@@ -7,12 +7,12 @@ import tkinter as tk
 from tkinter import filedialog
 
 from default_settings.gui_settings import (
-    TITLE, GEOMETRY, LABELS, LABEL_PADX, LABEL_ANCHOR, FRAME_FILL_AXIS,
+    TITLE, LABELS, LABEL_PADX, LABEL_ANCHOR, FRAME_FILL_AXIS,
     FRAME_PADX, ENTRY_WIDTH, ENTRY_EXPAND, ENTRY_FILL_AXIS, ENTRY_FRAME_SIDE,
     FRAME_BUTTON_TEXT, FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX,
     FRAME_BUTTON_SIDE, DIVIDER_HEIGHT, DIVIDER_FILL_AXIS, BUTTONS_WIDTH,
     FRAME_BUTTONS_PADX, FRAME_BUTTONS_SIDE, BUTTONS_FRAME_PADY, BUTTON_TEXTS,
-    FIRST_ELEMENT, PATH_DIVIDER
+    FIRST_ELEMENT, PATH_DIVIDER, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT
     )
 from logic import get_xlsx
 
@@ -20,7 +20,8 @@ class App:
     def __init__(self, root):
         self.root = root
         self.root.title(TITLE)
-        self.root.geometry(GEOMETRY)
+        self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{MAIN_WINDOW_HEIGHT}")
+        self.center_window()
 
         self.file_paths = []
 
@@ -101,6 +102,22 @@ class App:
         """Открывает окно настроек."""
         # TODO реализовать метод
         pass
+
+    def center_window(self):
+        """Центрирует главное окно на экране."""
+        window_width = 600  # Ширина вашего окна
+        window_height = 400  # Высота вашего окна
+
+        # Получаем размеры экрана
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # Вычисляем координаты для центрирования окна
+        x = (screen_width // 2) - (window_width // 2)
+        y = (screen_height // 2) - (window_height // 2)
+
+        # Устанавливаем позицию окна
+        self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 if __name__ == "__main__":
     root = tk.Tk()
