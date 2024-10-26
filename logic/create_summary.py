@@ -1,61 +1,59 @@
 import openpyxl
 
+from default_settings.logic_settings import (
+    HEADERS, VMC, HB, RC, ST, CD, NOTE, NOTE_VMC_DOES_NOT_EXIST,
+    NOTE_HB_LT_VMC, NOTE_ST_LT_HB, NOTE_ST_LT_VMC, NOTE_RC_LT_VMC,
+    NOTE_RC_LT_HB, NOTE_RC_LT_ST, NOTE_CD_LT_VMC, NOTE_CD_LT_HB,
+    NOTE_CD_LT_ST, NOTE_CD_LT_RC
+)
+
 # TODO убрать принт
 def create_summary_excel(welds_data, output_file='summary.xlsx'):
     """Создает итоговую таблицу в формате Excel на основе данных о швах."""
     wb = openpyxl.Workbook()
     ws = wb.active
-    headers = [
-        "Номер шва",
-        "ВИК",
-        "Твёрдость",
-        "Стилоскопирование",
-        "РК или УЗК",
-        "ЦД",
-        "Примечания"  # Новая колонка для примечаний
-    ]
 
     # Записываем заголовки в таблицу
-    ws.append(headers)
+    ws.append(HEADERS)
 
     for weld_number, control_dates in welds_data.items():
         # Получаем даты контроля по ключам
-        hb = control_dates.get("hb", "")
-        vmc = control_dates.get("vmc", "")
-        st = control_dates.get("st", "")
-        rc = control_dates.get("rc", "")
-        cd = control_dates.get("cd", "")
+        hb = control_dates.get(HB, "")
+        vmc = control_dates.get(VMC, "")
+        st = control_dates.get(ST, "")
+        rc = control_dates.get(RC, "")
+        cd = control_dates.get(CD, "")
 
         # Примечание по умолчанию
-        note = ""
+        note = NOTE
 
         # Сравнение дат
         if vmc:
             if hb and hb < vmc:
-                note += "Замер твердости проведен раньше ВИК; "
+                note += NOTE_HB_LT_VMC
             if st:
                 if st < vmc:
-                    note += "Стилоскопирование проведено раньше ВИК; "
+                    note += NOTE_ST_LT_VMC
                 elif st < hb:
-                    note += "Стилоскопирование проведено раньше замеров твердости; "
+                    note += NOTE_ST_LT_HB
             if rc:
                 if rc < vmc:
-                    note += "РК или УЗК проведено раньше ВИК; "
+                    note += NOTE_RC_LT_VMC
                 elif rc < hb:
-                    note += "РК или УЗК проведено раньше замеров твердости; "
+                    note += NOTE_RC_LT_HB
                 elif rc < st:
-                    note += "РК или УЗК проведено раньше стилоскопирования; "
+                    note += NOTE_RC_LT_ST
             if cd:
                 if cd < vmc:
-                    note += "ЦД проведена раньше ВИК; "
+                    note += NOTE_CD_LT_VMC
                 elif cd < hb:
-                    note += "ЦД проведена раньше замеров твердости; "
+                    note += NOTE_CD_LT_HB
                 elif cd < st:
-                    note += "ЦД проведена раньше замеров стилоскопирования; "
+                    note += NOTE_CD_LT_ST
                 elif cd < rc:
-                    note += "ЦД проведена раньше замеров РК или УЗК; "    
+                    note += NOTE_CD_LT_RC
         else:
-            note += "Дата ВИК не указана; "
+            note = NOTE_VMC_DOES_NOT_EXIST
 
         # Записываем данные в строку таблицы
         row = [
@@ -65,9 +63,11 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
             st,
             rc,
             cd,
-            note.strip()  # Убираем лишние пробелы
+            note.strip()
         ]
         ws.append(row)
 
     wb.save(output_file)
+    
+    # TODO заменить принт на всплывающее информационное окно
     print(f"Итоговая таблица сохранена в {output_file}")

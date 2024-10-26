@@ -25,7 +25,7 @@ from default_settings.gui_settings import PATH_DIVIDER
 from default_settings.logic_settings import (
     VMC_CHECK_KEYS, HB_CHECK_KEYS, RC_CHECK_KEYS, ST_CHECK_KEYS, 
     CD_CHECK_KEYS, FILEPATH_DIVIDER, EXTENSION_DIVIDER, EXTENSIONS,
-    MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE
+    MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE, VMC, RC, ST, CD, HB
 )
 
 
@@ -33,25 +33,24 @@ from default_settings.logic_settings import (
 def handle_request(vmc='', hb='', rc='', st='', cd=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
-    # TODO создать файл с константами и запихать все значения туда
     files_dict = {
-        "vmc": {
+        VMC: {
             "path": vmc.split(PATH_DIVIDER) if vmc else [],
             "check": VMC_CHECK_KEYS
         },
-        "hb": {
+        HB: {
             "path": hb.split(PATH_DIVIDER) if hb else [],
             "check": HB_CHECK_KEYS
         },
-        "rc": {
+        RC: {
             "path": rc.split(PATH_DIVIDER) if rc else [],
             "check": RC_CHECK_KEYS
         },
-        "st": {
+        ST: {
             "path": st.split(PATH_DIVIDER) if st else [],
             "check": ST_CHECK_KEYS
         },
-        "cd": {
+        CD: {
             "path": cd.split(PATH_DIVIDER) if cd else [],
             "check": CD_CHECK_KEYS
         },
