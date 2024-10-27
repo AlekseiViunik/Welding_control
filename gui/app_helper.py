@@ -4,6 +4,9 @@ from tkinter import filedialog
 from settings.gui_settings import (
     FIRST_ELEMENT, PATH_DIVIDER, INFO_WINDOW_TITLE, INFO_WINDOW_WIDTH,
     INFO_WINDOW_HEIGHT, INFO_LABEL_TEXT, INFO_LABEL_PADX, INFO_LABEL_PADY,
+    FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX, FRAME_BUTTON_SIDE,
+    FRAME_BUTTON_TEXT, FRAME_FILL_AXIS, FRAME_PADX, LABEL_ANCHOR, ENTRY_WIDTH,
+    ENTRY_FRAME_SIDE, ENTRY_FILL_AXIS, ENTRY_EXPAND
 )
 
 
@@ -12,7 +15,7 @@ class AppHelper:
         self.root = root
 
     def center_window(self, window, width, height):
-        """Центрирует главное окно на экране."""
+        """Центрирует окно на экране."""
 
         # Получаем размеры экрана
         screen_width = self.root.winfo_screenwidth()
@@ -51,3 +54,34 @@ class AppHelper:
             pady=INFO_LABEL_PADY
         )
         label.pack()
+
+    def create_label_entry_frame(self, parent, label_text, hint=''):
+        """Создает фрейм с лейблом и текстовым полем."""
+        frame = tk.Frame(parent)
+        frame.pack(fill=FRAME_FILL_AXIS, padx=FRAME_PADX)
+
+        label = tk.Label(frame, text=label_text)
+        label.pack(anchor=LABEL_ANCHOR)
+
+        entry = tk.Entry(
+            frame,
+            textvariable=hint,
+            width=ENTRY_WIDTH
+        )
+        entry.pack(
+            side=ENTRY_FRAME_SIDE,
+            fill=ENTRY_FILL_AXIS,
+            expand=ENTRY_EXPAND
+        )
+
+        button = tk.Button(
+            frame,
+            text=FRAME_BUTTON_TEXT,
+            command=lambda e=entry: self.browse_file(e)
+        )
+        button.pack(
+            side=FRAME_BUTTON_SIDE,
+            padx=(FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX)
+        )
+
+        return entry
