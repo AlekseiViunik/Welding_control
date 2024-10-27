@@ -17,8 +17,8 @@
 """
 import openpyxl
 
-import create_summary
-import parser
+from . import create_summary
+from . import parser
 
 from gui.messagebox import show_error
 from default_settings.gui_settings import PATH_DIVIDER
