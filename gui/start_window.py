@@ -4,7 +4,6 @@ GUI гллавного экрана. На нем мы выбираем файл�
 """
 
 import tkinter as tk
-from tkinter import filedialog
 from threading import Thread
 
 from default_settings.gui_settings import (
@@ -13,19 +12,23 @@ from default_settings.gui_settings import (
     FRAME_BUTTON_TEXT, FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX,
     FRAME_BUTTON_SIDE, DIVIDER_HEIGHT, DIVIDER_FILL_AXIS, BUTTONS_WIDTH,
     FRAME_BUTTONS_PADX, FRAME_BUTTONS_SIDE, BUTTONS_FRAME_PADY, BUTTON_TEXTS,
-    FIRST_ELEMENT, PATH_DIVIDER, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT,
-    INFO_LABEL_TEXT, INFO_WINDOW_HEIGHT, INFO_LABEL_PADX, INFO_LABEL_PADY,
-    INFO_WINDOW_TITLE, INFO_WINDOW_WIDTH
-    )
+    FIRST_ELEMENT, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT,
+)
 from logic import get_xlsx
+from .app_helper import AppHelper
 
 
 class App:
     def __init__(self, root):
         self.root = root
+        self.helper = AppHelper(root)
         self.root.title(TITLE)
         self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{MAIN_WINDOW_HEIGHT}")
-        self.center_window(self.root, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT)
+        self.helper.center_window(
+            self.root,
+            MAIN_WINDOW_WIDTH,
+            MAIN_WINDOW_HEIGHT
+        )
 
         self.file_paths = []
 
@@ -45,18 +48,18 @@ class App:
                 side=ENTRY_FRAME_SIDE,
                 fill=ENTRY_FILL_AXIS,
                 expand=ENTRY_EXPAND
-                )
+            )
 
             # Кнопка фрейма
             button = tk.Button(
                 frame,
                 text=FRAME_BUTTON_TEXT,
-                command=lambda e=entry: self.browse_file(e)
-                )
+                command=lambda e=entry: self.helper.browse_file(e)
+            )
             button.pack(
                 side=FRAME_BUTTON_SIDE,
                 padx=(FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX)
-                )
+            )
 
             self.file_paths.append(entry)
 
@@ -77,50 +80,9 @@ class App:
                 )
             button.pack(side=FRAME_BUTTONS_SIDE, padx=FRAME_BUTTONS_PADX)
 
-    def center_window(self, window, width, height):
-        """Центрирует главное окно на экране."""
-
-        # Получаем размеры экрана
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-
-        # Вычисляем координаты для центрирования окна
-        x = (screen_width // 2) - (width // 2)
-        y = (screen_height // 2) - (height // 2)
-
-        window_position = f"{width}x{height}+{x}+{y}"
-        # Устанавливаем позицию окна
-        window.geometry(window_position)
-
-    def browse_file(self, entry):
-        """Открывает диалог выбора файлов."""
-        file_paths = filedialog.askopenfilenames()
-        if file_paths:
-            entry.delete(FIRST_ELEMENT, tk.END)
-            entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(file_paths))
-
-    def show_info_window(self):
-        """Показывает информационное окно о начале работы."""
-        self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(INFO_WINDOW_TITLE)
-        self.info_window.geometry(f"{INFO_WINDOW_WIDTH}x{INFO_WINDOW_HEIGHT}")
-        self.center_window(
-            self.info_window,
-            INFO_WINDOW_WIDTH,
-            INFO_WINDOW_HEIGHT
-            )
-
-        label = tk.Label(
-            self.info_window,
-            text=INFO_LABEL_TEXT,
-            padx=INFO_LABEL_PADX,
-            pady=INFO_LABEL_PADY
-            )
-        label.pack()
-
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
-        self.show_info_window()
+        self.helper.show_info_window()
         Thread(target=self.calculate_dates).start()
 
     def calculate_dates(self):
@@ -141,7 +103,7 @@ class App:
             )
 
         # Закрываем информационное окно по завершении работы
-        self.info_window.destroy()
+        self.helper.info_window.destroy()
 
     def clear_entries(self):
         """Очищает все текстовые поля."""
