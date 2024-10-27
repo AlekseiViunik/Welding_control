@@ -10,10 +10,10 @@ import sys
 # Добавляем пути к папкам logic и gui
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), 'logic'))
-    )
+)
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), 'gui'))
-    )
+)
 
 if __name__ == "__main__":
     import tkinter as tk
