@@ -10,5 +10,5 @@ import os
 DEFAULT_SAVE_PATH = os.path.join(
     os.path.expanduser("~"),  # Домашняя директория
     "Desktop",  # Рабочий стол
-    "summary.xlsx" # Имя файла
+    "summary.xlsx"  # Имя файла
 )
