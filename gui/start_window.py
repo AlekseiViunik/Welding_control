@@ -103,17 +103,13 @@ class App:
             )
 
         # Закрываем информационное окно по завершении работы
-        self.helper.info_window.destroy()
+        if self.helper.info_window:
+            self.helper.info_window.destroy()
 
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
             entry.delete(FIRST_ELEMENT, tk.END)
-
-    def open_settings(self):
-        """Открывает окно настроек."""
-        # TODO реализовать метод
-        pass
 
 
 if __name__ == "__main__":

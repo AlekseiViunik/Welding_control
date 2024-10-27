@@ -51,3 +51,8 @@ class AppHelper:
             pady=INFO_LABEL_PADY
         )
         label.pack()
+
+    def open_settings(self):
+        """Открывает окно настроек."""
+        # TODO реализовать метод
+        pass
