@@ -4,7 +4,7 @@ GUI гллавного экрана. На нем мы выбираем файл�
 """
 
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog
 from threading import Thread
 
 from default_settings.gui_settings import (
@@ -19,6 +19,7 @@ from default_settings.gui_settings import (
     )
 from logic import get_xlsx
 
+
 class App:
     def __init__(self, root):
         self.root = root
@@ -29,7 +30,7 @@ class App:
         self.file_paths = []
 
         for label_text in LABELS:
-            
+
             # Текст-подсказка для текстового поля
             label = tk.Label(root, text=label_text)
             label.pack(anchor=LABEL_ANCHOR, padx=LABEL_PADX)
@@ -124,14 +125,20 @@ class App:
 
     def calculate_dates(self):
         """Запускает логику обработки процесса."""
-        vmc_paths = self.file_paths[0].get()  # Путь из первого текстового поля
-        rc_paths = self.file_paths[1].get()   # Путь из второго текстового поля
-        st_paths = self.file_paths[2].get()   # Путь из третьего текстового поля
-        cd_paths = self.file_paths[3].get()   # Путь из четвертого текстового поля
-        hb_paths = self.file_paths[4].get()  # Путь из пятого текстового поля, если несколько
+        vmc_paths = self.file_paths[0].get()
+        rc_paths = self.file_paths[1].get()
+        st_paths = self.file_paths[2].get()
+        cd_paths = self.file_paths[3].get()
+        hb_paths = self.file_paths[4].get()
 
         # Вызываем функцию из get_xlsx с нашим словарем
-        get_xlsx.handle_request(vmc_paths, hb_paths, rc_paths, st_paths, cd_paths)  # Преобразуем строки в списки
+        get_xlsx.handle_request(
+            vmc_paths,
+            hb_paths,
+            rc_paths,
+            st_paths,
+            cd_paths
+            )
 
         # Закрываем информационное окно по завершении работы
         self.info_window.destroy()
@@ -140,11 +147,12 @@ class App:
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
             entry.delete(FIRST_ELEMENT, tk.END)
-    
+
     def open_settings(self):
         """Открывает окно настроек."""
         # TODO реализовать метод
         pass
+
 
 if __name__ == "__main__":
     root = tk.Tk()
