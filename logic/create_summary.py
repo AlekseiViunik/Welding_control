@@ -6,6 +6,7 @@ from settings.logic_settings import (
     NOTE_RC_LT_HB, NOTE_RC_LT_ST, NOTE_CD_LT_VMC, NOTE_CD_LT_HB,
     NOTE_CD_LT_ST, NOTE_CD_LT_RC
 )
+from settings.user_settings import DEFAULT_SAVE_PATH
 
 
 # TODO убрать принт
@@ -67,8 +68,7 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
             note.strip()
         ]
         ws.append(row)
-
-    wb.save(output_file)
+    wb.save(DEFAULT_SAVE_PATH)
 
     # TODO заменить принт на всплывающее информационное окно
-    print(f"Итоговая таблица сохранена в {output_file}")
+    print(f"Итоговая таблица сохранена в {DEFAULT_SAVE_PATH}")
