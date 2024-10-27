@@ -13,6 +13,7 @@ from default_settings.gui_settings import (
     FRAME_BUTTON_SIDE, DIVIDER_HEIGHT, DIVIDER_FILL_AXIS, BUTTONS_WIDTH,
     FRAME_BUTTONS_PADX, FRAME_BUTTONS_SIDE, BUTTONS_FRAME_PADY, BUTTON_TEXTS,
     FIRST_ELEMENT, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT,
+    AUTHOR_PADY, AUTHOR_LABEL_TEXT, AUTHOR_ANCHOR
 )
 from logic import get_xlsx
 from .app_helper import AppHelper
@@ -80,6 +81,9 @@ class App:
                 )
             button.pack(side=FRAME_BUTTONS_SIDE, padx=FRAME_BUTTONS_PADX)
 
+        label = tk.Label(root, text=AUTHOR_LABEL_TEXT)
+        label.place(relx=0.5, rely=1.0, anchor=AUTHOR_ANCHOR, y=-AUTHOR_PADY)
+
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
         self.helper.show_info_window()
@@ -110,6 +114,11 @@ class App:
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
             entry.delete(FIRST_ELEMENT, tk.END)
+
+    def open_settings(self):
+        """Открывает окно настроек."""
+        # TODO реализовать метод
+        pass
 
 
 if __name__ == "__main__":
