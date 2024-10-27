@@ -62,8 +62,10 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
     }
 
     # Проверка файлов, правильно ли они раскиданы по путям
+    # TODO раскомментить после отладки
     for file_info in files_dict.values():
-        check_files(file_info['path'], file_info['check'])
+        # check_files(file_info['path'], file_info['check'])
+        pass
 
     # Получение данных и запихивание их в словарь
     for key, value in files_dict.items():
