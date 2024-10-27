@@ -6,7 +6,7 @@ GUI гллавного экрана. На нем мы выбираем файл�
 import tkinter as tk
 from threading import Thread
 
-from default_settings.gui_settings import (
+from settings.gui_settings import (
     TITLE, LABELS, LABEL_PADX, LABEL_ANCHOR, FRAME_FILL_AXIS,
     FRAME_PADX, ENTRY_WIDTH, ENTRY_EXPAND, ENTRY_FILL_AXIS, ENTRY_FRAME_SIDE,
     FRAME_BUTTON_TEXT, FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX,

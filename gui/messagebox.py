@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from default_settings.gui_settings import ERROR_MESSAGE_TITLE
+from settings.gui_settings import ERROR_MESSAGE_TITLE
 
 
 def show_error(message: str):

@@ -21,8 +21,8 @@ from . import create_summary
 from . import parser
 
 from gui.messagebox import show_error
-from default_settings.gui_settings import PATH_DIVIDER
-from default_settings.logic_settings import (
+from settings.gui_settings import PATH_DIVIDER
+from settings.logic_settings import (
     VMC_CHECK_KEYS, HB_CHECK_KEYS, RC_CHECK_KEYS, ST_CHECK_KEYS,
     CD_CHECK_KEYS, FILEPATH_DIVIDER, EXTENSION_DIVIDER, EXTENSIONS,
     MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE, VMC, RC, ST, CD, HB

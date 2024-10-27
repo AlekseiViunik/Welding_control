@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from default_settings.gui_settings import (
+from settings.gui_settings import (
     FIRST_ELEMENT, PATH_DIVIDER, INFO_WINDOW_TITLE, INFO_WINDOW_WIDTH,
     INFO_WINDOW_HEIGHT, INFO_LABEL_TEXT, INFO_LABEL_PADX, INFO_LABEL_PADY,
 )
