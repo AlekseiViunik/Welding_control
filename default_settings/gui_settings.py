@@ -3,7 +3,7 @@
 """
 
 # Имя приложения
-TITLE = "Dates Control"  # Default: "Dates COntrol"
+TITLE = "Dates Control - v1.0.0"  # Default: "Dates Control - v1.0.0"
 
 # Размеры стартового окна
 MAIN_WINDOW_WIDTH = 600  # Default: 600
