@@ -7,6 +7,7 @@ from default_settings.logic_settings import (
     NOTE_CD_LT_ST, NOTE_CD_LT_RC
 )
 
+
 # TODO убрать принт
 def create_summary_excel(welds_data, output_file='summary.xlsx'):
     """Создает итоговую таблицу в формате Excel на основе данных о швах."""
@@ -68,6 +69,6 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
         ws.append(row)
 
     wb.save(output_file)
-    
+
     # TODO заменить принт на всплывающее информационное окно
     print(f"Итоговая таблица сохранена в {output_file}")
