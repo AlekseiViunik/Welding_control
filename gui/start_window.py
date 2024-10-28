@@ -7,12 +7,7 @@ import tkinter as tk
 from threading import Thread
 
 from gui.settings_window import SettingsWindow
-from settings.gui_settings import (
-    TITLE, LABELS, BUTTONS_WIDTH,
-    FRAME_BUTTONS_PADX, FRAME_BUTTONS_SIDE, BUTTONS_FRAME_PADY, BUTTON_TEXTS,
-    FIRST_ELEMENT, MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT,
-    AUTHOR_PADY, AUTHOR_LABEL_TEXT, AUTHOR_ANCHOR
-)
+import settings.gui_settings as gs
 from logic import get_xlsx
 from .app_helper import AppHelper
 
@@ -22,36 +17,41 @@ class App:
         self.root = root
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
-        self.root.title(TITLE)
-        self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{MAIN_WINDOW_HEIGHT}")
+        self.root.title(gs.MAIN_WINDOW_TITLE)
+        self.root.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
         self.helper.center_window(
             self.root,
-            MAIN_WINDOW_WIDTH,
-            MAIN_WINDOW_HEIGHT
+            gs.WINDOW_WIDTH,
+            gs.WINDOW_HEIGHT
         )
 
         self.file_paths = []
 
-        for label_text in LABELS:
+        for label_text in gs.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
             self.file_paths.append(entry)
 
         # Кнопки
         button_frame = tk.Frame(root)
-        button_frame.pack(pady=BUTTONS_FRAME_PADY)
+        button_frame.pack(pady=gs.BUTTONS_FRAME_PADY)
 
-        for text, command_name in BUTTON_TEXTS.items():
+        for text, command_name in gs.BUTTON_TEXTS.items():
             command = getattr(self, command_name)
             button = tk.Button(
                 button_frame,
                 text=text,
                 command=command,
-                width=BUTTONS_WIDTH
+                width=gs.BUTTONS_WIDTH
                 )
-            button.pack(side=FRAME_BUTTONS_SIDE, padx=FRAME_BUTTONS_PADX)
+            button.pack(side=gs.FRAME_BUTTONS_SIDE, padx=gs.FRAME_BUTTONS_PADX)
 
-        label = tk.Label(root, text=AUTHOR_LABEL_TEXT)
-        label.place(relx=0.5, rely=1.0, anchor=AUTHOR_ANCHOR, y=-AUTHOR_PADY)
+        label = tk.Label(root, text=gs.AUTHOR_LABEL_TEXT)
+        label.place(
+            relx=gs.AUTHOR_RELX,
+            rely=gs.AUTHOR_RELY,
+            anchor=gs.AUTHOR_ANCHOR,
+            y=-gs.AUTHOR_PADY
+        )
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
@@ -82,7 +82,7 @@ class App:
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(FIRST_ELEMENT, tk.END)
+            entry.delete(gs.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
