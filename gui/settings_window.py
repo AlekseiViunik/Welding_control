@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 
 from gui.app_helper import AppHelper
-from settings import user_settings
+from settings import user_settings, gui_settings as gs
 
 
 class SettingsWindow:
@@ -13,8 +13,8 @@ class SettingsWindow:
     def create_window(self):
         """Открывает окно настроек."""
         settings_window = tk.Toplevel(self.root)
-        settings_window.title("Настройки")
-        settings_window.geometry("600x400")
+        settings_window.title(gs.SETTINGS_WINDOW_TITLE)
+        settings_window.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
 
         # Текстовое поле с текущим путем сохранения
         # Устанавливаем текущее значение по умолчанию
@@ -23,27 +23,35 @@ class SettingsWindow:
         )
         self.helper.create_label_entry_frame(
             settings_window,
-            'Куда сохранять итоговый файл?',
+            gs.WHERE_TO_SAVE,
             current_path
         )
 
         # Кнопки Сохранить и Отмена
         button_frame = tk.Frame(settings_window)
-        button_frame.pack(pady=20)
+        button_frame.pack(pady=gs.SETTINGS_BUTTONS_FRAME_PADY)
 
+        # Кнопка Сохранить
         save_button = tk.Button(
             button_frame,
-            text="Сохранить",
+            text=gs.SAVE_BUTTON_NAME,
             command=lambda: self.save_settings(
                 current_path.get(),
                 settings_window
             )
         )
-        save_button.pack(side='left', padx=5)
+        save_button.pack(
+            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=gs.SETTINGS_BUTTONS_PADX
+        )
 
+        # Кнопка Отмена
         cancel_button = tk.Button(
             button_frame,
-            text="Отмена",
+            text=gs.CANCEL_BUTTON_NAME,
             command=settings_window.destroy
         )
-        cancel_button.pack(side='left', padx=5)
+        cancel_button.pack(
+            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=gs.SETTINGS_BUTTONS_PADX
+        )
