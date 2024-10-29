@@ -29,13 +29,6 @@ class AppHelper:
         # Устанавливаем позицию окна
         window.geometry(window_position)
 
-    def browse_file(self, entry):
-        """Открывает диалог выбора файлов."""
-        file_paths = filedialog.askopenfilenames()
-        if file_paths:
-            entry.delete(FIRST_ELEMENT, tk.END)
-            entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(file_paths))
-
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
@@ -55,7 +48,13 @@ class AppHelper:
         )
         label.pack()
 
-    def create_label_entry_frame(self, parent, label_text, hint=''):
+    def create_label_entry_frame(
+        self,
+        parent,
+        label_text,
+        hint='',
+        choose_directory=False
+    ):
         """Создает фрейм с лейблом и текстовым полем."""
         frame = tk.Frame(parent)
         frame.pack(fill=FRAME_FILL_AXIS, padx=FRAME_PADX)
@@ -77,7 +76,7 @@ class AppHelper:
         button = tk.Button(
             frame,
             text=FRAME_BUTTON_TEXT,
-            command=lambda e=entry: self.browse_file(e)
+            command=lambda e=entry: self.browse_file(e, choose_directory)
         )
         button.pack(
             side=FRAME_BUTTON_SIDE,
@@ -85,3 +84,18 @@ class AppHelper:
         )
 
         return entry
+
+    def browse_file(self, entry, choose_directory=False):
+        """Открывает диалог выбора файла или директории."""
+        if choose_directory:
+            # Открываем диалог выбора директории
+            path = filedialog.askdirectory()
+            if path:  # Проверяем, что пользователь выбрал директорию
+                entry.delete(FIRST_ELEMENT, tk.END)
+                entry.insert(FIRST_ELEMENT, path)  # Убираем разделитель
+        else:
+            # Открываем диалог выбора файла
+            paths = filedialog.askopenfilenames()
+            if paths:  # Проверяем, что пользователь выбрал файлы
+                entry.delete(FIRST_ELEMENT, tk.END)
+                entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(paths))
