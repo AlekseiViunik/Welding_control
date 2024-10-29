@@ -24,7 +24,8 @@ class SettingsWindow:
         self.helper.create_label_entry_frame(
             settings_window,
             gs.WHERE_TO_SAVE,
-            current_path
+            current_path,
+            True
         )
 
         # Кнопки Сохранить и Отмена
@@ -55,3 +56,20 @@ class SettingsWindow:
             side=gs.SETTINGS_BUTTONS_PACK_SIDE,
             padx=gs.SETTINGS_BUTTONS_PADX
         )
+
+    def save_settings(self, path, window):
+        """Сохраняет настройки в user_settings.py."""
+        # Считываем существующие настройки
+        with open('settings/user_settings.py', 'r',  encoding='utf-8') as f:
+            lines = f.readlines()
+
+        # Обновляем строку с DEFAULT_SAVE_PATH
+        with open('settings/user_settings.py', 'w',  encoding='utf-8') as f:
+            for line in lines:
+                if line.startswith("DEFAULT_SAVE_PATH"):
+                    # Заменяем только строку с DEFAULT_SAVE_PATH
+                    f.write(f'DEFAULT_SAVE_PATH = r"{path}/summary.xlsx"\n')
+                else:
+                    f.write(line)
+
+        window.destroy()  # Закрываем окно настроек после сохранения
