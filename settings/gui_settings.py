@@ -244,3 +244,18 @@ SETTINGS_BUTTONS_PACK_SIDE = "left"  # Default: "left"
 
 # Отступы от края и друг от друга по горизонтали
 SETTINGS_BUTTONS_PADX = 5  # Default: 5
+
+# =============Настройки информационных окон об успехе===============
+
+# Заголовок окна об успехе
+SUCCESS_TITLE = "Успех!"
+
+# Сообщение окна об успехе сохранения файла
+# Default: "Настройки сохранены!"
+SAVED_SETTINGS_SUCCESS_MESSAGE = "Настройки сохранены!"
+
+# Сообщение окна об успехе сохранения настроек
+# Это сообщение составляется из 2х констант: SAVED_SETTINGS_SUCCESS_MESSAGE
+# и DEFAULT_SAVE_PATH (вторая находится в user_settings.py)
+# Default: "Итоговая таблица сохранена в "
+SAVED_FILE_SUCCESS_MESSAGE = "Итоговая таблица сохранена в "
