@@ -1,4 +1,4 @@
-import os
+import importlib
 import tkinter as tk
 
 from gui.app_helper import AppHelper
@@ -16,10 +16,11 @@ class SettingsWindow:
         settings_window.title(gs.SETTINGS_WINDOW_TITLE)
         settings_window.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
 
+        importlib.reload(user_settings)
         # Текстовое поле с текущим путем сохранения
         # Устанавливаем текущее значение по умолчанию
         current_path = tk.StringVar(
-            value=os.path.dirname(user_settings.DEFAULT_SAVE_PATH)
+            value=user_settings.DEFAULT_SAVE_PATH
         )
         self.helper.create_label_entry_frame(
             settings_window,
