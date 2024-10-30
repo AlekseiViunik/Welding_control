@@ -76,7 +76,11 @@ class AppHelper:
         button = tk.Button(
             frame,
             text=FRAME_BUTTON_TEXT,
-            command=lambda e=entry: self.browse_file(e, choose_directory)
+            command=lambda e=entry: self.browse_file(
+                e,
+                choose_directory,
+                parent
+            )
         )
         button.pack(
             side=FRAME_BUTTON_SIDE,
@@ -85,8 +89,13 @@ class AppHelper:
 
         return entry
 
-    def browse_file(self, entry, choose_directory=False):
+    def browse_file(self, entry, choose_directory=False, parent=None):
         """Открывает диалог выбора файла или директории."""
+        if parent:
+            # Устанавливаем окно на передний план
+            parent.attributes('-topmost', True)
+            parent.focus_force()
+
         if choose_directory:
             # Открываем диалог выбора директории
             path = filedialog.askdirectory()
@@ -99,3 +108,7 @@ class AppHelper:
             if paths:  # Проверяем, что пользователь выбрал файлы
                 entry.delete(FIRST_ELEMENT, tk.END)
                 entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(paths))
+
+        if parent:  # Устанавливаем фокус обратно на текущее окно
+            parent.attributes('-topmost', False)
+            parent.focus_set()
