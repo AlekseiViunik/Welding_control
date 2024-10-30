@@ -2,6 +2,8 @@
 GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
+import os
+import sys
 import ctypes
 import tkinter as tk
 from tkinter import PhotoImage
@@ -91,11 +93,28 @@ class App:
         self.settings.create_window()
 
     def set_window_icon(self):
-        # Загружаем иконку для окна
+        """Устанавливает иконку для окна."""
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-            'Dates control'
+            'Weld Control'
         )
 
-        self.icon = PhotoImage(file="icons/mark32x32.png")
+        if getattr(sys, 'frozen', False):
+            # Если запущено как исполняемое приложение
+            icon_path_png = os.path.join(
+                sys._MEIPASS,
+                "icons",
+                "mark32x32.png"
+            )
+            icon_path_ico = os.path.join(
+                sys._MEIPASS,
+                "icons",
+                "mark32x32.ico"
+            )
+        else:
+            # Если запущено из исходников
+            icon_path_png = "icons/mark32x32.png"
+            icon_path_ico = "icons/mark32x32.ico"
+
+        self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
-        self.root.iconbitmap("icons/mark32x32.ico")
+        self.root.iconbitmap(icon_path_ico)
