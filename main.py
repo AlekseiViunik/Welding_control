@@ -14,7 +14,7 @@ settings_file = us.SETTINGS_FILE_NAME
 
 # Устанавливаем путь сохранения итогового файла по умолчанию
 default_settings = {
-    "DEFAULT_SAVE_PATH": us.DEFAULT_SAVE_PATH
+    us.SAVE_PATH_KEY: us.DEFAULT_SAVE_PATH
 }
 
 if not os.path.exists(settings_file):
@@ -26,18 +26,18 @@ else:
         settings = json.load(f)
 
     # Проверяем, пустое ли значение для ключа DEFAULT_SAVE_PATH
-    if not settings.get("DEFAULT_SAVE_PATH"):
-        settings["DEFAULT_SAVE_PATH"] = default_settings["DEFAULT_SAVE_PATH"]
+    if not settings.get(us.SAVE_PATH_KEY):
+        settings[us.SAVE_PATH_KEY] = default_settings[us.SAVE_PATH_KEY]
         # Записываем обновленные настройки обратно в файл
         with open(settings_file, 'w') as f:
-            json.dump(settings, f, indent=4)
+            json.dump(settings, f, indent=us.JSON_INDENT)
 
 # Добавляем пути к папкам logic и gui
 sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'logic'))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), us.LOGIC_PATH))
 )
 sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), 'gui'))
+    os.path.abspath(os.path.join(os.path.dirname(__file__), us.GUI_PATH))
 )
 
 if __name__ == "__main__":
