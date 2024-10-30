@@ -5,19 +5,21 @@ GUI гллавного экрана. На нем мы выбираем файл�
 import os
 import sys
 import ctypes
+import json
 import tkinter as tk
 from tkinter import PhotoImage
 from threading import Thread
 
 from gui.settings_window import SettingsWindow
-import settings.gui_settings as gs
+from settings import gui_settings as gs, user_settings as us
 from logic import get_xlsx
 from .app_helper import AppHelper
 
 
 class App:
-    def __init__(self, root):
+    def __init__(self, root, save_path):
         self.root = root
+        self.save_path = save_path
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
         self.root.title(gs.MAIN_WINDOW_TITLE)
@@ -70,18 +72,25 @@ class App:
         cd_paths = self.file_paths[3].get()
         hb_paths = self.file_paths[4].get()
 
+        self.get_save_path()
         # Вызываем функцию из get_xlsx с нашим словарем
         get_xlsx.handle_request(
             vmc_paths,
             hb_paths,
             rc_paths,
             st_paths,
-            cd_paths
+            cd_paths,
+            self.save_path
             )
 
         # Закрываем информационное окно по завершении работы
         if self.helper.info_window:
             self.helper.info_window.destroy()
+
+    def get_save_path(self):
+        with open(us.SETTINGS_FILE_NAME, 'r') as f:
+            settings = json.load(f)
+            self.save_path = settings[us.SAVE_PATH_KEY]
 
     def clear_entries(self):
         """Очищает все текстовые поля."""
@@ -91,6 +100,7 @@ class App:
     def open_settings(self):
         """Открывает окно настроек."""
         self.settings.create_window()
+        self.get_save_path()
 
     def set_window_icon(self):
         """Устанавливает иконку для окна."""
