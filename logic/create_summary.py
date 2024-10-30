@@ -74,6 +74,7 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
             note = NOTE_VMC_DOES_NOT_EXIST
 
         # Записываем данные в строку таблицы
+        # используем символ " ' ", чтобы дата не записалась как число
         row = [
             weld_number,
             "'" + vmc.strftime("%d/%m/%Y") if vmc else "",

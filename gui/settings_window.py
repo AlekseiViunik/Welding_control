@@ -1,8 +1,8 @@
-import importlib
+import json
 import tkinter as tk
 
 from gui.app_helper import AppHelper
-from settings import user_settings, gui_settings as gs
+from settings import user_settings as us, gui_settings as gs
 
 
 class SettingsWindow:
@@ -15,12 +15,12 @@ class SettingsWindow:
         settings_window = tk.Toplevel(self.root)
         settings_window.title(gs.SETTINGS_WINDOW_TITLE)
         settings_window.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
-
-        importlib.reload(user_settings)
+        settings = self.load_settings(".." + us.SETTINGS_FILE_NAME)
+        save_path = settings["DEFAULT_SAVE_PATH"]
         # Текстовое поле с текущим путем сохранения
         # Устанавливаем текущее значение по умолчанию
         current_path = tk.StringVar(
-            value=user_settings.DEFAULT_SAVE_PATH
+            value=save_path
         )
         self.helper.create_label_entry_frame(
             settings_window,
@@ -59,18 +59,15 @@ class SettingsWindow:
         )
 
     def save_settings(self, path, window):
-        """Сохраняет настройки в user_settings.py."""
-        # Считываем существующие настройки
-        with open('settings/user_settings.py', 'r',  encoding='utf-8') as f:
-            lines = f.readlines()
+        """Сохраняет настройки в JSON файл."""
+        settings = self.load_settings(".." + us.SETTINGS_FILE_NAME)
+        settings["DEFAULT_SAVE_PATH"] = path
 
-        # Обновляем строку с DEFAULT_SAVE_PATH
-        with open('settings/user_settings.py', 'w',  encoding='utf-8') as f:
-            for line in lines:
-                if line.startswith("DEFAULT_SAVE_PATH"):
-                    # Заменяем только строку с DEFAULT_SAVE_PATH
-                    f.write(f'DEFAULT_SAVE_PATH = r"{path}/summary.xlsx"\n')
-                else:
-                    f.write(line)
+        with open(".." + us.SETTINGS_FILE_NAME, 'w') as f:
+            json.dump(settings, f, indent=4)
 
         window.destroy()  # Закрываем окно настроек после сохранения
+
+    def load_settings(self, settings_file):
+        with open(settings_file, 'r') as f:
+            return json.load(f)
