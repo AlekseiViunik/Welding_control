@@ -6,15 +6,17 @@ from openpyxl.styles import NamedStyle
 from gui.messagebox import show_message
 from settings import (
     logic_settings as ls,
-    user_settings as us,
-    gui_settings as gs
+    gui_settings as gs,
+    user_settings as us
 )
 
 date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 
 
-# TODO убрать принт
-def create_summary_excel(welds_data, output_file='summary.xlsx'):
+def create_summary_excel(
+        welds_data, save_path,
+        output_file=us.SAVE_FILE_NAME
+        ):
     """Создает итоговую таблицу в формате Excel на основе данных о швах."""
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -89,9 +91,10 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
         ]
         ws.append(row)
 
-    wb.save(us.DEFAULT_SAVE_PATH)
+    file_direction = save_path + "/" + output_file
+    wb.save(file_direction)
 
     show_message(
         gs.SUCCESS_TITLE,
-        gs.SAVED_FILE_SUCCESS_MESSAGE + us.DEFAULT_SAVE_PATH
+        gs.SAVED_FILE_SUCCESS_MESSAGE + save_path
     )
