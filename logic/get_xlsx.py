@@ -22,11 +22,7 @@ from . import parser
 
 from gui.messagebox import show_error
 from settings.gui_settings import PATH_DIVIDER
-from settings.logic_settings import (
-    VMC_CHECK_KEYS, HB_CHECK_KEYS, RC_CHECK_KEYS, ST_CHECK_KEYS,
-    CD_CHECK_KEYS, FILEPATH_DIVIDER, EXTENSION_DIVIDER, EXTENSIONS,
-    MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE, VMC, RC, ST, CD, HB
-)
+from settings import logic_settings as ls
 
 
 # TODO Добавить аннотации.
@@ -34,25 +30,25 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
     files_dict = {
-        VMC: {
+        ls.VMC: {
             "path": vmc.split(PATH_DIVIDER) if vmc else [],
-            "check": VMC_CHECK_KEYS
+            "check": ls.VMC_CHECK_KEYS
         },
-        HB: {
+        ls.HB: {
             "path": hb.split(PATH_DIVIDER) if hb else [],
-            "check": HB_CHECK_KEYS
+            "check": ls.HB_CHECK_KEYS
         },
-        RC: {
+        ls.RC: {
             "path": rc.split(PATH_DIVIDER) if rc else [],
-            "check": RC_CHECK_KEYS
+            "check": ls.RC_CHECK_KEYS
         },
-        ST: {
+        ls.ST: {
             "path": st.split(PATH_DIVIDER) if st else [],
-            "check": ST_CHECK_KEYS
+            "check": ls.ST_CHECK_KEYS
         },
-        CD: {
+        ls.CD: {
             "path": cd.split(PATH_DIVIDER) if cd else [],
-            "check": CD_CHECK_KEYS
+            "check": ls.CD_CHECK_KEYS
         },
     }
 
@@ -80,9 +76,9 @@ def check_files(paths, check_keys):
        строках. Это необходимо, чтобы понять, в том ли текстовом поле
        загружен файл. Это важно для последующей обработки файлов."""
     for path in paths:
-        filename = path.split(FILEPATH_DIVIDER)[-1]
-        file_extension = filename.split(EXTENSION_DIVIDER)[-1]
-        if file_extension not in EXTENSIONS:
+        filename = path.split(ls.FILEPATH_DIVIDER)[-1]
+        file_extension = filename.split(ls.EXTENSION_DIVIDER)[-1]
+        if file_extension not in ls.EXTENSIONS:
             show_error(f"Какой-то непонятный файл тут: {path}")
             break
         try:
@@ -93,7 +89,7 @@ def check_files(paths, check_keys):
             found = False
 
             # Проверяем первые N строк первого столбца
-            for row in range(MIN_ROW_RANGE_VALUE, MAX_ROW_RANGE_VALUE):
+            for row in range(ls.MIN_ROW_RANGE_VALUE, ls.MAX_ROW_RANGE_VALUE):
                 cell_value = sheet.cell(row=row, column=1).value
                 if cell_value and any(
                     key in str(cell_value) for key in check_keys
