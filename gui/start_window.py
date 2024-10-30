@@ -20,6 +20,7 @@ class App:
     def __init__(self, root, save_path):
         self.root = root
         self.save_path = save_path
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
         self.root.title(gs.MAIN_WINDOW_TITLE)
@@ -30,8 +31,8 @@ class App:
             gs.WINDOW_WIDTH,
             gs.WINDOW_HEIGHT
         )
-
         self.file_paths = []
+        self.threads = []
 
         for label_text in gs.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
@@ -62,7 +63,10 @@ class App:
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
         self.helper.show_info_window()
-        Thread(target=self.calculate_dates).start()
+        thread = Thread(target=self.calculate_dates)
+        thread.daemon = True
+        thread.start()
+        self.threads.append(thread)
 
     def calculate_dates(self):
         """Запускает логику обработки процесса."""
@@ -128,3 +132,11 @@ class App:
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
         self.root.iconbitmap(icon_path_ico)
+
+    def on_closing(self):
+        """Обработчик закрытия окна."""
+        if self.threads:
+            for thread in self.threads:
+                if thread.is_alive():
+                    thread._stop()
+        self.root.destroy()
