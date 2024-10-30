@@ -10,3 +10,12 @@ def show_error(message: str):
     root.withdraw()
     messagebox.showerror(ERROR_MESSAGE_TITLE, message)
     root.destroy()
+
+
+def show_message(title, message):
+    root = tk.Tk()
+    root.withdraw()
+    messagebox.showinfo(
+        title,
+        message
+    )
