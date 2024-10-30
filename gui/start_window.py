@@ -2,8 +2,9 @@
 GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
-
+import ctypes
 import tkinter as tk
+from tkinter import PhotoImage
 from threading import Thread
 
 from gui.settings_window import SettingsWindow
@@ -19,6 +20,7 @@ class App:
         self.settings = SettingsWindow(root)
         self.root.title(gs.MAIN_WINDOW_TITLE)
         self.root.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
+        self.set_window_icon()
         self.helper.center_window(
             self.root,
             gs.WINDOW_WIDTH,
@@ -87,3 +89,13 @@ class App:
     def open_settings(self):
         """Открывает окно настроек."""
         self.settings.create_window()
+
+    def set_window_icon(self):
+        # Загружаем иконку для окна
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+            'Dates control'
+        )
+
+        self.icon = PhotoImage(file="icons/mark32x32.png")
+        self.root.iconphoto(True, self.icon)
+        self.root.iconbitmap("icons/mark32x32.ico")
