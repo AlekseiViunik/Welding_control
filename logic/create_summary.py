@@ -4,13 +4,11 @@ from datetime import datetime
 from openpyxl.styles import NamedStyle
 
 from gui.messagebox import show_message
-from settings.logic_settings import (
-    HEADERS, VMC, HB, RC, ST, CD, NOTE, NOTE_VMC_DOES_NOT_EXIST,
-    NOTE_HB_LT_VMC, NOTE_ST_LT_HB, NOTE_ST_LT_VMC, NOTE_RC_LT_VMC,
-    NOTE_RC_LT_HB, NOTE_RC_LT_ST, NOTE_CD_LT_VMC, NOTE_CD_LT_HB,
-    NOTE_CD_LT_ST, NOTE_CD_LT_RC
+from settings import (
+    logic_settings as ls,
+    user_settings as us,
+    gui_settings as gs
 )
-from settings.user_settings import DEFAULT_SAVE_PATH
 
 date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 
@@ -22,73 +20,78 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
     ws = wb.active
 
     # Записываем заголовки в таблицу
-    ws.append(HEADERS)
+    ws.append(ls.HEADERS)
 
     for weld_number, control_dates in welds_data.items():
         # Получаем даты контроля по ключам
         hb = datetime.strptime(
-            control_dates.get(HB, ""), "%d/%m/%Y"
-        ) if control_dates.get(HB, "") else None
+            control_dates.get(ls.HB, ""), ls.DATE_FORMAT
+        ) if control_dates.get(ls.HB, "") else None
         vmc = datetime.strptime(
-            control_dates.get(VMC, ""), "%d/%m/%Y"
-        ) if control_dates.get(VMC, "") else None
+            control_dates.get(ls.VMC, ""), ls.DATE_FORMAT
+        ) if control_dates.get(ls.VMC, "") else None
         st = datetime.strptime(
-            control_dates.get(ST, ""), "%d/%m/%Y"
-        ) if control_dates.get(ST, "") else None
+            control_dates.get(ls.ST, ""), ls.DATE_FORMAT
+        ) if control_dates.get(ls.ST, "") else None
         rc = datetime.strptime(
-            control_dates.get(RC, ""), "%d/%m/%Y"
-        ) if control_dates.get(RC, "") else None
+            control_dates.get(ls.RC, ""), ls.DATE_FORMAT
+        ) if control_dates.get(ls.RC, "") else None
         cd = datetime.strptime(
-            control_dates.get(CD, ""), "%d/%m/%Y"
-        ) if control_dates.get(CD, "") else None
+            control_dates.get(ls.CD, ""), ls.DATE_FORMAT
+        ) if control_dates.get(ls.CD, "") else None
 
         # Примечание по умолчанию
-        note = NOTE
+        note = ls.NOTE
 
         # Сравнение дат
         if vmc:
             if hb and hb < vmc:
-                note += NOTE_HB_LT_VMC
+                note += ls.NOTE_HB_LT_VMC
             if st:
                 if st < vmc:
-                    note += NOTE_ST_LT_VMC
+                    note += ls.NOTE_ST_LT_VMC
                 elif hb and st < hb:
-                    note += NOTE_ST_LT_HB
+                    note += ls.NOTE_ST_LT_HB
             if rc:
                 if rc < vmc:
-                    note += NOTE_RC_LT_VMC
+                    note += ls.NOTE_RC_LT_VMC
                 elif hb and rc < hb:
-                    note += NOTE_RC_LT_HB
+                    note += ls.NOTE_RC_LT_HB
                 elif st and rc < st:
-                    note += NOTE_RC_LT_ST
+                    note += ls.NOTE_RC_LT_ST
             if cd:
                 if cd < vmc:
-                    note += NOTE_CD_LT_VMC
+                    note += ls.NOTE_CD_LT_VMC
                 elif hb and cd < hb:
-                    note += NOTE_CD_LT_HB
+                    note += ls.NOTE_CD_LT_HB
                 elif st and cd < st:
-                    note += NOTE_CD_LT_ST
+                    note += ls.NOTE_CD_LT_ST
                 elif rc and cd < rc:
-                    note += NOTE_CD_LT_RC
+                    note += ls.NOTE_CD_LT_RC
         else:
-            note = NOTE_VMC_DOES_NOT_EXIST
+            note = ls.NOTE_VMC_DOES_NOT_EXIST
 
         # Записываем данные в строку таблицы
         # используем символ " ' ", чтобы дата не записалась как число
         row = [
             weld_number,
-            "'" + vmc.strftime("%d/%m/%Y") if vmc else "",
-            "'" + hb.strftime("%d/%m/%Y") if hb else "",
-            "'" + st.strftime("%d/%m/%Y") if st else "",
-            "'" + rc.strftime("%d/%m/%Y") if rc else "",
-            "'" + cd.strftime("%d/%m/%Y") if cd else "",
+            (ls.EXCEL_ESCAPING_SYMBOL +
+             vmc.strftime(ls.DATE_FORMAT)) if vmc else "",
+            (ls.EXCEL_ESCAPING_SYMBOL +
+             hb.strftime(ls.DATE_FORMAT)) if hb else "",
+            (ls.EXCEL_ESCAPING_SYMBOL +
+             st.strftime(ls.DATE_FORMAT)) if st else "",
+            (ls.EXCEL_ESCAPING_SYMBOL +
+             rc.strftime(ls.DATE_FORMAT)) if rc else "",
+            (ls.EXCEL_ESCAPING_SYMBOL +
+             cd.strftime(ls.DATE_FORMAT)) if cd else "",
             note.strip()
         ]
         ws.append(row)
 
-    wb.save(DEFAULT_SAVE_PATH)
+    wb.save(us.DEFAULT_SAVE_PATH)
 
     show_message(
-        "Успех",
-        f"Итоговая таблица сохранена в {DEFAULT_SAVE_PATH}"
+        gs.SUCCESS_TITLE,
+        gs.SAVED_FILE_SUCCESS_MESSAGE + us.DEFAULT_SAVE_PATH
     )
