@@ -2,8 +2,8 @@ import openpyxl
 
 from datetime import datetime
 from openpyxl.styles import NamedStyle
-from tkinter import messagebox
 
+from gui.messagebox import show_message
 from settings.logic_settings import (
     HEADERS, VMC, HB, RC, ST, CD, NOTE, NOTE_VMC_DOES_NOT_EXIST,
     NOTE_HB_LT_VMC, NOTE_ST_LT_HB, NOTE_ST_LT_VMC, NOTE_RC_LT_VMC,
@@ -88,7 +88,7 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
 
     wb.save(DEFAULT_SAVE_PATH)
 
-    messagebox.showinfo(
+    show_message(
         "Успех",
         f"Итоговая таблица сохранена в {DEFAULT_SAVE_PATH}"
     )

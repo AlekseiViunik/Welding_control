@@ -1,9 +1,8 @@
 import json
 import tkinter as tk
 
-from tkinter import messagebox
-
 from gui.app_helper import AppHelper
+from gui.messagebox import show_message
 from settings import user_settings as us, gui_settings as gs
 
 
@@ -18,7 +17,7 @@ class SettingsWindow:
         settings_window.title(gs.SETTINGS_WINDOW_TITLE)
         settings_window.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        save_path = settings["DEFAULT_SAVE_PATH"]
+        save_path = settings[us.SAVE_PATH_KEY]
         # Текстовое поле с текущим путем сохранения
         # Устанавливаем текущее значение по умолчанию
         current_path = tk.StringVar(
@@ -63,14 +62,14 @@ class SettingsWindow:
     def save_settings(self, path, window):
         """Сохраняет настройки в JSON файл."""
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        settings["DEFAULT_SAVE_PATH"] = path
+        settings[us.SAVE_PATH_KEY] = path
 
         with open(us.SETTINGS_FILE_NAME, 'w') as f:
             json.dump(settings, f, indent=4)
 
-        messagebox.showinfo(
+        show_message(
             "Успех",
-            "Настройки сохранены!"
+            "Настройки сохранены!",
         )
         window.destroy()  # Закрываем окно настроек после сохранения
 
