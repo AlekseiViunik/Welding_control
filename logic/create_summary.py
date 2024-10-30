@@ -88,7 +88,6 @@ def create_summary_excel(welds_data, output_file='summary.xlsx'):
 
     wb.save(DEFAULT_SAVE_PATH)
 
-    # TODO заменить принт на всплывающее информационное окно
     messagebox.showinfo(
         "Успех",
         f"Итоговая таблица сохранена в {DEFAULT_SAVE_PATH}"
