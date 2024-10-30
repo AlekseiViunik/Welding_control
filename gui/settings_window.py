@@ -65,11 +65,11 @@ class SettingsWindow:
         settings[us.SAVE_PATH_KEY] = path
 
         with open(us.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=4)
+            json.dump(settings, f, indent=us.JSON_INDENT)
 
         show_message(
-            "Успех",
-            "Настройки сохранены!",
+            gs.SUCCESS_TITLE,
+            gs.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
         window.destroy()  # Закрываем окно настроек после сохранения
 
