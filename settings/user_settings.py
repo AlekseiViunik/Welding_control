@@ -29,3 +29,5 @@ GUI_PATH = 'gui'  # Default: 'gui'
 
 # Отступ в пробелах для записи в json файл
 JSON_INDENT = 4  # Default: 4
+
+SAVE_FILE_NAME = "summary.xlsx"
