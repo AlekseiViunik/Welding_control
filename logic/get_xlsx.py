@@ -29,8 +29,8 @@ from settings.logic_settings import (
 )
 
 
-# TODO убрать принт. Добавить аннотации.
-def handle_request(vmc='', hb='', rc='', st='', cd=''):
+# TODO Добавить аннотации.
+def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     """Обработка файлов с путями."""
     # Создаем словарь с путями
     files_dict = {
@@ -72,7 +72,7 @@ def handle_request(vmc='', hb='', rc='', st='', cd=''):
         parser.parse_weld_data(value['path'], key)
 
     # Составление итоговой таблицы
-    create_summary.create_summary_excel(parser.welds_data)
+    create_summary.create_summary_excel(parser.welds_data, save_path)
 
 
 def check_files(paths, check_keys):
