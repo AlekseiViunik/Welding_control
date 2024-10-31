@@ -8,8 +8,8 @@ import os
 import sys
 
 from gui.start_window import App
-from settings import user_settings as us
 from logging_files.limited_size_file_handler import LimitedSizeFileHandler
+from settings import user_settings as us
 
 # Настройка логирования
 log_file_path = 'logging_files/app.log'
