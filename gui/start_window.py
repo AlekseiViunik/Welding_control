@@ -34,6 +34,7 @@ class App:
         )
         self.file_paths = []
         self.threads = []
+        self.stop_threads = False
 
         for label_text in gs.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
@@ -80,6 +81,9 @@ class App:
 
     def calculate_dates(self):
         """Запускает логику обработки процесса."""
+        if self.stop_threads:
+            return
+
         vmc_paths = self.file_paths[0].get()
         rc_paths = self.file_paths[1].get()
         st_paths = self.file_paths[2].get()
@@ -89,14 +93,16 @@ class App:
         self.get_save_path()
         # Вызываем функцию из get_xlsx с нашим словарем
         logging.info("Вызов метода App.handle_request")
-        get_xlsx.handle_request(
+        if not get_xlsx.handle_request(
             vmc_paths,
             hb_paths,
             rc_paths,
             st_paths,
             cd_paths,
             self.save_path
-            )
+        ):
+            logging.error("Обработка завершилась с ошибкой.")
+            self.on_closing()
 
         # Закрываем информационное окно по завершении работы
         if self.helper.info_window:
@@ -146,8 +152,7 @@ class App:
 
     def on_closing(self):
         """Обработчик закрытия окна."""
-        if self.threads:
-            for thread in self.threads:
-                if thread.is_alive():
-                    thread._stop()
+        self.stop_threads = True
+        if self.helper.info_window:
+            self.helper.info_window.destroy()
         self.root.destroy()

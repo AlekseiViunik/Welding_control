@@ -61,7 +61,8 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     logging.info("Начало проверки файлов, правильно ли они раскиданы по путям")
     logging.info("Вызов метода check_files")
     for field, file_info in files_dict.items():
-        check_files(file_info['path'], file_info['check'], field)
+        if not check_files(file_info['path'], file_info['check'], field):
+            return False
     logging.info("Проверка выполнена.")
 
     logging.info("Начало парсинга предоставленных файлов")
@@ -78,6 +79,7 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     # Составление итоговой таблицы
     create_summary.create_summary_excel(parser.welds_data, save_path)
     logging.info("Таблица составлена")
+    return True
 
 
 def check_files(paths, check_keys, field):
@@ -90,7 +92,7 @@ def check_files(paths, check_keys, field):
         if file_extension not in ls.EXTENSIONS:
             show_error(f"Какой-то непонятный файл тут: {path}")
             logging.error(f"Файл с недопустимым разрешением: {path}")
-            break
+            return False
         try:
             wb = openpyxl.load_workbook(path)
             sheet = wb.active  # Получаем первую страницу
@@ -114,9 +116,10 @@ def check_files(paths, check_keys, field):
                 logging.error(
                     f"Файл не на своем месте: {path} загружен для поля {field}"
                 )
-                break
+                return False
 
         except Exception as e:
             show_error(f"Ошибка при проверке файла {path}: {e}")
             logging.error(f"Ошибка при проверке файла {path}: {e}")
-            break
+            return False
+    return True
