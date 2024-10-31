@@ -1,16 +1,14 @@
 import logging
-import openpyxl
-
 from datetime import datetime
+
+import openpyxl
 from openpyxl.styles import NamedStyle
 
 from gui.messagebox import show_message
-from settings import (
-    logic_settings as ls,
-    gui_settings as gs,
-    user_settings as us,
-    logging_settings as log
-)
+from settings import gui_settings as gs
+from settings import logging_settings as log
+from settings import logic_settings as ls
+from settings import user_settings as us
 
 date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 

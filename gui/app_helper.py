@@ -1,13 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from settings.gui_settings import (
-    FIRST_ELEMENT, PATH_DIVIDER, INFO_WINDOW_TITLE, INFO_WINDOW_WIDTH,
-    INFO_WINDOW_HEIGHT, INFO_LABEL_TEXT, INFO_LABEL_PADX, INFO_LABEL_PADY,
-    FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX, FRAME_BUTTON_SIDE,
-    FRAME_BUTTON_TEXT, FRAME_FILL_AXIS, FRAME_PADX, LABEL_ANCHOR, ENTRY_WIDTH,
-    ENTRY_FRAME_SIDE, ENTRY_FILL_AXIS, ENTRY_EXPAND
-)
+from settings import gui_settings as gs
 
 
 class AppHelper:
@@ -32,19 +26,21 @@ class AppHelper:
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(INFO_WINDOW_TITLE)
-        self.info_window.geometry(f"{INFO_WINDOW_WIDTH}x{INFO_WINDOW_HEIGHT}")
+        self.info_window.title(gs.INFO_WINDOW_TITLE)
+        self.info_window.geometry(
+            f"{gs.INFO_WINDOW_WIDTH}x{gs.INFO_WINDOW_HEIGHT}"
+        )
         self.center_window(
             self.info_window,
-            INFO_WINDOW_WIDTH,
-            INFO_WINDOW_HEIGHT
+            gs.INFO_WINDOW_WIDTH,
+            gs.INFO_WINDOW_HEIGHT
         )
 
         label = tk.Label(
             self.info_window,
-            text=INFO_LABEL_TEXT,
-            padx=INFO_LABEL_PADX,
-            pady=INFO_LABEL_PADY
+            text=gs.INFO_LABEL_TEXT,
+            padx=gs.INFO_LABEL_PADX,
+            pady=gs.INFO_LABEL_PADY
         )
         label.pack()
 
@@ -57,25 +53,25 @@ class AppHelper:
     ):
         """Создает фрейм с лейблом и текстовым полем."""
         frame = tk.Frame(parent)
-        frame.pack(fill=FRAME_FILL_AXIS, padx=FRAME_PADX)
+        frame.pack(fill=gs.FRAME_FILL_AXIS, padx=gs.FRAME_PADX)
 
         label = tk.Label(frame, text=label_text)
-        label.pack(anchor=LABEL_ANCHOR)
+        label.pack(anchor=gs.LABEL_ANCHOR)
 
         entry = tk.Entry(
             frame,
             textvariable=hint,
-            width=ENTRY_WIDTH
+            width=gs.ENTRY_WIDTH
         )
         entry.pack(
-            side=ENTRY_FRAME_SIDE,
-            fill=ENTRY_FILL_AXIS,
-            expand=ENTRY_EXPAND
+            side=gs.ENTRY_FRAME_SIDE,
+            fill=gs.ENTRY_FILL_AXIS,
+            expand=gs.ENTRY_EXPAND
         )
 
         button = tk.Button(
             frame,
-            text=FRAME_BUTTON_TEXT,
+            text=gs.FRAME_BUTTON_TEXT,
             command=lambda e=entry: self.browse_file(
                 e,
                 choose_directory,
@@ -83,8 +79,8 @@ class AppHelper:
             )
         )
         button.pack(
-            side=FRAME_BUTTON_SIDE,
-            padx=(FRAME_BUTTON_LEFT_PADX, FRAME_BUTTON_RIGHT_PADX)
+            side=gs.FRAME_BUTTON_SIDE,
+            padx=(gs.FRAME_BUTTON_LEFT_PADX, gs.FRAME_BUTTON_RIGHT_PADX)
         )
 
         return entry
@@ -100,14 +96,14 @@ class AppHelper:
             # Открываем диалог выбора директории
             path = filedialog.askdirectory()
             if path:  # Проверяем, что пользователь выбрал директорию
-                entry.delete(FIRST_ELEMENT, tk.END)
-                entry.insert(FIRST_ELEMENT, path)  # Убираем разделитель
+                entry.delete(gs.FIRST_ELEMENT, tk.END)
+                entry.insert(gs.FIRST_ELEMENT, path)  # Убираем разделитель
         else:
             # Открываем диалог выбора файла
             paths = filedialog.askopenfilenames()
             if paths:  # Проверяем, что пользователь выбрал файлы
-                entry.delete(FIRST_ELEMENT, tk.END)
-                entry.insert(FIRST_ELEMENT, PATH_DIVIDER.join(paths))
+                entry.delete(gs.FIRST_ELEMENT, tk.END)
+                entry.insert(gs.FIRST_ELEMENT, gs.PATH_DIVIDER.join(paths))
 
         if parent:  # Устанавливаем фокус обратно на текущее окно
             parent.attributes('-topmost', False)

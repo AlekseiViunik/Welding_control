@@ -3,7 +3,8 @@ import tkinter as tk
 
 from gui.app_helper import AppHelper
 from gui.messagebox import show_message
-from settings import user_settings as us, gui_settings as gs
+from settings import gui_settings as gs
+from settings import user_settings as us
 
 
 class SettingsWindow:

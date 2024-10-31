@@ -2,22 +2,21 @@
 GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
+import ctypes
+import json
 import logging
 import os
 import sys
-import ctypes
-import json
 import tkinter as tk
-from tkinter import PhotoImage
 from threading import Thread
+from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-from settings import (
-    gui_settings as gs,
-    user_settings as us,
-    logging_settings as log
-)
 from logic import get_xlsx
+from settings import gui_settings as gs
+from settings import logging_settings as log
+from settings import user_settings as us
+
 from .app_helper import AppHelper
 
 
