@@ -2,6 +2,7 @@
 GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
+import logging
 import os
 import sys
 import ctypes
@@ -62,7 +63,16 @@ class App:
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
+        logging.info("******************************************************")
+        logging.info("Начало выполнения логики")
+        logging.info(
+            f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
+            f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
+            f"CD: {self.file_paths[3].get()}, HB: {self.file_paths[4].get()}"
+        )
+        logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
         self.helper.show_info_window()
+        logging.info("Вызов метода App.calculate_dates")
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -78,6 +88,7 @@ class App:
 
         self.get_save_path()
         # Вызываем функцию из get_xlsx с нашим словарем
+        logging.info("Вызов метода App.handle_request")
         get_xlsx.handle_request(
             vmc_paths,
             hb_paths,
