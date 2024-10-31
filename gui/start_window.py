@@ -12,7 +12,11 @@ from tkinter import PhotoImage
 from threading import Thread
 
 from gui.settings_window import SettingsWindow
-from settings import gui_settings as gs, user_settings as us
+from settings import (
+    gui_settings as gs,
+    user_settings as us,
+    logging_settings as log
+)
 from logic import get_xlsx
 from .app_helper import AppHelper
 
@@ -64,8 +68,8 @@ class App:
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
-        logging.info("******************************************************")
-        logging.info("Начало выполнения логики")
+        logging.info(log.LOG_DIVIDER)
+        logging.info(log.LOG_START)
         logging.info(
             f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
             f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
@@ -73,7 +77,7 @@ class App:
         )
         logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
         self.helper.show_info_window()
-        logging.info("Вызов метода App.calculate_dates")
+        logging.info(log.LOG_CALCULATE_DATES_CALL)
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -92,7 +96,7 @@ class App:
 
         self.get_save_path()
         # Вызываем функцию из get_xlsx с нашим словарем
-        logging.info("Вызов метода App.handle_request")
+        logging.info(log.LOG_HANDLE_REQUEST_CALL)
         if not get_xlsx.handle_request(
             vmc_paths,
             hb_paths,
@@ -101,7 +105,7 @@ class App:
             cd_paths,
             self.save_path
         ):
-            logging.error("Обработка завершилась с ошибкой.")
+            logging.error(log.LOG_ERROR_MSG)
             self.on_closing()
 
         # Закрываем информационное окно по завершении работы

@@ -22,8 +22,11 @@ from . import create_summary
 from . import parser
 
 from gui.messagebox import show_error
-from settings.gui_settings import PATH_DIVIDER
-from settings import logic_settings as ls
+from settings import (
+    logic_settings as ls,
+    gui_settings as gs,
+    logging_settings as log
+)
 
 
 # TODO Добавить аннотации.
@@ -32,23 +35,23 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     # Создаем словарь с путями
     files_dict = {
         ls.VMC: {
-            "path": vmc.split(PATH_DIVIDER) if vmc else [],
+            "path": vmc.split(gs.PATH_DIVIDER) if vmc else [],
             "check": ls.VMC_CHECK_KEYS
         },
         ls.HB: {
-            "path": hb.split(PATH_DIVIDER) if hb else [],
+            "path": hb.split(gs.PATH_DIVIDER) if hb else [],
             "check": ls.HB_CHECK_KEYS
         },
         ls.RC: {
-            "path": rc.split(PATH_DIVIDER) if rc else [],
+            "path": rc.split(gs.PATH_DIVIDER) if rc else [],
             "check": ls.RC_CHECK_KEYS
         },
         ls.ST: {
-            "path": st.split(PATH_DIVIDER) if st else [],
+            "path": st.split(gs.PATH_DIVIDER) if st else [],
             "check": ls.ST_CHECK_KEYS
         },
         ls.CD: {
-            "path": cd.split(PATH_DIVIDER) if cd else [],
+            "path": cd.split(gs.PATH_DIVIDER) if cd else [],
             "check": ls.CD_CHECK_KEYS
         },
     }
@@ -58,15 +61,15 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
         key: value for key, value in files_dict.items() if value['path']
     }
 
-    logging.info("Начало проверки файлов, правильно ли они раскиданы по путям")
-    logging.info("Вызов метода check_files")
+    logging.info(log.LOG_CHECK_FILES_START)
+    logging.info(log.LOG_CHECK_FILES_CALL)
     for field, file_info in files_dict.items():
         if not check_files(file_info['path'], file_info['check'], field):
             return False
-    logging.info("Проверка выполнена.")
+    logging.info(log.LOG_CHECK_FILES_DONE)
 
-    logging.info("Начало парсинга предоставленных файлов")
-    logging.info("Вызов метода parser.parse_weld_data")
+    logging.info(log.LOG_PARSE_START)
+    logging.info(log.LOG_PARSE_CALL)
     # Получение данных и запихивание их в словарь
     for key, value in files_dict.items():
         parser.parse_weld_data(value['path'], key)
@@ -74,11 +77,11 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
         f"Парсинг выполнен. Количесвто элементов: {len(parser.welds_data)}"
     )
 
-    logging.info("Начало составления итоговой таблицы")
-    logging.info("Вызов метода create_summary.create_summary_excel")
+    logging.info(log.LOG_TABLE_START)
+    logging.info(log.LOG_TABLE_METHOD_CALL)
     # Составление итоговой таблицы
     create_summary.create_summary_excel(parser.welds_data, save_path)
-    logging.info("Таблица составлена")
+    logging.info(log.LOG_TABLE_DONE)
     return True
 
 
