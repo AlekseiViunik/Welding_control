@@ -2,14 +2,23 @@
 Главный файл. С него начинается работа программы. Он по сути делает только
 одно: запускает главный экран приложения.
 """
-from gui.start_window import App
-
 import json
+import logging
 import os
 import sys
 
+from gui.start_window import App
 from settings import user_settings as us
+from logging_files.limited_size_file_handler import LimitedSizeFileHandler
 
+# Настройка логирования
+log_file_path = 'logging_files/app.log'
+handler = LimitedSizeFileHandler(log_file_path, encoding='utf-8')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
 
 default_settings = {
     us.SAVE_PATH_KEY: us.DEFAULT_SAVE_PATH

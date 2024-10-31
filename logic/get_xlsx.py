@@ -15,14 +15,18 @@
    Процесс создания таблицы прописан в create_summary. Для создания таблицы
    используются данные, полученные в п.2.
 """
+import logging
 import openpyxl
 
 from . import create_summary
 from . import parser
 
 from gui.messagebox import show_error
-from settings.gui_settings import PATH_DIVIDER
-from settings import logic_settings as ls
+from settings import (
+    logic_settings as ls,
+    gui_settings as gs,
+    logging_settings as log
+)
 
 
 # TODO Добавить аннотации.
@@ -31,23 +35,23 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
     # Создаем словарь с путями
     files_dict = {
         ls.VMC: {
-            "path": vmc.split(PATH_DIVIDER) if vmc else [],
+            "path": vmc.split(gs.PATH_DIVIDER) if vmc else [],
             "check": ls.VMC_CHECK_KEYS
         },
         ls.HB: {
-            "path": hb.split(PATH_DIVIDER) if hb else [],
+            "path": hb.split(gs.PATH_DIVIDER) if hb else [],
             "check": ls.HB_CHECK_KEYS
         },
         ls.RC: {
-            "path": rc.split(PATH_DIVIDER) if rc else [],
+            "path": rc.split(gs.PATH_DIVIDER) if rc else [],
             "check": ls.RC_CHECK_KEYS
         },
         ls.ST: {
-            "path": st.split(PATH_DIVIDER) if st else [],
+            "path": st.split(gs.PATH_DIVIDER) if st else [],
             "check": ls.ST_CHECK_KEYS
         },
         ls.CD: {
-            "path": cd.split(PATH_DIVIDER) if cd else [],
+            "path": cd.split(gs.PATH_DIVIDER) if cd else [],
             "check": ls.CD_CHECK_KEYS
         },
     }
@@ -57,19 +61,31 @@ def handle_request(vmc='', hb='', rc='', st='', cd='', save_path=''):
         key: value for key, value in files_dict.items() if value['path']
     }
 
-    # Проверка файлов, правильно ли они раскиданы по путям
-    for file_info in files_dict.values():
-        check_files(file_info['path'], file_info['check'])
+    logging.info(log.LOG_CHECK_FILES_START)
+    logging.info(log.LOG_CHECK_FILES_CALL)
+    for field, file_info in files_dict.items():
+        if not check_files(file_info['path'], file_info['check'], field):
+            return False
+    logging.info(log.LOG_CHECK_FILES_DONE)
 
+    logging.info(log.LOG_PARSE_START)
+    logging.info(log.LOG_PARSE_CALL)
     # Получение данных и запихивание их в словарь
     for key, value in files_dict.items():
         parser.parse_weld_data(value['path'], key)
+    logging.info(
+        f"Парсинг выполнен. Количесвто элементов: {len(parser.welds_data)}"
+    )
 
+    logging.info(log.LOG_TABLE_START)
+    logging.info(log.LOG_TABLE_METHOD_CALL)
     # Составление итоговой таблицы
     create_summary.create_summary_excel(parser.welds_data, save_path)
+    logging.info(log.LOG_TABLE_DONE)
+    return True
 
 
-def check_files(paths, check_keys):
+def check_files(paths, check_keys, field):
     """Проверяет каждый файл в paths на наличие check_keys в первых 10
        строках. Это необходимо, чтобы понять, в том ли текстовом поле
        загружен файл. Это важно для последующей обработки файлов."""
@@ -77,8 +93,14 @@ def check_files(paths, check_keys):
         filename = path.split(ls.FILEPATH_DIVIDER)[-1]
         file_extension = filename.split(ls.EXTENSION_DIVIDER)[-1]
         if file_extension not in ls.EXTENSIONS:
-            show_error(f"Какой-то непонятный файл тут: {path}")
-            break
+            show_error(
+                (
+                    f"Какой-то непонятный файл тут: {path}\n"
+                    "Приложение закроется!"
+                )
+            )
+            logging.error(f"Файл с недопустимым разрешением: {path}")
+            return False
         try:
             wb = openpyxl.load_workbook(path)
             sheet = wb.active  # Получаем первую страницу
@@ -97,19 +119,18 @@ def check_files(paths, check_keys):
 
             if not found:
                 show_error(
-                    f"Я не верю, что {filename} находится в нужном поле."
+                    (
+                        f"Я не верю, что {filename} находится в нужном поле.\n"
+                        "Приложение закроется!"
+                    )
                 )
-                break
+                logging.error(
+                    f"Файл не на своем месте: {path} загружен для поля {field}"
+                )
+                return False
 
         except Exception as e:
             show_error(f"Ошибка при проверке файла {path}: {e}")
-            break
-
-
-if __name__ == '__main__':
-    vmc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_VMC1.xlsx'
-    hb = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_HB.xlsx'
-    rc = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_RC.xlsx'
-    st = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_ST.xlsx'
-    cd = 'C:/Users/vjuni/Documents/Dev/Welding_control/files/A4993_CD.xlsx'
-    handle_request(vmc, hb, rc, st, cd)
+            logging.error(f"Ошибка при проверке файла {path}: {e}")
+            return False
+    return True

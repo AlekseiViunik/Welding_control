@@ -128,8 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# idea files
+.idea
+
 # excel files
 /files
 *.xlsx
 
-.idea
+# json files
+.json

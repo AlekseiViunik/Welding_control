@@ -1,3 +1,4 @@
+import logging
 import openpyxl
 
 from datetime import datetime
@@ -7,7 +8,8 @@ from gui.messagebox import show_message
 from settings import (
     logic_settings as ls,
     gui_settings as gs,
-    user_settings as us
+    user_settings as us,
+    logging_settings as log
 )
 
 date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
@@ -18,12 +20,15 @@ def create_summary_excel(
         output_file=us.SAVE_FILE_NAME
         ):
     """Создает итоговую таблицу в формате Excel на основе данных о швах."""
+    logging.info(log.LOG_TABLE_CREATING)
     wb = openpyxl.Workbook()
     ws = wb.active
 
     # Записываем заголовки в таблицу
+    logging.info(log.LOG_ADD_HEADERS)
     ws.append(ls.HEADERS)
 
+    logging.info(log.LOG_ADD_DATA)
     for weld_number, control_dates in welds_data.items():
         # Получаем даты контроля по ключам
         hb = datetime.strptime(
@@ -90,9 +95,11 @@ def create_summary_excel(
             note.strip()
         ]
         ws.append(row)
-
+    logging.info(log.LOG_DATA_ADDED)
     file_direction = save_path + "/" + output_file
+    logging.info(f"Сохраняем таблицу в {file_direction}")
     wb.save(file_direction)
+    logging.info(log.LOG_TABLE_SAVED)
 
     show_message(
         gs.SUCCESS_TITLE,

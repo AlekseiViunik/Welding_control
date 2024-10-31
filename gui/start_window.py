@@ -2,6 +2,7 @@
 GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
+import logging
 import os
 import sys
 import ctypes
@@ -11,7 +12,11 @@ from tkinter import PhotoImage
 from threading import Thread
 
 from gui.settings_window import SettingsWindow
-from settings import gui_settings as gs, user_settings as us
+from settings import (
+    gui_settings as gs,
+    user_settings as us,
+    logging_settings as log
+)
 from logic import get_xlsx
 from .app_helper import AppHelper
 
@@ -33,6 +38,7 @@ class App:
         )
         self.file_paths = []
         self.threads = []
+        self.stop_threads = False
 
         for label_text in gs.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
@@ -62,7 +68,16 @@ class App:
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
+        logging.info(log.LOG_DIVIDER)
+        logging.info(log.LOG_START)
+        logging.info(
+            f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
+            f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
+            f"CD: {self.file_paths[3].get()}, HB: {self.file_paths[4].get()}"
+        )
+        logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
         self.helper.show_info_window()
+        logging.info(log.LOG_CALCULATE_DATES_CALL)
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -70,6 +85,9 @@ class App:
 
     def calculate_dates(self):
         """Запускает логику обработки процесса."""
+        if self.stop_threads:
+            return
+
         vmc_paths = self.file_paths[0].get()
         rc_paths = self.file_paths[1].get()
         st_paths = self.file_paths[2].get()
@@ -78,14 +96,17 @@ class App:
 
         self.get_save_path()
         # Вызываем функцию из get_xlsx с нашим словарем
-        get_xlsx.handle_request(
+        logging.info(log.LOG_HANDLE_REQUEST_CALL)
+        if not get_xlsx.handle_request(
             vmc_paths,
             hb_paths,
             rc_paths,
             st_paths,
             cd_paths,
             self.save_path
-            )
+        ):
+            logging.error(log.LOG_ERROR_MSG)
+            self.on_closing()
 
         # Закрываем информационное окно по завершении работы
         if self.helper.info_window:
@@ -135,8 +156,7 @@ class App:
 
     def on_closing(self):
         """Обработчик закрытия окна."""
-        if self.threads:
-            for thread in self.threads:
-                if thread.is_alive():
-                    thread._stop()
+        self.stop_threads = True
+        if self.helper.info_window:
+            self.helper.info_window.destroy()
         self.root.destroy()
