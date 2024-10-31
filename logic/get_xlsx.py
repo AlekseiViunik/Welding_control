@@ -93,7 +93,12 @@ def check_files(paths, check_keys, field):
         filename = path.split(ls.FILEPATH_DIVIDER)[-1]
         file_extension = filename.split(ls.EXTENSION_DIVIDER)[-1]
         if file_extension not in ls.EXTENSIONS:
-            show_error(f"Какой-то непонятный файл тут: {path}")
+            show_error(
+                (
+                    f"Какой-то непонятный файл тут: {path}\n"
+                    "Приложение закроется!"
+                )
+            )
             logging.error(f"Файл с недопустимым разрешением: {path}")
             return False
         try:
@@ -114,7 +119,10 @@ def check_files(paths, check_keys, field):
 
             if not found:
                 show_error(
-                    f"Я не верю, что {filename} находится в нужном поле."
+                    (
+                        f"Я не верю, что {filename} находится в нужном поле.\n"
+                        "Приложение закроется!"
+                    )
                 )
                 logging.error(
                     f"Файл не на своем месте: {path} загружен для поля {field}"
