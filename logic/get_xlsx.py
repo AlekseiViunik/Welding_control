@@ -18,14 +18,12 @@
 import logging
 import openpyxl
 
-from . import create_summary
-from . import parser
 from gui.messagebox import show_error
-from settings import (
-    logic_settings as ls,
-    gui_settings as gs,
-    logging_settings as log
-)
+from settings import gui_settings as gs
+from settings import logging_settings as log
+from settings import logic_settings as ls
+
+from . import create_summary, parser
 
 
 # TODO Добавить аннотации.
