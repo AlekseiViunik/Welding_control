@@ -12,7 +12,7 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-from logic import get_xlsx
+from logic.get_xlsx import GetXlsx
 from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
@@ -94,16 +94,18 @@ class App:
         hb_paths = self.file_paths[4].get()
 
         self.get_save_path()
+
         # Вызываем функцию из get_xlsx с нашим словарем
         logging.info(log.LOG_HANDLE_REQUEST_CALL)
-        if not get_xlsx.handle_request(
+        get_xlsx = GetXlsx(
             vmc_paths,
             hb_paths,
             rc_paths,
             st_paths,
             cd_paths,
             self.save_path
-        ):
+        )
+        if not get_xlsx.handle_request():
             logging.error(log.LOG_ERROR_MSG)
             self.on_closing()
 
