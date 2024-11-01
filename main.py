@@ -20,6 +20,10 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
 default_settings = {
     us.SAVE_PATH_KEY: us.DEFAULT_SAVE_PATH
 }
