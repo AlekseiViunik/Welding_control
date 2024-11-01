@@ -28,61 +28,64 @@ import openpyxl
 
 from settings import logic_settings as ls
 
-# TODO подключить Redis(?) для хранения данных вместо словаря
-welds_data = {}
-weld_number_pattern = re.compile(ls.WELD_ID_REGEXP)
 
+class Parser:
+    def __init__(self):
+        # TODO подключить Redis(?) для хранения данных вместо словаря
+        self.welds_data = {}
+        self.weld_number_pattern = re.compile(ls.WELD_ID_REGEXP)
 
-def parse_weld_data(paths, key):
-    """Парсим все страницы переданных файлов в поисках номеров швов и дат
-       контроля. Поскольку файлов много, как и страниц в каждом файле,
-       как и самих швов на страницах, то операция будет проходить довольно
-       долго."""
+    def parse_weld_data(self, paths, key):
+        """Парсим все страницы переданных файлов в поисках номеров швов и дат
+           контроля. Поскольку файлов много, как и страниц в каждом файле,
+           как и самих швов на страницах, то операция будет проходить довольно
+           долго."""
 
-    for path in paths:
-        wb = openpyxl.load_workbook(path, read_only=True)
-        for sheet in wb.worksheets:
-            for row in sheet.iter_rows(min_row=1):
-                weld_number = str(row[0].value)
-                if (
-                    weld_number and
-                    weld_number_pattern.match(weld_number)
-                ):
-                    date_found = False
-                    weld_number_ru = (
-                        ls.REPLACEMENT_DICT[weld_number[0]] + weld_number[1:]
-                        if weld_number[0] in ls.REPLACEMENT_DICT
-                        else weld_number
-                    )
-                    if weld_number_ru not in welds_data.keys():
-                        welds_data[weld_number_ru] = {}
-                    for cell in row[1:]:
-                        cell_value = cell.value
-                        if isinstance(cell_value, datetime):
-                            welds_data[weld_number_ru][key] = (
-                                cell_value.strftime(ls.DATE_FORMAT)
-                            )
-                            date_found = True
-                            break
-                        elif (
-                            isinstance(cell_value, str) and
-                            re.search(
-                                ls.DATE_REGEXP,
-                                cell_value
-                            )
-                        ):
-                            try:
-                                # Пытаемся разобрать строку как дату
-                                date_found = True
-                                date = datetime.strptime(
-                                    cell_value,
-                                    ls.DATE_FORMAT
+        for path in paths:
+            wb = openpyxl.load_workbook(path, read_only=True)
+            for sheet in wb.worksheets:
+                for row in sheet.iter_rows(min_row=1):
+                    weld_number = str(row[0].value)
+                    if (
+                        weld_number and
+                        self.weld_number_pattern.match(weld_number)
+                    ):
+                        date_found = False
+                        weld_number_ru = (
+                            (ls.REPLACEMENT_DICT[weld_number[0]] +
+                             weld_number[1:])
+                            if weld_number[0] in ls.REPLACEMENT_DICT
+                            else weld_number
+                        )
+                        if weld_number_ru not in self.welds_data.keys():
+                            self.welds_data[weld_number_ru] = {}
+                        for cell in row[1:]:
+                            cell_value = cell.value
+                            if isinstance(cell_value, datetime):
+                                self.welds_data[weld_number_ru][key] = (
+                                    cell_value.strftime(ls.DATE_FORMAT)
                                 )
-                                welds_data[weld_number_ru] = {
-                                    key: date.strftime(ls.DATE_FORMAT)
-                                }
+                                date_found = True
                                 break
-                            except ValueError:
-                                continue
-                        if date_found:
-                            break
+                            elif (
+                                isinstance(cell_value, str) and
+                                re.search(
+                                    ls.DATE_REGEXP,
+                                    cell_value
+                                )
+                            ):
+                                try:
+                                    # Пытаемся разобрать строку как дату
+                                    date_found = True
+                                    date = datetime.strptime(
+                                        cell_value,
+                                        ls.DATE_FORMAT
+                                    )
+                                    self.welds_data[weld_number_ru] = {
+                                        key: date.strftime(ls.DATE_FORMAT)
+                                    }
+                                    break
+                                except ValueError:
+                                    continue
+                            if date_found:
+                                break
