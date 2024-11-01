@@ -1,13 +1,13 @@
 """
-Главный файл. С него начинается работа программы. Он по сути делает только
-одно: запускает главный экран приложения.
+Главный файл. С него начинается работа программы. Все, что он делает - это
+настраивает логи и запускает главный экран приложения.
 """
 import json
 import logging
 import os
 import sys
 
-from gui.weld_control_window import WeldControlWindow
+from gui.start_window import App
 from logging_files.limited_size_file_handler import LimitedSizeFileHandler
 from settings import user_settings as us, logging_settings as ls
 
@@ -65,10 +65,6 @@ sys.path.append(
 
 if __name__ == "__main__":
     import tkinter as tk
-
-    with open(us.SETTINGS_FILE_NAME, 'r') as f:
-        settings = json.load(f)
-        save_path = settings[us.SAVE_PATH_KEY]
     root = tk.Tk()
-    app = WeldControlWindow(root, save_path)
+    app = App(root)
     root.mainloop()
