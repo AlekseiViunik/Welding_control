@@ -10,6 +10,16 @@ MAX_LOG_LINES = 50000  # Default: 50000
 # Кодировка файла логирования. Необходима для кириллицы. Лучше не трогать.
 ENCODING = 'utf-8'  # Default: 'utf-8'
 
+# Папка для хранения логов
+LOG_FOLDER = 'logging_files'  # Default: 'logging_files'
+
+# Имя файла логов
+LOG_FILENAME = 'app.log'  # Default: 'app.log'
+
+# Формат записи логов
+# Default: '%(asctime)s - %(levelname)s - %(message)s'
+LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
+
 # ==================Статические сообщения для логов==================
 
 # Разделитель между логами разных процессов
