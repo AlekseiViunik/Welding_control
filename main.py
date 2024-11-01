@@ -7,7 +7,7 @@ import logging
 import os
 import sys
 
-from gui.start_window import App
+from gui.weld_control_window import WeldControlWindow
 from logging_files.limited_size_file_handler import LimitedSizeFileHandler
 from settings import user_settings as us, logging_settings as ls
 
@@ -70,5 +70,5 @@ if __name__ == "__main__":
         settings = json.load(f)
         save_path = settings[us.SAVE_PATH_KEY]
     root = tk.Tk()
-    app = App(root, save_path)
+    app = WeldControlWindow(root, save_path)
     root.mainloop()

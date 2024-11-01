@@ -20,7 +20,7 @@ from settings import user_settings as us
 from .app_helper import AppHelper
 
 
-class App:
+class WeldControlWindow:
     def __init__(self, root, save_path):
         self.root = root
         self.save_path = save_path
