@@ -138,18 +138,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                "icons",
-                "mark32x32.png"
+                gs.ICONS_FOLDER_NAME,
+                gs.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                "icons",
-                "mark32x32.ico"
+                gs.ICONS_FOLDER_NAME,
+                gs.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = "icons/mark32x32.png"
-            icon_path_ico = "icons/mark32x32.ico"
+            icon_path_png = gs.PNG_ICON_FILEPATH
+            icon_path_ico = gs.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
