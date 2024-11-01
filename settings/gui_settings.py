@@ -259,3 +259,20 @@ SAVED_SETTINGS_SUCCESS_MESSAGE = "Настройки сохранены!"
 # и DEFAULT_SAVE_PATH (вторая находится в user_settings.py)
 # Default: "Итоговая таблица сохранена в "
 SAVED_FILE_SUCCESS_MESSAGE = "Итоговая таблица сохранена в "
+
+# ===================Настройки работы с иконками=====================
+
+# Имя папки, в которой хранятся иконки.
+ICONS_FOLDER_NAME = "icons"  # Default: icons
+
+# Имя файла иконки приложения, которая будет отображаться в углу приложения
+PNG_ICON_FILENAME = "mark32x32.png"
+
+# Имя файла иконки приложения, которая будет отображаться в панели задач
+ICO_ICON_FILENAME = "mark32x32.ico"
+
+# Путь к .png иконке приложеня
+PNG_ICON_FILEPATH = "icons/mark32x32.png"
+
+# Путь к .ico иконке приложеня
+ICO_ICON_FILEPATH = "icons/mark32x32.ico"

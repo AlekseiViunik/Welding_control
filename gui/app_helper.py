@@ -7,6 +7,7 @@ from settings import gui_settings as gs
 class AppHelper:
     def __init__(self, root):
         self.root = root
+        self.info_window = None
 
     def center_window(self, window, width, height):
         """Центрирует окно на экране."""

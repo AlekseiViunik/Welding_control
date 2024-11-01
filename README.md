@@ -90,7 +90,7 @@ pip install -r requirements.txt
 6. (опционально) Сгенерировать исполняемый файл.<br>
 Вместо YourAppName подставить имя, которое будет использоваться в названии исполняемого файла.<br><br>
 ```
-pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" -n YourAppName main.py
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
 ```
 
 7. Если п.6 пропущен, запустить приложение через терминал.

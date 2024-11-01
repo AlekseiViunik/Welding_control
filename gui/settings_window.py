@@ -2,7 +2,7 @@ import json
 import tkinter as tk
 
 from gui.app_helper import AppHelper
-from gui.messagebox import show_message
+from gui.messagebox import MessageBox
 from settings import gui_settings as gs
 from settings import user_settings as us
 
@@ -11,6 +11,7 @@ class SettingsWindow:
     def __init__(self, root):
         self.root = root
         self.helper = AppHelper(root)
+        self.message_box = MessageBox()
 
     def create_window(self):
         """Открывает окно настроек."""
@@ -68,7 +69,7 @@ class SettingsWindow:
         with open(us.SETTINGS_FILE_NAME, 'w') as f:
             json.dump(settings, f, indent=us.JSON_INDENT)
 
-        show_message(
+        self.message_box.show_message(
             gs.SUCCESS_TITLE,
             gs.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
