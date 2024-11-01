@@ -29,13 +29,13 @@ LOG_DIVIDER = "******************************************************"
 # Информирует о начале выполнения логики.
 LOG_START = "Начало выполнения логики"  # Default: "Начало выполнения логики"
 
-# Информирует о вызове метода App.calculate_dates
-# Default: "Вызов метода App.calculate_dates"
-LOG_CALCULATE_DATES_CALL = "Вызов метода App.calculate_dates"
+# Информирует о вызове метода WeldControlWindow.calculate_dates
+# Default: "Вызов метода WeldControlWindow.calculate_dates"
+LOG_CALCULATE_DATES_CALL = "Вызов метода WeldControlWindow.calculate_dates"
 
-# Информирует о вызове метода App.handle_request
-# Default: "Вызов метода App.handle_request"
-LOG_HANDLE_REQUEST_CALL = "Вызов метода App.handle_request"
+# Информирует о вызове метода WeldControlWindow.handle_request
+# Default: "Вызов метода WeldControlWindow.handle_request"
+LOG_HANDLE_REQUEST_CALL = "Вызов метода WeldControlWindow.handle_request"
 
 # Информирует об ошибке в программе без конкретизации
 # Default: "Обработка завершилась с ошибкой."
