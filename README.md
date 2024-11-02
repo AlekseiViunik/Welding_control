@@ -1,13 +1,20 @@
 # Welding_control v1.0.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
-## Оглавление
-- [Описание](#Описание)
-- [Принцип работы](#Принцип-работы)
-- [Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
-  - [Простой способ](#Простой-способ)
-  - [Сложный способ](#Сложный-способ)
-- [Инструкция по использованию](#Инструкция-по-использованию)
-- [Что нового](#Что-нового)
+## Оглавление/Table of Contents
+- 🇷🇺 [Описание](#Описание)
+- 🇷🇺 [Принцип работы](#Принцип-работы)
+- 🇷🇺 [Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
+  - 🇷🇺 [Простой способ](#Простой-способ)
+  - 🇷🇺 [Сложный способ](#Сложный-способ)
+- 🇷🇺 [Инструкция по использованию](#Инструкция-по-использованию)
+- 🇷🇺 [Что нового](#Что-нового)
+- 🇬🇧 [Description](#description)
+- 🇬🇧 [Operating Principle](#operating-principle)
+- 🇬🇧 [Installation Instructions for Windows](#installation-instructions-for-windows)
+  - 🇬🇧 [Simple Method](#simple-method)
+  - 🇬🇧 [Complex Method](#complex-method)
+- 🇬🇧 [Usage Instructions](#usage-instructions)
+- 🇬🇧 [What's New](#whats-new)
 
 ## Описание
 
@@ -23,7 +30,7 @@
 <br>В связи с человеческим фактором и большим количеством сварных соединений (в особо крупных проектах их до 20 000) появляются ошибки в оформлении того или иного протокола неразрушающего контроля, а именно в указанной дате контроля шва и нарушению порядка контроля. Это ведет к рекламациям.
 <br>Чтобы этого избежать, была разработана эта программа.<br>
 
-<br><br><b>Примечания:</b> 
+<br><b>Примечания:</b> 
 - Приложение написано целиком на языке Python. Из сторонних библиотек использовались только `openpyxl` и `pyinstaller`
 - на данный момент приложение работает только на Windows
 
@@ -70,7 +77,7 @@
 2. Запустить исполняемый `exe` файл.
 
 ### Сложный способ
-1. Скачать и установить Python версии не ниже 3.10
+1. [Скачать](https://www.python.org/downloads/) and [установить](https://docs.python.org/3/using/index.html) Python версии не ниже 3.10
 2. Склонировать репозиторий к себе c Гитхаба.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
@@ -131,3 +138,126 @@ python main.py
 ### v1.0.0
 - Это самая первая версия. Тут никаких изменений, фиксов и дополнений.
 
+## Description
+This is a non-commercial application developed for “ALITER-AXI” Co.Ltd.
+It is designed to verify the correctness of filling out non-destructive testing protocols for welded joints prepared in xlsx format. <br>
+According to paragraph 3.8.1 of MD 26-02-80-2004, the procedure for conducting non-destructive testing (from the main ones in “ALITER-AXI” Co.Ltd.) is as follows:<br>
+
+1. Visual and measurement control (VMC)
+2. Hardness testing
+3. Stiloscopy
+4. Ultrasound and/or radiography
+5. Color defectoscopy
+
+<br>Due to the human factor and the large number of welded joints (in particularly large projects, up to 20,000), errors arise in the design of certain non-destructive testing protocols, specifically in the specified date of weld control and violations of the control order. This leads to complaints.
+<br>To avoid this, this program was developed.<br>
+
+<br><b>Notes:</b> 
+
+- The application is written entirely in Python. Only the external libraries `openpyxl` and `pyinstaller` were used
+- Currently, the application works only on Windows
+
+## Principle of Operation
+For each of the control methods mentioned in the description, one or more files with an unlimited number of sheets in each file are loaded. The application performs the following actions:
+
+1. It scans the first 10 rows of the first sheet of each file for parts of words that are markers to ensure that this is indeed the required file and that it has been loaded in the correct place. For example, for files loaded in the VMC section, the application looks for a match with `визуальн`, as such a part of the word exists in the first 10 rows of any VMC protocol. There is no need to scan each sheet, as it has not been encountered in practice that there are multiple different types of controls in one protocol.
+2. Next, it scans each row of each page of each file for each type of control and searches for joint ids that match the conditions of a regular expression: The joint id always starts with a Cyrillic letter С, Н, Т, У (or their Latin equivalents) or N. This is followed by a random set of digits interspersed with dashes.
+3. For each weld, the Latin letter is replaced with its corresponding Cyrillic letter.
+4. Upon finding a weld, the program searches the same row for the control date of that weld. The dates are defined as 1-2 digits for the day, 1-2 digits for the month, and 2/4 digits for the year, separated by `.`, `-`, `/` with no letters in that cell.
+5. Upon finding the date, the data is entered into a temporary dictionary. The structure of the dictionary looks like this:
+
+```json
+Копировать код
+{
+    <joint_id1>: {
+        <control_type1>: <control_date>,
+        <control_type2>: <control_date>,
+        ................
+    },
+    <joint_id2>: {
+        <control_type1>: <control_date>,
+        <control_type2>: <control_date>,
+        ................
+    },
+    ................
+}
+```
+6. After reviewing all files and finalizing the dictionary, the application checks the order of control for each joint based on its dates. If a discrepancy is found, it is recorded in the notes that will be indicated for each joint when generating the resulting table. The order of verification is as follows:<br> 
+6.1 If the VMC date is not specified for the weld, this is noted, the verification of this joint is interrupted, and the application moves on to the next weld.<br> 
+6.2 Next, the hardness test is checked. If it was conducted earlier than VMC, this is added to the notes for the weld. Hereinafter, unlike 6.1, the verification does not stop and does not move on to the next weld. It continues with the remaining control dates of this same weld.<br> 
+6.3 Stiloscopy is checked. If it was conducted earlier than VMC, this is noted.<br> 
+6.4 Stiloscopy is checked. If it was conducted earlier than the hardness test, this is noted.<br> 
+6.5 Ultrasound and Radiography are checked. If they were conducted earlier than VMC, this is noted.<br> 
+6.6 Ultrasound and Radiography are checked. If they were conducted earlier than the hardness test, this is noted.<br> 
+6.7 Ultrasound and Radiography are checked. If they were conducted earlier than stiloscopy, this is noted.<br> 
+6.8 Color defectoscopy is checked. If it was conducted earlier than VMC, this is noted.<br> 
+6.9 Color defectoscopy is checked. If it was conducted earlier than the hardness test, this is noted.<br> 
+6.10 Color defectoscopy is checked. If it was conducted earlier than stiloscopy, this is noted.<br> 
+6.11 Color defectoscopy is checked. If it was conducted earlier than Radiography or Ultrasound, this is noted.<br>
+7. As soon as the verification for one joint is complete, the information about it, including the collected notes, is entered into the resulting table, and the application moves on to the next joint until all joints from the temporary dictionary have been checked.
+
+## Installation Instructions for Windows
+
+### Easy Way
+
+1. Download the executable `exe` file to a separate folder anywhere on your computer.
+2. Run the executable `exe` file.
+
+### Advanced Way
+
+1. [Download](https://www.python.org/downloads/) and [install](https://docs.python.org/3/using/index.html) Python version 3.10 or higher.
+2. Clone the repository from GitHub.
+```
+git clone git@github.com:AlekseiViunik/Welding_control.git
+```
+3. Navigate to the project's root directory in the terminal.
+```
+cd <path_to_root_directory>
+```
+4. Activate the virtual environment.
+```
+source venv/Scripts/activate
+```
+5. Install the dependencies.
+```
+pip install -r requirements.txt
+```
+6. (optional) Generate the executable file.<br> Replace YourAppName with the name that will be used for the executable file.<br><br>
+```
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+```
+7. If step 6 was skipped, run the application through the terminal.
+```
+python main.py
+```
+8. If step 6 was completed, a folder named dist will appear in the root directory containing the executable file - run it.
+
+## Instructions for Use
+
+After launching the file, a window will appear:<br>
+![alt text](image-1.png)<br>
+1. In the top left corner, the name of the application and its version are displayed. The name is constant and will not change regardless of what name you assign to the executable file.
+2. Next, there are 5 input text fields with hints above each and an `Browse` button on the left. Here, you enter the paths to the files for verification. It is not necessary to enter them manually. Simply click the Browse button to select <u>one or multiple files at once</u> of the same control type. Unused fields can also be left empty. The application will ignore them.
+3. The `Go` button starts the verification process, which may take several minutes. During the verification, a window will appear warning that the verification has started and will disappear once the verification is complete:<br>
+![alt text](image-2.png)<br>
+After the verification and the creation of the result table, another informational window will appear, indicating that the task has been completed and showing where the result table has been saved. This window needs to be closed by confirming with the `OK` button:<br>
+![alt text](image-3.png)<br>
+4. The `Clear` button clears all filled fields.
+5. The `Settings` button opens the settings window:<br>
+![alt text](image-4.png)<br>
+Currently, in the settings, you can only specify the folder where the resulting table will be saved.
+
+Nuances:
+1. Do not start processing files for several contracts at once. One contract - one analysis. The same joint ids may appear in different contracts, which can lead to incorrect application behavior.
+2. You can simultaneously select multiple files of the same control type. They must be located in the same folder. To select multiple files, hold `Ctrl` to add another file to the selection or `Shift` to add a range of consecutive files.
+3. You must select files of the specific control type in the field designated for that type of control. If it says `Select Inspection Files`, do not insert `hardness test protocols` into this field; otherwise, an error window will pop up when you click the `Go` button:<br>
+![alt text](image-5.png)
+4. Each file can have an unlimited number of pages. The main thing is that these should be pages of the same control type.
+5. Each page can have an unlimited number of joint ids. The main thing is that the text indicating the type of control must be in the first 10 rows on the first page. You do not need to check this manually. If the text is missing, an error will pop up (see point 3).
+6. Joint ids must be specified in column A. If the cells with joint ids are merged across several columns, column A must be the first in the merge. This also does not need to be checked manually. If the joint ids are in another column, the application will simply not find them.
+7. The joint control date must be to the right of the joint in the same row.
+
+## What's New
+
+### v1.0.0
+- This is the very first version. There are no changes, fixes, or additions here.
