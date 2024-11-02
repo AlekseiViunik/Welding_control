@@ -8,11 +8,13 @@
   - ![🇷🇺](ru.png)[Сложный способ](#Сложный-способ)
 - ![🇷🇺](ru.png)[Инструкция по использованию](#Инструкция-по-использованию)
 - ![🇷🇺](ru.png)[Что нового](#Что-нового)
+  
+  =============================================================
 - ![GB](gb.png)[Description](#description)
 - ![GB](gb.png)[Operating Principle](#operating-principle)
 - ![GB](gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
-  - ![GB](gb.png)[Simple Method](#simple-method)
-  - ![GB](gb.png)[Complex Method](#complex-method)
+  - ![GB](gb.png)[Easy Way](#easy-way)
+  - ![GB](gb.png)[Advanced Way](#advanced-цфн)
 - ![GB](gb.png)[Usage Instructions](#usage-instructions)
 - ![GB](gb.png)[What's New](#whats-new)
 
