@@ -157,7 +157,7 @@ According to paragraph 3.8.1 of MD 26-02-80-2004, the procedure for conducting n
 - The application is written entirely in Python. Only the external libraries `openpyxl` and `pyinstaller` were used
 - Currently, the application works only on Windows
 
-## Principle of Operation
+## Operating Principle
 For each of the control methods mentioned in the description, one or more files with an unlimited number of sheets in each file are loaded. The application performs the following actions:
 
 1. It scans the first 10 rows of the first sheet of each file for parts of words that are markers to ensure that this is indeed the required file and that it has been loaded in the correct place. For example, for files loaded in the VMC section, the application looks for a match with `визуальн`, as such a part of the word exists in the first 10 rows of any VMC protocol. There is no need to scan each sheet, as it has not been encountered in practice that there are multiple different types of controls in one protocol.
@@ -232,7 +232,7 @@ python main.py
 ```
 8. If step 6 was completed, a folder named dist will appear in the root directory containing the executable file - run it.
 
-## Instructions for Use
+## Usage Instructions
 
 After launching the file, a window will appear:<br>
 ![alt text](image-1.png)<br>
