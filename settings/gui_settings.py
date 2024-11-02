@@ -128,7 +128,7 @@ BUTTONS_WIDTH = 15  # Default: 15
 #    "Забить": "clear_entries",
 #    "Настройки": "open_settings",
 #    }
-BUTTON_TEXTS = {
+BUTTONS_NAME_TO_PROCESS = {
     "Погнали": "start_process",
     "Забить": "clear_entries",
     "Настройки": "open_settings",
