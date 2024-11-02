@@ -14,7 +14,7 @@
 - ![GB](gb.png)[Operating Principle](#operating-principle)
 - ![GB](gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
   - ![GB](gb.png)[Easy Way](#easy-way)
-  - ![GB](gb.png)[Advanced Way](#advanced-цфн)
+  - ![GB](gb.png)[Advanced Way](#advanced-way)
 - ![GB](gb.png)[Usage Instructions](#usage-instructions)
 - ![GB](gb.png)[What's New](#whats-new)
 
