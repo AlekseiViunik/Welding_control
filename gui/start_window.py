@@ -12,7 +12,7 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-# from gui.buttons import Buttons
+from gui.buttons import Buttons
 from logic.get_xlsx import GetXlsx
 from settings import logging_settings as log
 from settings import user_settings as us
@@ -22,8 +22,8 @@ from settings.gui.windows import (
 )
 from settings.gui.components import (
     labels as lbl,
-    buttons as btn,
-    frames as fr
+    # buttons as btn,
+    # frames as fr
 )
 
 from .app_helper import AppHelper
@@ -55,31 +55,33 @@ class App:
             self.file_paths.append(entry)
 
         # Кнопки
-        # buttons = Buttons(self.root, self)
-        # buttons.create_buttons_frame(start.START_BUTTONS_NAME_TO_PROCESS)
+        buttons = Buttons(self.root, self)
+        buttons.create_buttons_frame(start.START_BUTTONS_NAME_TO_PROCESS)
 
         # TODO remove this after the tests
-        button_frame = tk.Frame(root)
-        button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
-        for name, command_name in start.START_BUTTONS_NAME_TO_PROCESS.items():
-            command = getattr(self, command_name)
-            button = tk.Button(
-                button_frame,
-                text=name,
-                command=command,
-                width=btn.BUTTONS_WIDTH
-                )
-            button.pack(
-                side=btn.BUTTONS_SIDE,
-                padx=btn.BUTTONS_PADX
-            )
+        # button_frame = tk.Frame(root)
+        # button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
+        # for name, command_name in (
+        #   start.START_BUTTONS_NAME_TO_PROCESS.items()
+        # ):
+        #     command = getattr(self, command_name)
+        #     button = tk.Button(
+        #         button_frame,
+        #         text=name,
+        #         command=command,
+        #         width=btn.BUTTONS_WIDTH
+        #         )
+        #     button.pack(
+        #         side=btn.BUTTONS_SIDE,
+        #         padx=btn.BUTTONS_PADX
+        #     )
 
         label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
         label.place(
             relx=lbl.AUTHOR_RELX,
             rely=lbl.AUTHOR_RELY,
             anchor=lbl.AUTHOR_LABEL_ANCHOR,
-            y=-lbl.AUTHOR_PADY
+            y=lbl.AUTHOR_PADY
         )
 
     def start_process(self):
