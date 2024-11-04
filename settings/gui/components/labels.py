@@ -36,7 +36,7 @@ AUTHOR_LABEL_TEXT = "Created by Viunik"  # Default: "Created by Viunik"
 AUTHOR_LABEL_ANCHOR = 's'  # Default: 's'
 
 # Отступы по вертикали
-AUTHOR_PADY = 5  # Default: 5
+AUTHOR_PADY = -5  # Default: 5
 
 # Устанавливаем горизонтальную позицию от левого края окна (центр).
 # Тут 0 - левый край, 1.0 - правый край, 0.5 - середина
