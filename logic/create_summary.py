@@ -5,10 +5,10 @@ import openpyxl
 from openpyxl.styles import NamedStyle
 
 from gui.messagebox import MessageBox
-from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import logic_settings as ls
 from settings import user_settings as us
+from settings.gui.windows import message_box as mb
 
 date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 
@@ -106,6 +106,6 @@ class CreateSummary:
         logging.info(log.LOG_TABLE_SAVED)
 
         self.message_box.show_message(
-            gs.SUCCESS_TITLE,
-            gs.SAVED_FILE_SUCCESS_MESSAGE + save_path
+            mb.SUCCESS_TITLE,
+            mb.SAVED_FILE_SUCCESS_MESSAGE + save_path
         )

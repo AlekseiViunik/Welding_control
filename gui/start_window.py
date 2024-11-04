@@ -12,11 +12,19 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-from gui.buttons import Buttons
+# from gui.buttons import Buttons
 from logic.get_xlsx import GetXlsx
-from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
+from settings.gui.windows import (
+    start_window as start,
+    helper as hlp
+)
+from settings.gui.components import (
+    labels as lbl,
+    buttons as btn,
+    frames as fr
+)
 
 from .app_helper import AppHelper
 
@@ -28,48 +36,50 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
-        self.root.title(gs.MAIN_WINDOW_TITLE)
-        self.root.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
+        self.root.title(start.MAIN_WINDOW_TITLE)
+        self.root.geometry(
+            f"{start.START_WINDOW_WIDTH}x{start.START_WINDOW_HEIGHT}"
+        )
         self.set_window_icon()
         self.helper.center_window(
             self.root,
-            gs.WINDOW_WIDTH,
-            gs.WINDOW_HEIGHT
+            start.START_WINDOW_WIDTH,
+            start.START_WINDOW_HEIGHT
         )
         self.file_paths = []
         self.threads = []
         self.stop_threads = False
 
-        for label_text in gs.LABELS:
+        for label_text in start.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
             self.file_paths.append(entry)
 
         # Кнопки
-        buttons = Buttons(self.root, self)
-        buttons.create_buttons_frame(gs.BUTTONS_NAME_TO_PROCESS)
+        # buttons = Buttons(self.root, self)
+        # buttons.create_buttons_frame(start.START_BUTTONS_NAME_TO_PROCESS)
 
         # TODO remove this after the tests
-        # button_frame = tk.Frame(root)
-        # button_frame.pack(pady=gs.BUTTONS_FRAME_PADY)
-        # for name, command_name in gs.BUTTONS_NAME_TO_PROCESS.items():
-        #     command = getattr(self, command_name)
-        #     button = tk.Button(
-        #         button_frame,
-        #         text=name,
-        #         command=command,
-        #         width=gs.BUTTONS_WIDTH
-        #         )
-        #     button.pack(
-        #         side=gs.FRAME_BUTTONS_SIDE,
-        #         padx=gs.FRAME_BUTTONS_PADX
-        #     )
+        button_frame = tk.Frame(root)
+        button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
+        for name, command_name in start.START_BUTTONS_NAME_TO_PROCESS.items():
+            command = getattr(self, command_name)
+            button = tk.Button(
+                button_frame,
+                text=name,
+                command=command,
+                width=btn.BUTTONS_WIDTH
+                )
+            button.pack(
+                side=btn.BUTTONS_SIDE,
+                padx=btn.BUTTONS_PADX
+            )
 
-        label = tk.Label(root, text=gs.AUTHOR_LABEL_TEXT)
+        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
         label.place(
-            relx=gs.AUTHOR_RELX,
-            rely=gs.AUTHOR_RELY,
-            anchor=gs.AUTHOR_ANCHOR,
-            y=-gs.AUTHOR_PADY
+            relx=lbl.AUTHOR_RELX,
+            rely=lbl.AUTHOR_RELY,
+            anchor=lbl.AUTHOR_LABEL_ANCHOR,
+            y=-lbl.AUTHOR_PADY
         )
 
     def start_process(self):
@@ -128,7 +138,7 @@ class App:
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(gs.FIRST_ELEMENT, tk.END)
+            entry.delete(hlp.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
@@ -145,18 +155,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.PNG_ICON_FILENAME
+                start.ICONS_FOLDER_NAME,
+                start.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.ICO_ICON_FILENAME
+                start.ICONS_FOLDER_NAME,
+                start.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = gs.PNG_ICON_FILEPATH
-            icon_path_ico = gs.ICO_ICON_FILEPATH
+            icon_path_png = start.PNG_ICON_FILEPATH
+            icon_path_ico = start.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
