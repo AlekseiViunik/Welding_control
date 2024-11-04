@@ -15,7 +15,7 @@ date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 
 class CreateSummary:
     def __init__(self):
-        self.message_box = MessageBox
+        self.message_box = MessageBox()
 
     def create_summary_excel(
             self,
