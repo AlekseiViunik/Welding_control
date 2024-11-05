@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 from settings import gui_settings as gs
+from settings.gui.components import buttons as btn
 
 
 class AppHelper:
@@ -72,7 +73,7 @@ class AppHelper:
 
         button = tk.Button(
             frame,
-            text=gs.FRAME_BUTTON_TEXT,
+            text=btn.BROWSE_BUTTON_TEXT,
             command=lambda e=entry: self.browse_file(
                 e,
                 choose_directory,
@@ -80,8 +81,8 @@ class AppHelper:
             )
         )
         button.pack(
-            side=gs.FRAME_BUTTON_SIDE,
-            padx=(gs.FRAME_BUTTON_LEFT_PADX, gs.FRAME_BUTTON_RIGHT_PADX)
+            side=btn.BROWSE_BUTTON_SIDE,
+            padx=(btn.BROWSE_BUTTON_LEFT_PADX, btn.BROWSE_BUTTON_RIGHT_PADX)
         )
 
         return entry
