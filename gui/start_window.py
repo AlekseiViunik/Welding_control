@@ -36,6 +36,7 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
+        self.buttons = Buttons(self.root, self)
         self.root.title(start.MAIN_WINDOW_TITLE)
         self.root.geometry(
             f"{start.START_WINDOW_WIDTH}x{start.START_WINDOW_HEIGHT}"
@@ -51,12 +52,12 @@ class App:
         self.stop_threads = False
 
         for label_text in start.LABELS:
-            entry = self.helper.create_label_entry_frame(root, label_text)
+            # entry = self.helper.create_label_entry_frame(root, label_text)
+            entry = self.buttons.create_browse_frame(root, label_text)
             self.file_paths.append(entry)
 
         # Кнопки
-        buttons = Buttons(self.root, self)
-        buttons.create_buttons_frame(start.START_BUTTONS_NAME_TO_PROCESS)
+        self.buttons.create_buttons_frame(start.START_BUTTONS_NAME_TO_PROCESS)
 
         # TODO remove this after the tests
         # button_frame = tk.Frame(root)
