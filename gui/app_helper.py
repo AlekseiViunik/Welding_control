@@ -4,7 +4,9 @@ from tkinter import filedialog
 from settings import gui_settings as gs
 from settings.gui.components import (
     buttons as btn,
-    labels as lbl
+    labels as lbl,
+    textfield as txt,
+
 )
 
 
@@ -66,12 +68,12 @@ class AppHelper:
         entry = tk.Entry(
             frame,
             textvariable=hint,
-            width=gs.ENTRY_WIDTH
+            width=txt.ENTRY_WIDTH
         )
         entry.pack(
-            side=gs.ENTRY_FRAME_SIDE,
-            fill=gs.ENTRY_FILL_AXIS,
-            expand=gs.ENTRY_EXPAND
+            side=txt.ENTRY_FRAME_SIDE,
+            fill=txt.ENTRY_FILL_AXIS,
+            expand=txt.ENTRY_EXPAND
         )
 
         button = tk.Button(
