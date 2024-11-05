@@ -6,7 +6,7 @@ from settings.gui.components import (
     buttons as btn,
     labels as lbl,
     textfield as txt,
-
+    frames as fr
 )
 
 
@@ -60,7 +60,7 @@ class AppHelper:
     ):
         """Создает фрейм с лейблом и текстовым полем."""
         frame = tk.Frame(parent)
-        frame.pack(fill=gs.FRAME_FILL_AXIS, padx=gs.FRAME_PADX)
+        frame.pack(fill=fr.FRAME_FILL_AXIS, padx=fr.FRAME_PADX)
 
         label = tk.Label(frame, text=label_text)
         label.pack(anchor=lbl.LABEL_ANCHOR)
@@ -89,7 +89,8 @@ class AppHelper:
             side=btn.BROWSE_BUTTON_SIDE,
             padx=(btn.BROWSE_BUTTON_LEFT_PADX, btn.BROWSE_BUTTON_RIGHT_PADX)
         )
-
+        divider = tk.Frame(parent, height=fr.DIVIDER_HEIGHT)
+        divider.pack(fill=fr.DIVIDER_FILL_AXIS)
         return entry
 
     def browse_file(self, entry, choose_directory=False, parent=None):

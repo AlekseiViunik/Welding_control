@@ -19,6 +19,8 @@ from settings import user_settings as us
 from settings.gui.components import (
     buttons as btn,
     labels as lbl,
+    frames as fr,
+
 )
 
 from .app_helper import AppHelper
@@ -49,7 +51,7 @@ class App:
 
         # Кнопки
         button_frame = tk.Frame(root)
-        button_frame.pack(pady=gs.BUTTONS_FRAME_PADY)
+        button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
 
         for text, command_name in btn.START_BUTTON_TEXTS.items():
             command = getattr(self, command_name)
@@ -59,7 +61,10 @@ class App:
                 command=command,
                 width=btn.BUTTONS_WIDTH
                 )
-            button.pack(side=gs.FRAME_BUTTONS_SIDE, padx=gs.FRAME_BUTTONS_PADX)
+            button.pack(
+                side=btn.FRAME_BUTTONS_SIDE,
+                padx=btn.FRAME_BUTTONS_PADX
+            )
 
         label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
         label.place(
