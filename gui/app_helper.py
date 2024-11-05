@@ -2,7 +2,10 @@ import tkinter as tk
 from tkinter import filedialog
 
 from settings import gui_settings as gs
-from settings.gui.components import buttons as btn
+from settings.gui.components import (
+    buttons as btn,
+    labels as lbl
+)
 
 
 class AppHelper:
@@ -40,9 +43,9 @@ class AppHelper:
 
         label = tk.Label(
             self.info_window,
-            text=gs.INFO_LABEL_TEXT,
-            padx=gs.INFO_LABEL_PADX,
-            pady=gs.INFO_LABEL_PADY
+            text=lbl.INFO_LABEL_TEXT,
+            padx=lbl.INFO_LABEL_PADX,
+            pady=lbl.INFO_LABEL_PADY
         )
         label.pack()
 
@@ -58,7 +61,7 @@ class AppHelper:
         frame.pack(fill=gs.FRAME_FILL_AXIS, padx=gs.FRAME_PADX)
 
         label = tk.Label(frame, text=label_text)
-        label.pack(anchor=gs.LABEL_ANCHOR)
+        label.pack(anchor=lbl.LABEL_ANCHOR)
 
         entry = tk.Entry(
             frame,

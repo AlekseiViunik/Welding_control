@@ -16,7 +16,10 @@ from logic.get_xlsx import GetXlsx
 from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
-from settings.gui.components import buttons as btn
+from settings.gui.components import (
+    buttons as btn,
+    labels as lbl,
+)
 
 from .app_helper import AppHelper
 
@@ -40,7 +43,7 @@ class App:
         self.threads = []
         self.stop_threads = False
 
-        for label_text in gs.LABELS:
+        for label_text in lbl.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
             self.file_paths.append(entry)
 
@@ -58,12 +61,12 @@ class App:
                 )
             button.pack(side=gs.FRAME_BUTTONS_SIDE, padx=gs.FRAME_BUTTONS_PADX)
 
-        label = tk.Label(root, text=gs.AUTHOR_LABEL_TEXT)
+        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
         label.place(
-            relx=gs.AUTHOR_RELX,
-            rely=gs.AUTHOR_RELY,
-            anchor=gs.AUTHOR_ANCHOR,
-            y=-gs.AUTHOR_PADY
+            relx=lbl.AUTHOR_RELX,
+            rely=lbl.AUTHOR_RELY,
+            anchor=lbl.AUTHOR_ANCHOR,
+            y=lbl.AUTHOR_PADY
         )
 
     def start_process(self):

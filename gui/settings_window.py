@@ -5,7 +5,10 @@ from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
 from settings import gui_settings as gs
 from settings import user_settings as us
-from settings.gui.components import buttons as btn
+from settings.gui.components import (
+    buttons as btn,
+    labels as lbl
+)
 
 
 class SettingsWindow:
@@ -28,7 +31,7 @@ class SettingsWindow:
         )
         self.helper.create_label_entry_frame(
             settings_window,
-            gs.WHERE_TO_SAVE,
+            lbl.WHERE_TO_SAVE,
             current_path,
             True
         )
