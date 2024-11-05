@@ -3,8 +3,16 @@ import tkinter as tk
 
 from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
-from settings import gui_settings as gs
 from settings import user_settings as us
+from settings.gui.components import (
+    buttons as btn,
+    labels as lbl,
+    frames as fr
+)
+from settings.gui.windows import (
+    windows as win,
+    info_windows as info
+)
 
 
 class SettingsWindow:
@@ -16,8 +24,8 @@ class SettingsWindow:
     def create_window(self):
         """Открывает окно настроек."""
         settings_window = tk.Toplevel(self.root)
-        settings_window.title(gs.SETTINGS_WINDOW_TITLE)
-        settings_window.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
+        settings_window.title(win.SETTINGS_WINDOW_TITLE)
+        settings_window.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
         save_path = settings[us.SAVE_PATH_KEY]
         # Текстовое поле с текущим путем сохранения
@@ -27,38 +35,38 @@ class SettingsWindow:
         )
         self.helper.create_label_entry_frame(
             settings_window,
-            gs.WHERE_TO_SAVE,
+            lbl.WHERE_TO_SAVE,
             current_path,
             True
         )
 
         # Кнопки Сохранить и Отмена
         button_frame = tk.Frame(settings_window)
-        button_frame.pack(pady=gs.SETTINGS_BUTTONS_FRAME_PADY)
+        button_frame.pack(pady=fr.SETTINGS_BUTTONS_FRAME_PADY)
 
         # Кнопка Сохранить
         save_button = tk.Button(
             button_frame,
-            text=gs.SAVE_BUTTON_NAME,
+            text=btn.SAVE_BUTTON_NAME,
             command=lambda: self.save_settings(
                 current_path.get(),
                 settings_window
             )
         )
         save_button.pack(
-            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
-            padx=gs.SETTINGS_BUTTONS_PADX
+            side=btn.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=btn.SETTINGS_BUTTONS_PADX
         )
 
         # Кнопка Отмена
         cancel_button = tk.Button(
             button_frame,
-            text=gs.CANCEL_BUTTON_NAME,
+            text=btn.CANCEL_BUTTON_NAME,
             command=settings_window.destroy
         )
         cancel_button.pack(
-            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
-            padx=gs.SETTINGS_BUTTONS_PADX
+            side=btn.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=btn.SETTINGS_BUTTONS_PADX
         )
 
     def save_settings(self, path, window):
@@ -70,8 +78,8 @@ class SettingsWindow:
             json.dump(settings, f, indent=us.JSON_INDENT)
 
         self.message_box.show_message(
-            gs.SUCCESS_TITLE,
-            gs.SAVED_SETTINGS_SUCCESS_MESSAGE,
+            info.SUCCESS_TITLE,
+            info.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
         window.destroy()  # Закрываем окно настроек после сохранения
 

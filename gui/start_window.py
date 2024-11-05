@@ -13,9 +13,15 @@ from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
 from logic.get_xlsx import GetXlsx
-from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
+from settings.gui.components import (
+    buttons as btn,
+    labels as lbl,
+    frames as fr,
+
+)
+from settings.gui.windows import windows as win
 
 from .app_helper import AppHelper
 
@@ -27,42 +33,45 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
-        self.root.title(gs.MAIN_WINDOW_TITLE)
-        self.root.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
+        self.root.title(win.START_WINDOW_TITLE)
+        self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         self.set_window_icon()
         self.helper.center_window(
             self.root,
-            gs.WINDOW_WIDTH,
-            gs.WINDOW_HEIGHT
+            win.WINDOW_WIDTH,
+            win.WINDOW_HEIGHT
         )
         self.file_paths = []
         self.threads = []
         self.stop_threads = False
 
-        for label_text in gs.LABELS:
+        for label_text in lbl.LABELS:
             entry = self.helper.create_label_entry_frame(root, label_text)
             self.file_paths.append(entry)
 
         # Кнопки
         button_frame = tk.Frame(root)
-        button_frame.pack(pady=gs.BUTTONS_FRAME_PADY)
+        button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
 
-        for text, command_name in gs.BUTTON_TEXTS.items():
+        for text, command_name in btn.START_BUTTON_TEXTS.items():
             command = getattr(self, command_name)
             button = tk.Button(
                 button_frame,
                 text=text,
                 command=command,
-                width=gs.BUTTONS_WIDTH
+                width=btn.BUTTONS_WIDTH
                 )
-            button.pack(side=gs.FRAME_BUTTONS_SIDE, padx=gs.FRAME_BUTTONS_PADX)
+            button.pack(
+                side=btn.FRAME_BUTTONS_SIDE,
+                padx=btn.FRAME_BUTTONS_PADX
+            )
 
-        label = tk.Label(root, text=gs.AUTHOR_LABEL_TEXT)
+        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
         label.place(
-            relx=gs.AUTHOR_RELX,
-            rely=gs.AUTHOR_RELY,
-            anchor=gs.AUTHOR_ANCHOR,
-            y=-gs.AUTHOR_PADY
+            relx=lbl.AUTHOR_RELX,
+            rely=lbl.AUTHOR_RELY,
+            anchor=lbl.AUTHOR_ANCHOR,
+            y=lbl.AUTHOR_PADY
         )
 
     def start_process(self):
@@ -121,7 +130,7 @@ class App:
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(gs.FIRST_ELEMENT, tk.END)
+            entry.delete(win.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
@@ -138,18 +147,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.PNG_ICON_FILENAME
+                win.ICONS_FOLDER_NAME,
+                win.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.ICO_ICON_FILENAME
+                win.ICONS_FOLDER_NAME,
+                win.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = gs.PNG_ICON_FILEPATH
-            icon_path_ico = gs.ICO_ICON_FILEPATH
+            icon_path_png = win.PNG_ICON_FILEPATH
+            icon_path_ico = win.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
