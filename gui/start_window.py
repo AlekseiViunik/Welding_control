@@ -16,6 +16,7 @@ from logic.get_xlsx import GetXlsx
 from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
+from settings.gui.components import buttons as btn
 
 from .app_helper import AppHelper
 
@@ -47,13 +48,13 @@ class App:
         button_frame = tk.Frame(root)
         button_frame.pack(pady=gs.BUTTONS_FRAME_PADY)
 
-        for text, command_name in gs.BUTTON_TEXTS.items():
+        for text, command_name in btn.START_BUTTON_TEXTS.items():
             command = getattr(self, command_name)
             button = tk.Button(
                 button_frame,
                 text=text,
                 command=command,
-                width=gs.BUTTONS_WIDTH
+                width=btn.BUTTONS_WIDTH
                 )
             button.pack(side=gs.FRAME_BUTTONS_SIDE, padx=gs.FRAME_BUTTONS_PADX)
 

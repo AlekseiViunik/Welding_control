@@ -5,6 +5,7 @@ from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
 from settings import gui_settings as gs
 from settings import user_settings as us
+from settings.gui.components import buttons as btn
 
 
 class SettingsWindow:
@@ -39,26 +40,26 @@ class SettingsWindow:
         # Кнопка Сохранить
         save_button = tk.Button(
             button_frame,
-            text=gs.SAVE_BUTTON_NAME,
+            text=btn.SAVE_BUTTON_NAME,
             command=lambda: self.save_settings(
                 current_path.get(),
                 settings_window
             )
         )
         save_button.pack(
-            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
-            padx=gs.SETTINGS_BUTTONS_PADX
+            side=btn.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=btn.SETTINGS_BUTTONS_PADX
         )
 
         # Кнопка Отмена
         cancel_button = tk.Button(
             button_frame,
-            text=gs.CANCEL_BUTTON_NAME,
+            text=btn.CANCEL_BUTTON_NAME,
             command=settings_window.destroy
         )
         cancel_button.pack(
-            side=gs.SETTINGS_BUTTONS_PACK_SIDE,
-            padx=gs.SETTINGS_BUTTONS_PADX
+            side=btn.SETTINGS_BUTTONS_PACK_SIDE,
+            padx=btn.SETTINGS_BUTTONS_PADX
         )
 
     def save_settings(self, path, window):
