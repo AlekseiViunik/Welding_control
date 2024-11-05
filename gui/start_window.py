@@ -13,7 +13,6 @@ from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
 from logic.get_xlsx import GetXlsx
-from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import user_settings as us
 from settings.gui.components import (
@@ -22,6 +21,7 @@ from settings.gui.components import (
     frames as fr,
 
 )
+from settings.gui.windows import windows as win
 
 from .app_helper import AppHelper
 
@@ -33,13 +33,13 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
-        self.root.title(gs.MAIN_WINDOW_TITLE)
-        self.root.geometry(f"{gs.WINDOW_WIDTH}x{gs.WINDOW_HEIGHT}")
+        self.root.title(win.START_WINDOW_TITLE)
+        self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         self.set_window_icon()
         self.helper.center_window(
             self.root,
-            gs.WINDOW_WIDTH,
-            gs.WINDOW_HEIGHT
+            win.WINDOW_WIDTH,
+            win.WINDOW_HEIGHT
         )
         self.file_paths = []
         self.threads = []
@@ -130,7 +130,7 @@ class App:
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(gs.FIRST_ELEMENT, tk.END)
+            entry.delete(win.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
@@ -147,18 +147,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.PNG_ICON_FILENAME
+                win.ICONS_FOLDER_NAME,
+                win.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                gs.ICONS_FOLDER_NAME,
-                gs.ICO_ICON_FILENAME
+                win.ICONS_FOLDER_NAME,
+                win.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = gs.PNG_ICON_FILEPATH
-            icon_path_ico = gs.ICO_ICON_FILEPATH
+            icon_path_png = win.PNG_ICON_FILEPATH
+            icon_path_ico = win.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)

@@ -19,9 +19,9 @@ import logging
 import openpyxl
 
 from gui.messagebox import MessageBox
-from settings import gui_settings as gs
 from settings import logging_settings as log
 from settings import logic_settings as ls
+from settings.gui.windows import windows as win
 from .create_summary import CreateSummary
 from .parser import Parser
 
@@ -37,23 +37,23 @@ class GetXlsx:
         self.message_box = MessageBox()
         self.files_dict = {
             ls.VMC: {
-                "path": vmc.split(gs.PATH_DIVIDER) if vmc else [],
+                "path": vmc.split(win.PATH_DIVIDER) if vmc else [],
                 "check": ls.VMC_CHECK_KEYS
             },
             ls.HB: {
-                "path": hb.split(gs.PATH_DIVIDER) if hb else [],
+                "path": hb.split(win.PATH_DIVIDER) if hb else [],
                 "check": ls.HB_CHECK_KEYS
             },
             ls.RC: {
-                "path": rc.split(gs.PATH_DIVIDER) if rc else [],
+                "path": rc.split(win.PATH_DIVIDER) if rc else [],
                 "check": ls.RC_CHECK_KEYS
             },
             ls.ST: {
-                "path": st.split(gs.PATH_DIVIDER) if st else [],
+                "path": st.split(win.PATH_DIVIDER) if st else [],
                 "check": ls.ST_CHECK_KEYS
             },
             ls.CD: {
-                "path": cd.split(gs.PATH_DIVIDER) if cd else [],
+                "path": cd.split(win.PATH_DIVIDER) if cd else [],
                 "check": ls.CD_CHECK_KEYS
             },
         }

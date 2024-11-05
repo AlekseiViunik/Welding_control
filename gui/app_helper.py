@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from settings import gui_settings as gs
 from settings.gui.components import (
     buttons as btn,
     labels as lbl,
     textfield as txt,
     frames as fr
+)
+from settings.gui.windows import (
+    windows as win,
+    info_windows as info
 )
 
 
@@ -33,14 +36,14 @@ class AppHelper:
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(gs.INFO_WINDOW_TITLE)
+        self.info_window.title(info.INFO_WINDOW_TITLE)
         self.info_window.geometry(
-            f"{gs.INFO_WINDOW_WIDTH}x{gs.INFO_WINDOW_HEIGHT}"
+            f"{info.INFO_WINDOW_WIDTH}x{info.INFO_WINDOW_HEIGHT}"
         )
         self.center_window(
             self.info_window,
-            gs.INFO_WINDOW_WIDTH,
-            gs.INFO_WINDOW_HEIGHT
+            info.INFO_WINDOW_WIDTH,
+            info.INFO_WINDOW_HEIGHT
         )
 
         label = tk.Label(
@@ -104,14 +107,14 @@ class AppHelper:
             # Открываем диалог выбора директории
             path = filedialog.askdirectory()
             if path:  # Проверяем, что пользователь выбрал директорию
-                entry.delete(gs.FIRST_ELEMENT, tk.END)
-                entry.insert(gs.FIRST_ELEMENT, path)  # Убираем разделитель
+                entry.delete(win.FIRST_ELEMENT, tk.END)
+                entry.insert(win.FIRST_ELEMENT, path)  # Убираем разделитель
         else:
             # Открываем диалог выбора файла
             paths = filedialog.askopenfilenames()
             if paths:  # Проверяем, что пользователь выбрал файлы
-                entry.delete(gs.FIRST_ELEMENT, tk.END)
-                entry.insert(gs.FIRST_ELEMENT, gs.PATH_DIVIDER.join(paths))
+                entry.delete(win.FIRST_ELEMENT, tk.END)
+                entry.insert(win.FIRST_ELEMENT, win.PATH_DIVIDER.join(paths))
 
         if parent:  # Устанавливаем фокус обратно на текущее окно
             parent.attributes('-topmost', False)
