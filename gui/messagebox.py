@@ -16,7 +16,7 @@ class MessageBox:
         messagebox.showerror(info.ERROR_MESSAGE_TITLE, message)
         root.destroy()
 
-    def show_message(title, message):
+    def show_message(self, title, message):
         root = tk.Tk()
         root.withdraw()
         messagebox.showinfo(
