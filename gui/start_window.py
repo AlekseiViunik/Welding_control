@@ -19,10 +19,9 @@ from settings.gui.components import (
     buttons as btn,
     labels as lbl,
     frames as fr,
-
 )
 from settings.gui.windows import windows as win
-
+from gui.components.frames import Frame
 from .app_helper import AppHelper
 
 
@@ -45,8 +44,10 @@ class App:
         self.threads = []
         self.stop_threads = False
 
+        # Создание фреймов с полем для ввода и кнопкой "Обзор"
+        frame = Frame(root)
         for label_text in lbl.LABELS:
-            entry = self.helper.create_label_entry_frame(root, label_text)
+            entry = frame.create_entry_frame(label_text)
             self.file_paths.append(entry)
 
         # Кнопки

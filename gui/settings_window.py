@@ -3,6 +3,7 @@ import tkinter as tk
 
 from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
+from gui.components.frames import Frame
 from settings import user_settings as us
 from settings.gui.components import (
     buttons as btn,
@@ -28,17 +29,21 @@ class SettingsWindow:
         settings_window.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
         save_path = settings[us.SAVE_PATH_KEY]
+
         # Текстовое поле с текущим путем сохранения
         # Устанавливаем текущее значение по умолчанию
+        frame = Frame(settings_window)
         current_path = tk.StringVar(
             value=save_path
         )
-        self.helper.create_label_entry_frame(
-            settings_window,
-            lbl.WHERE_TO_SAVE,
-            current_path,
-            True
-        )
+        frame.create_entry_frame(lbl.WHERE_TO_SAVE, current_path, True)
+
+        # self.helper.create_label_entry_frame(
+        #     settings_window,
+        #     lbl.WHERE_TO_SAVE,
+        #     current_path,
+        #     True
+        # )
 
         # Кнопки Сохранить и Отмена
         button_frame = tk.Frame(settings_window)
