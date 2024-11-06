@@ -48,7 +48,7 @@ class App:
             btn.CLEAN_BUTTON_NAME: [],
             btn.SETTINGS_BUTTON_NAME: []
         }
-        
+
         frame = Frame(root, self)
 
         # Создание фреймов с полем для ввода и кнопкой "Обзор"
