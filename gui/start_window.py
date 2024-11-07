@@ -17,12 +17,10 @@ from settings import logging_settings as log
 from settings import user_settings as us
 from settings.gui.components import (
     buttons as btn,
-    labels as lbl,
-    frames as fr,
-
+    labels as lbl
 )
 from settings.gui.windows import windows as win
-
+from gui.components.frames import Frame
 from .app_helper import AppHelper
 
 
@@ -45,33 +43,23 @@ class App:
         self.threads = []
         self.stop_threads = False
 
+        buttons_args = {
+            btn.GO_BUTTON_NAME: [],
+            btn.CLEAN_BUTTON_NAME: [],
+            btn.SETTINGS_BUTTON_NAME: []
+        }
+
+        frame = Frame(root, self)
+
+        # Создание фреймов с полем для ввода и кнопкой "Обзор"
         for label_text in lbl.LABELS:
-            entry = self.helper.create_label_entry_frame(root, label_text)
+            entry = frame.create_entry_frame(label_text)
             self.file_paths.append(entry)
 
-        # Кнопки
-        button_frame = tk.Frame(root)
-        button_frame.pack(pady=fr.BUTTONS_FRAME_PADY)
-
-        for text, command_name in btn.START_BUTTON_TEXTS.items():
-            command = getattr(self, command_name)
-            button = tk.Button(
-                button_frame,
-                text=text,
-                command=command,
-                width=btn.BUTTONS_WIDTH
-                )
-            button.pack(
-                side=btn.FRAME_BUTTONS_SIDE,
-                padx=btn.FRAME_BUTTONS_PADX
-            )
-
-        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT)
-        label.place(
-            relx=lbl.AUTHOR_RELX,
-            rely=lbl.AUTHOR_RELY,
-            anchor=lbl.AUTHOR_ANCHOR,
-            y=lbl.AUTHOR_PADY
+        # Кнопки "Погнали", "Забей" и "Настройки"
+        frame.create_button_frame(
+            btn.start_buttons_name_to_process,
+            buttons_args
         )
 
     def start_process(self):
@@ -169,4 +157,4 @@ class App:
         self.stop_threads = True
         if self.helper.info_window:
             self.helper.info_window.destroy()
-        self.root.destroy()
+        self.root.quit()
