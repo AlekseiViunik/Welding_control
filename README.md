@@ -17,6 +17,10 @@
   - ![GB](files/icons/gb.png)[Advanced Way](#advanced-way)
 - ![GB](files/icons/gb.png)[Usage Instructions](#usage-instructions)
 - ![GB](files/icons/gb.png)[What's New](#whats-new)
+  
+  =============================================================
+- ![IT](files/icons/it.png)[Descrizione](#descrizione)
+
 
 ## Описание
 
@@ -263,3 +267,24 @@ Nuances:
 
 ### v1.0.0
 - This is the very first version. There are no changes, fixes, or additions here.
+
+## Descrizione
+
+Questa è un'applicazione non commerciale sviluppata per la società "Aliter-Axi". È destinata a controllare la correttezza della compilazione dei protocolli di controllo non distruttivo delle giunzioni saldate, preparati nel formato xlsx.<br>
+Secondo il punto 3.8.1 della DM 26-02-80-2004, il procedimento di controllo mediante metodi non distruttivi (tra i principali in "Aliter-Axi") è il seguente:<br>
+
+1. Controllo visivo e misurativo (CVM)
+2. Misurazione della durezza
+3. Stiloscopia
+4. Ultrasuoni e/o radiografia
+5. Defettoscopia colorata
+
+<br>A causa del fattore umano e del numero elevato di giunzioni saldate (in progetti di grandi dimensioni, possono arrivare fino a 20.000), si verificano errori nella compilazione di determinati protocolli di controllo non distruttivo, in particolare per quanto riguarda la data di controllo della giunzione e la violazione dell'ordine di controllo. Ciò porta a reclami.
+<br>Per evitare questo, è stato sviluppato questo programma.<br>
+
+<br><b>Note:</b>
+
+- L'applicazione è interamente scritta in Python. Sono state utilizzate solo le librerie di terze parti `openpyxl` e `pyinstaller`.
+- Attualmente, l'applicazione funziona solo su Windows.
+
+
