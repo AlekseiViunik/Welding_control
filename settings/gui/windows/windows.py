@@ -17,7 +17,7 @@ WINDOW_HEIGHT = 400  # Default: 400
 # ===================Настройки работы с иконками=====================
 
 # Имя папки, в которой хранятся иконки.
-ICONS_FOLDER_NAME = "icons"  # Default: icons
+ICONS_FOLDER_NAME = "files/icons"  # Default: icons
 
 # Имя файла иконки приложения, которая будет отображаться в углу приложения
 PNG_ICON_FILENAME = "mark32x32.png"
@@ -26,10 +26,10 @@ PNG_ICON_FILENAME = "mark32x32.png"
 ICO_ICON_FILENAME = "mark32x32.ico"
 
 # Путь к .png иконке приложеня
-PNG_ICON_FILEPATH = "icons/mark32x32.png"
+PNG_ICON_FILEPATH = "files/icons/mark32x32.png"
 
 # Путь к .ico иконке приложеня
-ICO_ICON_FILEPATH = "icons/mark32x32.ico"
+ICO_ICON_FILEPATH = "files/icons/mark32x32.ico"
 
 # =================Настройки для метода browse_file==================
 
