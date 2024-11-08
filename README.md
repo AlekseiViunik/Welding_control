@@ -22,7 +22,7 @@
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
 - ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
 - ![IT](files/icons/it.png)[Istruzioni di installazione per Windows](#istruzioni-di-installazione-per-windows)
-- ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-l-uso)  
+- ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)  
 
 ## Описание
 
