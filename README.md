@@ -20,7 +20,12 @@
   
   =============================================================
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
-
+- ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
+- ![IT](files/icons/it.png)[Istruzioni di installazione per Windows](#istruzioni-di-installazione-per-windows)
+  - ![GB](files/icons/gb.png)[Metodo semplice](#metodo-semplice)
+  - ![GB](files/icons/gb.png)[Metodo complesso](#metodo-complesso)
+- ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)
+- ![IT](files/icons/it.png)[Cosa c'è di nuovo](#cosa-cè-di-nuovo) 
 
 ## Описание
 
@@ -64,7 +69,7 @@
 ```
 6. После просмотра всех файлов и окончательного формирования словаря приложение проверяет порядок контроля каждого шва по его датам. Если найдено несоответствие, то это записывается в примечания, которые будут указаны для каждого шва при формировании результирующей таблицы. Порядок проверки такой:<br>
 6.1 Если для шва не указана дата ВИК - это вносится в примечания, проверка этого шва прерывается и приложение переходит к следующему шву.<br>
-6.2 Далее проверяется замер твердости. Если он проведен раньше ВИК, то это добавляется к замечаниям для шва. Здесь и далее в отличие от 5.1 проверка не прерывается и не переходит к следующему шву. Продолжается остальных дат контроля этого же шва.<br>
+6.2 Далее проверяется замер твердости. Если он проведен раньше ВИК, то это добавляется к замечаниям для шва. Здесь и далее в отличие от 6.1 проверка не прерывается и не переходит к следующему шву. Продолжается остальных дат контроля этого же шва.<br>
 6.3 Проверяется стилоскопирование. Эсли оно проведено раньше ВИК, это указывается в примечаниях.<br>
 6.4 Проверяется стилоскопирование. Эсли оно проведено раньше замера твердости, это указывается в примечаниях.<br>
 6.5 Проверяется УЗК и Радиография. Если они проведены раньше ВИК, это указывается в примечаниях.<br>
@@ -103,7 +108,7 @@ pip install -r requirements.txt
 6. (опционально) Сгенерировать исполняемый файл.<br>
 Вместо YourAppName подставить имя, которое будет использоваться в названии исполняемого файла.<br><br>
 ```
-pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
 ```
 
 7. Если п.6 пропущен, запустить приложение через терминал.
@@ -230,7 +235,7 @@ pip install -r requirements.txt
 ```
 6. (optional) Generate the executable file.<br> Replace YourAppName with the name that will be used for the executable file.<br><br>
 ```
-pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
 ```
 7. If step 6 was skipped, run the application through the terminal.
 ```
@@ -287,4 +292,107 @@ Secondo il punto 3.8.1 della DM 26-02-80-2004, il procedimento di controllo medi
 - L'applicazione è interamente scritta in Python. Sono state utilizzate solo le librerie di terze parti `openpyxl` e `pyinstaller`.
 - Attualmente, l'applicazione funziona solo su Windows.
 
+## Principio di funzionamento
 
+Per ciascuno dei metodi di controllo indicati nella descrizione, viene caricato uno o più file con un numero illimitato di fogli in ciascun file. L'applicazione esegue le seguenti azioni:
+1. Scorre le prime 10 righe del primo foglio di ciascun file alla ricerca di parti di parole chiave, per assicurarsi che si tratti del file corretto e che sia caricato nel posto giusto. Ad esempio, per i file caricati nella sezione CVM, l'applicazione cerca una corrispondenza con `визуальн`, poiché questa parte della parola è presente nelle prime 10 righe di qualsiasi protocollo CVM. Non è necessario scorrere ogni foglio, poiché nella pratica non si è mai riscontrato che in un protocollo ci siano più tipi di controllo diversi.
+2. Successivamente, scorre ogni riga di ciascuna pagina di ciascun file di ciascun tipo di controllo e cerca i numeri delle saldature che soddisfano le condizioni dell'espressione regolare: il numero della saldatura inizia sempre con una lettera cirillica С, Н, Т, У (o i loro equivalenti in latino) o N. Segue una serie casuale di cifre alternate a trattini.
+3. Per ciascuna saldatura, la lettera latina viene sostituita con la corrispondente lettera cirillica.
+4. Quando viene trovata una saldatura, il programma cerca nella stessa riga la data di controllo di quella saldatura. Per date si intendono 1-2 cifre per il giorno, 1-2 cifre per il mese e 2/4 cifre per l'anno, separate da `.`, `-`, `/` senza lettere in quella cella.
+5. Quando viene trovata una data, i dati vengono inseriti in un dizionario temporaneo. La struttura del dizionario è la seguente:
+```json
+{
+    <numero_saldatura1>: {
+        <tipo_controllo1>: <data_controllo>,
+        <tipo_controllo2>: <data_controllo>,
+        ................
+    },
+    <numero_saldatura2>: {
+        <tipo_controllo1>: <data_controllo>,
+        <tipo_controllo2>: <data_controllo>,
+        ................
+    },
+    ................
+}
+```
+6. Dopo aver esaminato tutti i file e aver formato definitivamente il dizionario, l'applicazione verifica l'ordine di controllo di ciascuna saldatura in base alle sue date. Se viene trovata una discrepanza, questa viene registrata nelle note, che saranno indicate per ogni saldatura durante la formazione della tabella finale. L'ordine di verifica è il seguente:<br>
+6.1 Se non è indicata una data VIK per la saldatura, questo viene annotato nelle note, la verifica di questa saldatura viene interrotta e l'applicazione passa alla saldatura successiva.<br>
+6.2 Successivamente viene verificata la misurazione della durezza. Se è stata effettuata prima del CVM, questo viene aggiunto alle osservazioni per la saldatura. Qui e oltre, a differenza del punto 6.1, la verifica non viene interrotta e non passa alla saldatura successiva. Si continua con le altre date di controllo della stessa saldatura.<br>
+6.3 Viene verificata la stiloscopia. Se è stata effettuata prima del CVM, questo viene indicato nelle note.<br>
+6.4 Viene verificata la stiloscopia. Se è stata effettuata prima della misurazione della durezza, questo viene indicato nelle note.<br>
+6.5 Viene verificata l'US e la Radiografia. Se sono state effettuate prima del CVM, questo viene indicato nelle note.<br>
+6.6 Viene verificata l'US e la Radiografia. Se sono state effettuate prima delle misurazioni della durezza, questo viene indicato nelle note.<br>
+6.7 Viene verificata l'US e la Radiografia. Se sono state effettuate prima della stiloscopia, questo viene indicato nelle note.<br>
+6.8 Viene verificata la defettoscopia colorata. Se è stata effettuata prima del CVM, questo viene indicato nelle note.<br>
+6.9 Viene verificata la defettoscopia colorata. Se è stata effettuata prima delle misurazioni della durezza, questo viene indicato nelle note.<br>
+6.10 Viene verificata la defettoscopia colorata. Se è stata effettuata prima della stiloscopia, questo viene indicato nelle note.<br> 
+6.11 Viene verificata la defettoscopia colorata. Se è stata effettuata prima della Radiografia o dell'US, questo viene indicato nelle note.<br>
+7. Una volta completato il controllo per una saldatura, le informazioni su di essa, comprese le osservazioni raccolte, vengono inserite nella tabella finale e l'applicazione passa alla saldatura successiva fino a quando tutte le saldature del dizionario temporaneo non sono state controllate.
+
+## Istruzioni di installazione per Windows
+
+### Metodo semplice
+1. Scarica il file eseguibile `exe` in una cartella separata in qualsiasi posizione.
+2. Avvia il file eseguibile `exe`.
+
+### Metodo complesso
+1. [Scarica](https://www.python.org/downloads/) e [installa](https://docs.python.org/3/using/index.html) Python versione 3.10 o superiore.
+2. Clona il repository sul tuo computer da GitHub.
+```
+git clone git@github.com:AlekseiViunik/Welding_control.git
+```
+3. Vai alla directory principale del progetto nel terminale.
+```
+cd <percorso_della_directory_principale>
+```
+4. Attiva l'ambiente virtuale.
+```
+source venv/Scripts/activate
+```
+5. Installa le dipendenze.
+```
+pip install -r requirements.txt
+```
+6. (opzionale) Genera un file eseguibile.<br> Sostituisci YourAppName con il nome che verrà utilizzato nel titolo del file eseguibile.<br><br>
+```
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+```
+7. Se il punto 6 è stato saltato, avvia l'applicazione tramite il terminale.
+```
+python main.py
+```
+8. Se il punto 6 è stato eseguito, verrà creata una cartella `dist` nella directory principale contenente il file eseguibile - avvialo.
+
+## Istruzioni per l'uso
+
+Dopo aver avviato il file, si aprirà la finestra:<br>
+![alt text](files/images/image-1.png)<br>
+
+1. Nell'angolo in alto a sinistra viene indicato il nome dell'applicazione e la sua versione. Il nome è fisso e non cambierà in base al nome che assegnerai al file eseguibile.
+2. Seguono 5 campi di testo per l'inserimento con suggerimenti sopra ciascuno e un pulsante `Sfoglia` a sinistra. Qui vengono inseriti i percorsi dei file da controllare. Non è necessario inserirli manualmente. È sufficiente fare clic sul pulsante Sfoglia per selezionare <u>uno o più file</u> dello stesso tipo di controllo. I campi non utilizzati possono anche essere lasciati vuoti. L'applicazione li ignorerà.
+3. Il pulsante `Iniziamo` avvia il processo di verifica, che può richiedere diversi minuti. Durante la verifica apparirà una finestra che avverte che la verifica è iniziata e scomparirà al termine della verifica:<br>
+![alt text](files/images/image-2.png)<br>
+
+Al termine della verifica e della creazione della tabella dei risultati, apparirà un'altra finestra informativa che indicherà che il lavoro è completato e dove è stata salvata la tabella dei risultati. Questa finestra deve essere chiusa confermando con il pulsante `OK`:<br>
+![alt text](files/images/image-3.png)<br>
+
+4. Il pulsante `Cancella` pulisce tutti i campi compilati.
+5. Il pulsante `Impostazioni` apre la finestra delle impostazioni:<br>
+![alt text](files/images/image-4.png)<br>
+Attualmente, nelle impostazioni è possibile solo specificare la cartella in cui sarà salvata la tabella dei risultati.
+
+Note:
+
+1. Non è necessario avviare il lavoro su file di più contratti contemporaneamente. Un contratto - un'analisi. Nei diversi contratti potrebbero ripetersi i numeri delle saldature e ciò potrebbe portare a un funzionamento errato dell'applicazione.
+2. È possibile selezionare contemporaneamente più file dello stesso tipo di controllo. Devono trovarsi nella stessa cartella. La selezione di più file deve essere effettuata nella finestra di esplorazione dei file tenendo premuto `Ctrl` per aggiungere un altro file alla selezione o `Shift` per aggiungere un intervallo di file consecutivi.
+3. È necessario selezionare file di un tipo specifico di controllo nel campo destinato a quel tipo di controllo. Se è scritto `Seleziona file di Stiloscopia`, non bisogna inserire in quel campo i protocolli delle `misurazioni di durezza`, altrimenti si aprirà una finestra con un errore quando si fa clic sul pulsante `Iniziamo`:<br>
+![alt text](files/images/image-5.png)
+4. Ogni file può contenere un numero illimitato di pagine. L'importante è che siano pagine dello stesso tipo di controllo.
+5. In ogni pagina può esserci un numero illimitato di numeri di saldatura. L'importante è che nelle prime 10 righe della prima pagina ci sia un testo che indica il tipo di controllo. Non è necessario controllare manualmente. Se il testo non è presente, si aprirà un errore come al punto 3.
+6. I numeri di saldatura devono essere indicati nella colonna A. Se le celle con i numeri di saldatura sono unite su più colonne, la prima deve essere la colonna A dell'unione. Anche questo non è necessario controllarlo manualmente. Se i numeri di saldatura si trovano in un'altra colonna, l'applicazione semplicemente non li troverà.
+7. La data di controllo della saldatura deve essere a destra della saldatura nella stessa riga.
+
+## Cosa c'è di nuovo
+
+### v1.0.0
+- Questa è la prima versione. Non ci sono modifiche, correzioni o aggiunte.
