@@ -20,6 +20,7 @@
   
   =============================================================
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
+- ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
 
 
 ## Описание
@@ -64,7 +65,7 @@
 ```
 6. После просмотра всех файлов и окончательного формирования словаря приложение проверяет порядок контроля каждого шва по его датам. Если найдено несоответствие, то это записывается в примечания, которые будут указаны для каждого шва при формировании результирующей таблицы. Порядок проверки такой:<br>
 6.1 Если для шва не указана дата ВИК - это вносится в примечания, проверка этого шва прерывается и приложение переходит к следующему шву.<br>
-6.2 Далее проверяется замер твердости. Если он проведен раньше ВИК, то это добавляется к замечаниям для шва. Здесь и далее в отличие от 5.1 проверка не прерывается и не переходит к следующему шву. Продолжается остальных дат контроля этого же шва.<br>
+6.2 Далее проверяется замер твердости. Если он проведен раньше ВИК, то это добавляется к замечаниям для шва. Здесь и далее в отличие от 6.1 проверка не прерывается и не переходит к следующему шву. Продолжается остальных дат контроля этого же шва.<br>
 6.3 Проверяется стилоскопирование. Эсли оно проведено раньше ВИК, это указывается в примечаниях.<br>
 6.4 Проверяется стилоскопирование. Эсли оно проведено раньше замера твердости, это указывается в примечаниях.<br>
 6.5 Проверяется УЗК и Радиография. Если они проведены раньше ВИК, это указывается в примечаниях.<br>
@@ -286,5 +287,42 @@ Secondo il punto 3.8.1 della DM 26-02-80-2004, il procedimento di controllo medi
 
 - L'applicazione è interamente scritta in Python. Sono state utilizzate solo le librerie di terze parti `openpyxl` e `pyinstaller`.
 - Attualmente, l'applicazione funziona solo su Windows.
+
+## Principio di funzionamento
+
+Per ciascuno dei metodi di controllo indicati nella descrizione, viene caricato uno o più file con un numero illimitato di fogli in ciascun file. L'applicazione esegue le seguenti azioni:
+1. Scorre le prime 10 righe del primo foglio di ciascun file alla ricerca di parti di parole chiave, per assicurarsi che si tratti del file corretto e che sia caricato nel posto giusto. Ad esempio, per i file caricati nella sezione CVM, l'applicazione cerca una corrispondenza con `визуальн`, poiché questa parte della parola è presente nelle prime 10 righe di qualsiasi protocollo CVM. Non è necessario scorrere ogni foglio, poiché nella pratica non si è mai riscontrato che in un protocollo ci siano più tipi di controllo diversi.
+2. Successivamente, scorre ogni riga di ciascuna pagina di ciascun file di ciascun tipo di controllo e cerca i numeri delle saldature che soddisfano le condizioni dell'espressione regolare: il numero della saldatura inizia sempre con una lettera cirillica С, Н, Т, У (o i loro equivalenti in latino) o N. Segue una serie casuale di cifre alternate a trattini.
+3. Per ciascuna saldatura, la lettera latina viene sostituita con la corrispondente lettera cirillica.
+4. Quando viene trovata una saldatura, il programma cerca nella stessa riga la data di controllo di quella saldatura. Per date si intendono 1-2 cifre per il giorno, 1-2 cifre per il mese e 2/4 cifre per l'anno, separate da `.`, `-`, `/` senza lettere in quella cella.
+5. Quando viene trovata una data, i dati vengono inseriti in un dizionario temporaneo. La struttura del dizionario è la seguente:
+```json
+{
+    <numero_saldatura1>: {
+        <tipo_controllo1>: <data_controllo>,
+        <tipo_controllo2>: <data_controllo>,
+        ................
+    },
+    <numero_saldatura2>: {
+        <tipo_controllo1>: <data_controllo>,
+        <tipo_controllo2>: <data_controllo>,
+        ................
+    },
+    ................
+}
+```
+6. Dopo aver esaminato tutti i file e aver formato definitivamente il dizionario, l'applicazione verifica l'ordine di controllo di ciascuna saldatura in base alle sue date. Se viene trovata una discrepanza, questa viene registrata nelle note, che saranno indicate per ogni saldatura durante la formazione della tabella finale. L'ordine di verifica è il seguente:<br>
+6.1 Se non è indicata una data VIK per la saldatura, questo viene annotato nelle note, la verifica di questa saldatura viene interrotta e l'applicazione passa alla saldatura successiva.<br>
+6.2 Successivamente viene verificata la misurazione della durezza. Se è stata effettuata prima del CVM, questo viene aggiunto alle osservazioni per la saldatura. Qui e oltre, a differenza del punto 6.1, la verifica non viene interrotta e non passa alla saldatura successiva. Si continua con le altre date di controllo della stessa saldatura.<br>
+6.3 Viene verificata la stiloscopia. Se è stata effettuata prima del CVM, questo viene indicato nelle note.<br>
+6.4 Viene verificata la stiloscopia. Se è stata effettuata prima della misurazione della durezza, questo viene indicato nelle note.<br>
+6.5 Viene verificata l'US e la Radiografia. Se sono state effettuate prima del CVM, questo viene indicato nelle note.<br>
+6.6 Viene verificata l'US e la Radiografia. Se sono state effettuate prima delle misurazioni della durezza, questo viene indicato nelle note.<br>
+6.7 Viene verificata l'US e la Radiografia. Se sono state effettuate prima della stiloscopia, questo viene indicato nelle note.<br>
+6.8 Viene verificata la defettoscopia colorata. Se è stata effettuata prima del CVM, questo viene indicato nelle note.<br>
+6.9 Viene verificata la defettoscopia colorata. Se è stata effettuata prima delle misurazioni della durezza, questo viene indicato nelle note.<br>
+6.10 Viene verificata la defettoscopia colorata. Se è stata effettuata prima della stiloscopia, questo viene indicato nelle note.<br> 
+6.11 Viene verificata la defettoscopia colorata. Se è stata effettuata prima della Radiografia o dell'US, questo viene indicato nelle note.<br>
+7. Una volta completato il controllo per una saldatura, le informazioni su di essa, comprese le osservazioni raccolte, vengono inserite nella tabella finale e l'applicazione passa alla saldatura successiva fino a quando tutte le saldature del dizionario temporaneo non sono state controllate.
 
 
