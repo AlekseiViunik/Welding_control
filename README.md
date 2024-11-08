@@ -22,7 +22,10 @@
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
 - ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
 - ![IT](files/icons/it.png)[Istruzioni di installazione per Windows](#istruzioni-di-installazione-per-windows)
-- ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)  
+  - ![GB](files/icons/gb.png)[Metodo semplice](#metodo-semplice)
+  - ![GB](files/icons/gb.png)[Metodo complesso](#metodo-complesso)
+- ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)
+- ![IT](files/icons/it.png)[Cosa c'è di nuovo](#cosa-ce-di-nuovo) 
 
 ## Описание
 
@@ -388,3 +391,8 @@ Note:
 5. In ogni pagina può esserci un numero illimitato di numeri di saldatura. L'importante è che nelle prime 10 righe della prima pagina ci sia un testo che indica il tipo di controllo. Non è necessario controllare manualmente. Se il testo non è presente, si aprirà un errore come al punto 3.
 6. I numeri di saldatura devono essere indicati nella colonna A. Se le celle con i numeri di saldatura sono unite su più colonne, la prima deve essere la colonna A dell'unione. Anche questo non è necessario controllarlo manualmente. Se i numeri di saldatura si trovano in un'altra colonna, l'applicazione semplicemente non li troverà.
 7. La data di controllo della saldatura deve essere a destra della saldatura nella stessa riga.
+
+## Cosa c'è di nuovo
+
+### v1.0.0
+- Questa è la prima versione. Non ci sono modifiche, correzioni o aggiunte.
