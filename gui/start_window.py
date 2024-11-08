@@ -62,6 +62,14 @@ class App:
             buttons_args
         )
 
+        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT,)
+        label.place(
+            relx=lbl.AUTHOR_RELX,
+            rely=lbl.AUTHOR_RELY,
+            anchor=lbl.AUTHOR_ANCHOR,
+            y=lbl.AUTHOR_PADY,
+        )
+
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
         logging.info(log.LOG_DIVIDER)
