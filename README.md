@@ -21,7 +21,8 @@
   =============================================================
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
 - ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
-
+- ![IT](files/icons/it.png)[Istruzioni di installazione per Windows](#istruzioni-di-installazione-per-windows)
+  
 
 ## Описание
 
@@ -104,7 +105,7 @@ pip install -r requirements.txt
 6. (опционально) Сгенерировать исполняемый файл.<br>
 Вместо YourAppName подставить имя, которое будет использоваться в названии исполняемого файла.<br><br>
 ```
-pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
 ```
 
 7. Если п.6 пропущен, запустить приложение через терминал.
@@ -231,7 +232,7 @@ pip install -r requirements.txt
 ```
 6. (optional) Generate the executable file.<br> Replace YourAppName with the name that will be used for the executable file.<br><br>
 ```
-pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "icons;icons" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
 ```
 7. If step 6 was skipped, run the application through the terminal.
 ```
@@ -325,4 +326,36 @@ Per ciascuno dei metodi di controllo indicati nella descrizione, viene caricato 
 6.11 Viene verificata la defettoscopia colorata. Se è stata effettuata prima della Radiografia o dell'US, questo viene indicato nelle note.<br>
 7. Una volta completato il controllo per una saldatura, le informazioni su di essa, comprese le osservazioni raccolte, vengono inserite nella tabella finale e l'applicazione passa alla saldatura successiva fino a quando tutte le saldature del dizionario temporaneo non sono state controllate.
 
+## Istruzioni di installazione per Windows
 
+### Metodo semplice
+1. Scarica il file eseguibile `exe` in una cartella separata in qualsiasi posizione.
+2. Avvia il file eseguibile `exe`.
+
+### Metodo complesso
+1. [Scarica](https://www.python.org/downloads/) e [installa](https://docs.python.org/3/using/index.html) Python versione 3.10 o superiore.
+2. Clona il repository sul tuo computer da GitHub.
+```
+git clone git@github.com:AlekseiViunik/Welding_control.git
+```
+3. Vai alla directory principale del progetto nel terminale.
+```
+cd <percorso_della_directory_principale>
+```
+4. Attiva l'ambiente virtuale.
+```
+source venv/Scripts/activate
+```
+5. Installa le dipendenze.
+```
+pip install -r requirements.txt
+```
+6. (opzionale) Genera un file eseguibile.<br> Sostituisci YourAppName con il nome che verrà utilizzato nel titolo del file eseguibile.<br><br>
+```
+pyinstaller --onefile --windowed --add-data "settings;settings" --add-data "files;files" --add-data "logic;logic" --add-data "gui;gui" --add-data "logging_files;logging_files" -n YourAppName main.py
+```
+7. Se il punto 6 è stato saltato, avvia l'applicazione tramite il terminale.
+```
+python main.py
+```
+8. Se il punto 6 è stato eseguito, verrà creata una cartella `dist` nella directory principale contenente il file eseguibile - avvialo.
