@@ -31,6 +31,24 @@ PNG_ICON_FILEPATH = "files/icons/mark32x32.png"
 # Путь к .ico иконке приложеня
 ICO_ICON_FILEPATH = "files/icons/mark32x32.ico"
 
+# Путь к .png иконке флага РФ
+RU_ICON_PATH = 'files/icons/ru.png'
+
+# Путь к .png иконке флага Великобритании
+GB_ICON_PATH = 'files/icons/gb.png'
+
+# Путь к .png иконке флага Италии
+IT_ICON_PATH = 'files/icons/it.png'
+
+# Код языка РФ
+RU_ICON_CODE = 'ru'
+
+# Код языка Великобритании
+GB_ICON_CODE = 'gb'
+
+# Код языка Италии
+IT_ICON_CODE = 'it'
+
 # =================Настройки для метода browse_file==================
 
 # Стартовый элемент очистки текстового поля и вставки в него
