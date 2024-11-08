@@ -1,22 +1,22 @@
 # Welding_control v1.0.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
 ## Оглавление/Table of Contents
-- ![🇷🇺](icons/ru.png)[Описание](#Описание)
-- ![🇷🇺](icons/ru.png)[Принцип работы](#Принцип-работы)
-- ![🇷🇺](icons/ru.png)[Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
-  - ![🇷🇺](icons/ru.png)[Простой способ](#Простой-способ)
-  - ![🇷🇺](icons/ru.png)[Сложный способ](#Сложный-способ)
-- ![🇷🇺](icons/ru.png)[Инструкция по использованию](#Инструкция-по-использованию)
-- ![🇷🇺](icons/ru.png)[Что нового](#Что-нового)
+- ![🇷🇺](files/icons/ru.png)[Описание](#Описание)
+- ![🇷🇺](files/icons/ru.png)[Принцип работы](#Принцип-работы)
+- ![🇷🇺](files/icons/ru.png)[Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
+  - ![🇷🇺](files/icons/ru.png)[Простой способ](#Простой-способ)
+  - ![🇷🇺](files/icons/ru.png)[Сложный способ](#Сложный-способ)
+- ![🇷🇺](files/icons/ru.png)[Инструкция по использованию](#Инструкция-по-использованию)
+- ![🇷🇺](files/icons/ru.png)[Что нового](#Что-нового)
   
   =============================================================
-- ![GB](icons/gb.png)[Description](#description)
-- ![GB](icons/gb.png)[Operating Principle](#operating-principle)
-- ![GB](icons/gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
-  - ![GB](icons/gb.png)[Easy Way](#easy-way)
-  - ![GB](icons/gb.png)[Advanced Way](#advanced-way)
-- ![GB](icons/gb.png)[Usage Instructions](#usage-instructions)
-- ![GB](icons/gb.png)[What's New](#whats-new)
+- ![GB](files/icons/gb.png)[Description](#description)
+- ![GB](files/icons/gb.png)[Operating Principle](#operating-principle)
+- ![GB](files/icons/gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
+  - ![GB](files/icons/gb.png)[Easy Way](#easy-way)
+  - ![GB](files/icons/gb.png)[Advanced Way](#advanced-way)
+- ![GB](files/icons/gb.png)[Usage Instructions](#usage-instructions)
+- ![GB](files/icons/gb.png)[What's New](#whats-new)
 
 ## Описание
 
@@ -110,17 +110,17 @@ python main.py
 
 ## Инструкция по использованию
 После запуска файла запустится окно:<br>
-![alt text](image-1.png)<br>
+![alt text](files/images/image-1.png)<br>
 
 1. В верхнем левом углу указано имя приложения и его версия. Имя постоянное. Оно не будет меняться в зависимости от того, какое Вы имя назначите исполняемому файлу.
 2. Далее идут 5 текстовых полей для ввода с подсказкой над каждым и кнопкой `Обзор` слева. Сюда вносятся пути к файлам для проверки. Вручную их вносить необязательно. Достаточно нажать кнопку обзор для выбора <u>одного или нескольких сразу</u> файлов одного типа контроля. Также невостребованные поля можно оставить пустыми. Приложение их проигнорирует.
 3. Кнопка `Погнали` запускает процесс проверки, который может занять до нескольких минут. на время проверки появится окно, предупреждающее о том, что проверка началась и исчезнет само по окончании проверки:<br>
-![alt text](image-2.png)<br>
+![alt text](files/images/image-2.png)<br>
 По окончании проверки и создании результирующей таблицы появится еще одно информирующее окно, которое скажет, что работа выполнена и укажет, где сохранена результирующая таблица. Это окно нужно закрыть подтверждением, нажав кнопку `OK`:<br>
-![alt text](image-3.png)<br>
+![alt text](files/images/image-3.png)<br>
 4. Кнопка `Забей` очищает все заполненные поля.
 5. Кнопка `Настройки` открывает окно настроек:<br>
-![alt text](image-4.png)<br>
+![alt text](files/images/image-4.png)<br>
 
 На данный момент в настройках можно только указать папку, куда будет сохранена результирующая таблица.
 
@@ -128,7 +128,7 @@ python main.py
 1. Не надо запускать в работу файлы по нескольким договорам сразу. Один договор - один анализ. В разных договорах могут повторяться номера швов и это может привести к неправильной работе приложения.
 2. Можно одновременно выбирать сразу несколько файлов одного и того же вида контроля. Они должны находиться в одной и той же папке. Выбор нескольких файлов необходимо делать в окне обзора файлов с зажатой `Ctrl` для добавления к выбору еще одного файла или `Shift` для добавления сразу диапазона идущих подряд файлов.
 3. Необходимо выбирать файлы конкретного типа контроля в поле, которое предназначено для этого типа контроля. Если написано `Выберите файлы Стилоскопирования`, то не надо в это поле пихать протоколы замеров твердости, иначе выскочит окно с ошибкой при нажатии на кнопку `Погнали`:<br>
-![alt text](image-5.png)
+![alt text](files/images/image-5.png)
 4. В каждом файле может быть сколько угодно страниц. Главное, чтобы это были страницы с одним и тем же типом контроля.
 5. На каждой странице может быть сколько угодно номеров швов. Главное, чтобы в первых 10 строчках на первой странице был текст, указывающий на тип контроля. Это не надо вручную проверять. Если текста не будет, выскочит ошибка п.3
 6. Номера швов везде должны быть указаны в столбце А. Если ячейки с номерами швов объединены несколькими столбцами, то первым должен быть столбец А в объединении. Это тоже не надо проверять вручную. Если номера швов будут в другом столбце, то приложение их просто не найдет.
@@ -237,23 +237,23 @@ python main.py
 ## Usage Instructions
 
 After launching the file, a window will appear:<br>
-![alt text](image-1.png)<br>
+![alt text](files/images/image-1.png)<br>
 1. In the top left corner, the name of the application and its version are displayed. The name is constant and will not change regardless of what name you assign to the executable file.
 2. Next, there are 5 input text fields with hints above each and an `Browse` button on the left. Here, you enter the paths to the files for verification. It is not necessary to enter them manually. Simply click the Browse button to select <u>one or multiple files at once</u> of the same control type. Unused fields can also be left empty. The application will ignore them.
 3. The `Go` button starts the verification process, which may take several minutes. During the verification, a window will appear warning that the verification has started and will disappear once the verification is complete:<br>
-![alt text](image-2.png)<br>
+![alt text](files/images/image-2.png)<br>
 After the verification and the creation of the result table, another informational window will appear, indicating that the task has been completed and showing where the result table has been saved. This window needs to be closed by confirming with the `OK` button:<br>
-![alt text](image-3.png)<br>
+![alt text](files/images/image-3.png)<br>
 4. The `Clear` button clears all filled fields.
 5. The `Settings` button opens the settings window:<br>
-![alt text](image-4.png)<br>
+![alt text](files/images/image-4.png)<br>
 Currently, in the settings, you can only specify the folder where the resulting table will be saved.
 
 Nuances:
 1. Do not start processing files for several contracts at once. One contract - one analysis. The same joint ids may appear in different contracts, which can lead to incorrect application behavior.
 2. You can simultaneously select multiple files of the same control type. They must be located in the same folder. To select multiple files, hold `Ctrl` to add another file to the selection or `Shift` to add a range of consecutive files.
 3. You must select files of the specific control type in the field designated for that type of control. If it says `Select Inspection Files`, do not insert `hardness test protocols` into this field; otherwise, an error window will pop up when you click the `Go` button:<br>
-![alt text](image-5.png)
+![alt text](files/images/image-5.png)
 4. Each file can have an unlimited number of pages. The main thing is that these should be pages of the same control type.
 5. Each page can have an unlimited number of joint ids. The main thing is that the text indicating the type of control must be in the first 10 rows on the first page. You do not need to check this manually. If the text is missing, an error will pop up (see point 3).
 6. Joint ids must be specified in column A. If the cells with joint ids are merged across several columns, column A must be the first in the merge. This also does not need to be checked manually. If the joint ids are in another column, the application will simply not find them.
