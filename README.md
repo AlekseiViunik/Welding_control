@@ -1,22 +1,22 @@
 # Welding_control v1.0.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
 ## Оглавление/Table of Contents
-- ![🇷🇺](ru.png)[Описание](#Описание)
-- ![🇷🇺](ru.png)[Принцип работы](#Принцип-работы)
-- ![🇷🇺](ru.png)[Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
-  - ![🇷🇺](ru.png)[Простой способ](#Простой-способ)
-  - ![🇷🇺](ru.png)[Сложный способ](#Сложный-способ)
-- ![🇷🇺](ru.png)[Инструкция по использованию](#Инструкция-по-использованию)
-- ![🇷🇺](ru.png)[Что нового](#Что-нового)
+- ![🇷🇺](icons/ru.png)[Описание](#Описание)
+- ![🇷🇺](icons/ru.png)[Принцип работы](#Принцип-работы)
+- ![🇷🇺](icons/ru.png)[Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
+  - ![🇷🇺](icons/ru.png)[Простой способ](#Простой-способ)
+  - ![🇷🇺](icons/ru.png)[Сложный способ](#Сложный-способ)
+- ![🇷🇺](icons/ru.png)[Инструкция по использованию](#Инструкция-по-использованию)
+- ![🇷🇺](icons/ru.png)[Что нового](#Что-нового)
   
   =============================================================
-- ![GB](gb.png)[Description](#description)
-- ![GB](gb.png)[Operating Principle](#operating-principle)
-- ![GB](gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
-  - ![GB](gb.png)[Easy Way](#easy-way)
-  - ![GB](gb.png)[Advanced Way](#advanced-way)
-- ![GB](gb.png)[Usage Instructions](#usage-instructions)
-- ![GB](gb.png)[What's New](#whats-new)
+- ![GB](icons/gb.png)[Description](#description)
+- ![GB](icons/gb.png)[Operating Principle](#operating-principle)
+- ![GB](icons/gb.png)[Installation Instructions for Windows](#installation-instructions-for-windows)
+  - ![GB](icons/gb.png)[Easy Way](#easy-way)
+  - ![GB](icons/gb.png)[Advanced Way](#advanced-way)
+- ![GB](icons/gb.png)[Usage Instructions](#usage-instructions)
+- ![GB](icons/gb.png)[What's New](#whats-new)
 
 ## Описание
 
