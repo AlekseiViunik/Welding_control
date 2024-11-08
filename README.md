@@ -25,7 +25,7 @@
   - ![GB](files/icons/gb.png)[Metodo semplice](#metodo-semplice)
   - ![GB](files/icons/gb.png)[Metodo complesso](#metodo-complesso)
 - ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)
-- ![IT](files/icons/it.png)[Cosa c'è di nuovo](#cosa-ce-di-nuovo) 
+- ![IT](files/icons/it.png)[Cosa c'è di nuovo](#cosa-cè-di-nuovo) 
 
 ## Описание
 
