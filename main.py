@@ -36,7 +36,11 @@ logger.addHandler(handler)
 # logger.addHandler(console_handler)
 
 default_settings = {
-    us.SAVE_PATH_KEY: us.DEFAULT_SAVE_PATH
+    us.DEFAULT_SAVE_PATH_KEY: us.DEFAULT_SAVE_PATH,
+    us.DEFAULT_LANG_KEY: {
+        us.DEFAULT_LANG_CODE_KEY: us.DEFAULT_LANG_CODE,
+        us.DEFAULT_LANG_ICON_PATH_KEY: us.DEFAULT_LANG_ICON_PATH
+    }
 }
 
 if not os.path.exists(us.SETTINGS_FILE_NAME):
@@ -46,13 +50,13 @@ else:
     with open(us.SETTINGS_FILE_NAME, 'r') as f:
         settings = json.load(f)
 
-    if not settings.get(us.SAVE_PATH_KEY):
+    if not settings.get(us.DEFAULT_SAVE_PATH_KEY):
         summary_file_path = (
-            default_settings[us.SAVE_PATH_KEY] +
+            default_settings[us.DEFAULT_SAVE_PATH_KEY] +
             "/" +
             us.SAVE_FILE_NAME
         )
-        settings[us.SAVE_PATH_KEY] = summary_file_path
+        settings[us.DEFAULT_SAVE_PATH_KEY] = summary_file_path
         with open(us.SETTINGS_FILE_NAME, 'w') as f:
             json.dump(settings, f, indent=us.JSON_INDENT)
 
@@ -68,7 +72,8 @@ if __name__ == "__main__":
 
     with open(us.SETTINGS_FILE_NAME, 'r') as f:
         settings = json.load(f)
-        save_path = settings[us.SAVE_PATH_KEY]
+        save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
+        lang_settings = settings[us.DEFAULT_LANG_KEY]
     root = tk.Tk()
-    app = App(root, save_path)
+    app = App(root, save_path, lang_settings)
     root.mainloop()
