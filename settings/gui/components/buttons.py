@@ -1,7 +1,7 @@
 """
 Здесь будут храниться настройки кнопок.
 """
-from windows import windows as win
+from ..windows import windows as win
 
 # ==========================Общие настройки==========================
 # Ширина кнопок фрейма по умолчанию (в количестве вмещаемых символов)
@@ -103,8 +103,8 @@ FRAME_BUTTONS_PADY = 5  # Default: 5
 FRAME_BUTTONS_SIDE = 'left'  # Default: 'left'
 
 # =====================Найстройки языковых кнопок====================
-lang = [
-    (win.RU_ICON_PATH, win.RU_ICON_CODE),
-    (win.GB_ICON_PATH, win.GB_ICON_CODE),
-    (win.IT_ICON_PATH, win.IT_ICON_CODE)
-]
+lang = {
+    win.RU_ICON_CODE: win.RU_ICON_PATH,
+    win.GB_ICON_CODE: win.GB_ICON_PATH,
+    win.IT_ICON_CODE: win.IT_ICON_PATH
+}
