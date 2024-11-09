@@ -27,7 +27,7 @@ class SettingsWindow:
         settings_window.title(win.SETTINGS_WINDOW_TITLE)
         settings_window.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        save_path = settings[us.SAVE_PATH_KEY]
+        save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
 
         frame = Frame(settings_window, self)
         current_path = tk.StringVar(
@@ -50,7 +50,7 @@ class SettingsWindow:
     def save_settings(self, path, window):
         """Сохраняет настройки в JSON файл."""
         settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        settings[us.SAVE_PATH_KEY] = path.get()
+        settings[us.DEFAULT_SAVE_PATH_KEY] = path.get()
 
         with open(us.SETTINGS_FILE_NAME, 'w') as f:
             json.dump(settings, f, indent=us.JSON_INDENT)
