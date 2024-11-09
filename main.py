@@ -75,5 +75,5 @@ if __name__ == "__main__":
         save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
         lang_settings = settings[us.DEFAULT_LANG_KEY]
     root = tk.Tk()
-    app = App(root, save_path, lang_settings)
+    app = App(root, save_path)
     root.mainloop()
