@@ -121,7 +121,7 @@ class App:
     def get_save_path(self):
         with open(us.SETTINGS_FILE_NAME, 'r') as f:
             settings = json.load(f)
-            self.save_path = settings[us.SAVE_PATH_KEY]
+            self.save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
 
     def clear_entries(self):
         """Очищает все текстовые поля."""
