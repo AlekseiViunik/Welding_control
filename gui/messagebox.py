@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from settings.gui.windows import info_windows as info
+from settings import settings as set
 
 
 class MessageBox:
@@ -13,7 +13,7 @@ class MessageBox:
         """Отображает всплывающее окно с сообщением об ошибке."""
         root = tk.Tk()
         root.withdraw()
-        messagebox.showerror(info.ERROR_MESSAGE_TITLE, message)
+        messagebox.showerror(set.ERROR_MESSAGE_TITLE, message)
         root.destroy()
 
     def show_message(self, title, message):

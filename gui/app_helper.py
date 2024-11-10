@@ -1,13 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from settings.gui.components import (
-    labels as lbl,
-)
-from settings.gui.windows import (
-    windows as win,
-    info_windows as info
-)
+from settings import settings as set
 
 
 class AppHelper:
@@ -33,21 +27,21 @@ class AppHelper:
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(info.INFO_WINDOW_TITLE)
+        self.info_window.title(set.INFO_WINDOW_TITLE)
         self.info_window.geometry(
-            f"{info.INFO_WINDOW_WIDTH}x{info.INFO_WINDOW_HEIGHT}"
+            f"{set.INFO_WINDOW_WIDTH}x{set.INFO_WINDOW_HEIGHT}"
         )
         self.center_window(
             self.info_window,
-            info.INFO_WINDOW_WIDTH,
-            info.INFO_WINDOW_HEIGHT
+            set.INFO_WINDOW_WIDTH,
+            set.INFO_WINDOW_HEIGHT
         )
 
         label = tk.Label(
             self.info_window,
-            text=lbl.INFO_LABEL_TEXT,
-            padx=lbl.INFO_LABEL_PADX,
-            pady=lbl.INFO_LABEL_PADY
+            text=set.INFO_LABEL_TEXT,
+            padx=set.INFO_LABEL_PADX,
+            pady=set.INFO_LABEL_PADY
         )
         label.pack()
 
@@ -62,14 +56,14 @@ class AppHelper:
             # Открываем диалог выбора директории
             path = filedialog.askdirectory()
             if path:  # Проверяем, что пользователь выбрал директорию
-                entry.delete(win.FIRST_ELEMENT, tk.END)
-                entry.insert(win.FIRST_ELEMENT, path)  # Убираем разделитель
+                entry.delete(set.FIRST_ELEMENT, tk.END)
+                entry.insert(set.FIRST_ELEMENT, path)  # Убираем разделитель
         else:
             # Открываем диалог выбора файла
             paths = filedialog.askopenfilenames()
             if paths:  # Проверяем, что пользователь выбрал файлы
-                entry.delete(win.FIRST_ELEMENT, tk.END)
-                entry.insert(win.FIRST_ELEMENT, win.PATH_DIVIDER.join(paths))
+                entry.delete(set.FIRST_ELEMENT, tk.END)
+                entry.insert(set.FIRST_ELEMENT, set.PATH_DIVIDER.join(paths))
 
         if parent:  # Устанавливаем фокус обратно на текущее окно
             parent.attributes('-topmost', False)

@@ -4,15 +4,7 @@ import tkinter as tk
 from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
 from gui.components.frames import Frame
-from settings import user_settings as us
-from settings.gui.components import (
-    buttons as btn,
-    labels as lbl,
-)
-from settings.gui.windows import (
-    windows as win,
-    info_windows as info
-)
+from settings import settings as set
 
 
 class SettingsWindow:
@@ -24,10 +16,10 @@ class SettingsWindow:
     def create_window(self):
         """Открывает окно настроек."""
         settings_window = tk.Toplevel(self.root)
-        settings_window.title(win.SETTINGS_WINDOW_TITLE)
-        settings_window.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
-        settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
+        settings_window.title(set.SETTINGS_WINDOW_TITLE)
+        settings_window.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
+        settings = self.load_settings(set.SETTINGS_FILE_NAME)
+        save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
 
         frame = Frame(settings_window, self)
         current_path = tk.StringVar(
@@ -35,29 +27,29 @@ class SettingsWindow:
         )
 
         # Фрейм с лейблом, текстовым полем для ввода и кнопкой "Обзор"
-        frame.create_entry_frame(lbl.WHERE_TO_SAVE, current_path, True)
+        frame.create_entry_frame(set.WHERE_TO_SAVE, current_path, True)
 
         # Фрейм с кнопками "Сохранить" и "Отмена"
         buttons_args = {
-            btn.SAVE_BUTTON_NAME: [current_path, settings_window],
-            btn.CANCEL_BUTTON_NAME: [settings_window]
+            set.SAVE_BUTTON_NAME: [current_path, settings_window],
+            set.CANCEL_BUTTON_NAME: [settings_window]
         }
         frame.create_button_frame(
-            btn.settings_buttons_name_to_process,
+            set.settings_buttons_name_to_process,
             buttons_args
         )
 
     def save_settings(self, path, window):
         """Сохраняет настройки в JSON файл."""
-        settings = self.load_settings(us.SETTINGS_FILE_NAME)
-        settings[us.DEFAULT_SAVE_PATH_KEY] = path.get()
+        settings = self.load_settings(set.SETTINGS_FILE_NAME)
+        settings[set.DEFAULT_SAVE_PATH_KEY] = path.get()
 
-        with open(us.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=us.JSON_INDENT)
+        with open(set.SETTINGS_FILE_NAME, 'w') as f:
+            json.dump(settings, f, indent=set.JSON_INDENT)
 
         self.message_box.show_message(
-            info.SUCCESS_TITLE,
-            info.SAVED_SETTINGS_SUCCESS_MESSAGE,
+            set.SUCCESS_TITLE,
+            set.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
         window.destroy()
 

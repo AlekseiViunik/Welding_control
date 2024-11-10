@@ -1,8 +1,7 @@
 import json
 import tkinter as tk
 
-from settings.gui.components import buttons as btn
-from settings import user_settings as us
+from settings import settings as set
 
 
 class LangButton:
@@ -13,11 +12,8 @@ class LangButton:
 
     def create_lang_button(self, root=None, icon_path=None, command=None):
         if not icon_path:
-            with open(us.SETTINGS_FILE_NAME, 'r') as f:
-                settings = json.load(f)
-            self.lang_settings = settings[us.DEFAULT_LANG_KEY]
             img_photo = tk.PhotoImage(
-                file=self.lang_settings[us.DEFAULT_LANG_ICON_PATH_KEY]
+                file=self.lang_settings[set.DEFAULT_LANG_ICON_PATH_KEY]
             )
         else:
             img_photo = tk.PhotoImage(
@@ -44,7 +40,7 @@ class LangButton:
         lang_window = tk.Toplevel(self.root)
         lang_window.title("Выбор языка")
 
-        for lang_code, icon_path in btn.lang.items():
+        for lang_code, icon_path in set.lang.items():
             # Создаем кнопку для каждого языка
             self.create_lang_button(
                 lang_window,
@@ -56,16 +52,16 @@ class LangButton:
 
     def set_language(self, lang_code, win):
         """Устанавливает язык приложения и обновляет настройки."""
-        with open(us.SETTINGS_FILE_NAME, 'r') as f:
+        with open(set.SETTINGS_FILE_NAME, 'r') as f:
             settings = json.load(f)
 
-        settings[us.DEFAULT_LANG_KEY][us.DEFAULT_LANG_ICON_PATH_KEY] = (
-            btn.lang[lang_code]
+        settings[set.DEFAULT_LANG_KEY][set.DEFAULT_LANG_ICON_PATH_KEY] = (
+            set.lang[lang_code]
         )
-        settings[us.DEFAULT_LANG_KEY][us.DEFAULT_LANG_CODE_KEY] = lang_code
+        settings[set.DEFAULT_LANG_KEY][set.DEFAULT_LANG_CODE_KEY] = lang_code
 
-        with open(us.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=us.JSON_INDENT)
+        with open(set.SETTINGS_FILE_NAME, 'w') as f:
+            json.dump(settings, f, indent=set.JSON_INDENT)
 
         print(f"Язык установлен на: {lang_code}")
 
@@ -74,5 +70,8 @@ class LangButton:
 
     def update_lang_button(self):
         """Обновляет кнопку выбора языка с новым флагом."""
+        with open(set.SETTINGS_FILE_NAME, 'r') as f:
+            settings = json.load(f)
+        self.lang_settings = settings[set.DEFAULT_LANG_KEY]
         self.open_settings_button.destroy()
         self.create_lang_button()

@@ -15,13 +15,7 @@ from gui.settings_window import SettingsWindow
 from gui.components.frames import Frame
 from gui.components.buttons import LangButton
 from logic.get_xlsx import GetXlsx
-from settings import logging_settings as log
-from settings import user_settings as us
-from settings.gui.components import (
-    buttons as btn,
-    labels as lbl
-)
-from settings.gui.windows import windows as win
+from settings import settings as set
 
 from .app_helper import AppHelper
 
@@ -35,43 +29,43 @@ class App:
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
         self.lang_button = LangButton(root, self.lang_settings)
-        self.root.title(win.START_WINDOW_TITLE)
-        self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
+        self.root.title(set.START_WINDOW_TITLE)
+        self.root.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
         self.set_window_icon()
         self.helper.center_window(
             self.root,
-            win.WINDOW_WIDTH,
-            win.WINDOW_HEIGHT
+            set.WINDOW_WIDTH,
+            set.WINDOW_HEIGHT
         )
         self.file_paths = []
         self.threads = []
         self.stop_threads = False
 
         buttons_args = {
-            btn.GO_BUTTON_NAME: [],
-            btn.CLEAN_BUTTON_NAME: [],
-            btn.SETTINGS_BUTTON_NAME: []
+            set.GO_BUTTON_NAME: [],
+            set.CLEAN_BUTTON_NAME: [],
+            set.SETTINGS_BUTTON_NAME: []
         }
 
         frame = Frame(root, self)
 
         # Создание фреймов с полем для ввода и кнопкой "Обзор"
-        for label_text in lbl.LABELS:
+        for label_text in set.LABELS:
             entry = frame.create_entry_frame(label_text)
             self.file_paths.append(entry)
 
         # Кнопки "Погнали", "Забей" и "Настройки"
         frame.create_button_frame(
-            btn.start_buttons_name_to_process,
+            set.start_buttons_name_to_process,
             buttons_args
         )
 
-        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT,)
+        label = tk.Label(root, text=set.AUTHOR_LABEL_TEXT,)
         label.place(
-            relx=lbl.AUTHOR_RELX,
-            rely=lbl.AUTHOR_RELY,
-            anchor=lbl.AUTHOR_ANCHOR,
-            y=lbl.AUTHOR_PADY,
+            relx=set.AUTHOR_RELX,
+            rely=set.AUTHOR_RELY,
+            anchor=set.AUTHOR_ANCHOR,
+            y=set.AUTHOR_PADY,
         )
 
         # Кнопка смены языка
@@ -79,8 +73,8 @@ class App:
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
-        logging.info(log.LOG_DIVIDER)
-        logging.info(log.LOG_START)
+        logging.info(set.LOG_DIVIDER)
+        logging.info(set.LOG_START)
         logging.info(
             f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
             f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
@@ -88,7 +82,7 @@ class App:
         )
         logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
         self.helper.show_info_window()
-        logging.info(log.LOG_CALCULATE_DATES_CALL)
+        logging.info(set.LOG_CALCULATE_DATES_CALL)
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -108,7 +102,7 @@ class App:
         self.get_save_path()
 
         # Вызываем функцию из get_xlsx с нашим словарем
-        logging.info(log.LOG_HANDLE_REQUEST_CALL)
+        logging.info(set.LOG_HANDLE_REQUEST_CALL)
         get_xlsx = GetXlsx(
             vmc_paths,
             hb_paths,
@@ -118,7 +112,7 @@ class App:
             self.save_path
         )
         if not get_xlsx.handle_request():
-            logging.error(log.LOG_ERROR_MSG)
+            logging.error(set.LOG_ERROR_MSG)
             self.on_closing()
 
         # Закрываем информационное окно по завершении работы
@@ -126,14 +120,14 @@ class App:
             self.helper.info_window.destroy()
 
     def get_save_path(self):
-        with open(us.SETTINGS_FILE_NAME, 'r') as f:
+        with open(set.SETTINGS_FILE_NAME, 'r') as f:
             settings = json.load(f)
-            self.save_path = settings[us.DEFAULT_SAVE_PATH_KEY]
+            self.save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
 
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(win.FIRST_ELEMENT, tk.END)
+            entry.delete(set.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
@@ -150,18 +144,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                win.ICONS_FOLDER_NAME,
-                win.PNG_ICON_FILENAME
+                set.ICONS_FOLDER_NAME,
+                set.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                win.ICONS_FOLDER_NAME,
-                win.ICO_ICON_FILENAME
+                set.ICONS_FOLDER_NAME,
+                set.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = win.PNG_ICON_FILEPATH
-            icon_path_ico = win.ICO_ICON_FILEPATH
+            icon_path_png = set.PNG_ICON_FILEPATH
+            icon_path_ico = set.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)

@@ -19,9 +19,7 @@ import logging
 import openpyxl
 
 from gui.messagebox import MessageBox
-from settings import logging_settings as log
-from settings import logic_settings as ls
-from settings.gui.windows import windows as win
+from settings import settings as set
 from .create_summary import CreateSummary
 from .parser import Parser
 
@@ -36,25 +34,25 @@ class GetXlsx:
         self.save_path = save_path
         self.message_box = MessageBox()
         self.files_dict = {
-            ls.VMC: {
-                "path": vmc.split(win.PATH_DIVIDER) if vmc else [],
-                "check": ls.VMC_CHECK_KEYS
+            set.VMC: {
+                "path": vmc.split(set.PATH_DIVIDER) if vmc else [],
+                "check": set.VMC_CHECK_KEYS
             },
-            ls.HB: {
-                "path": hb.split(win.PATH_DIVIDER) if hb else [],
-                "check": ls.HB_CHECK_KEYS
+            set.HB: {
+                "path": hb.split(set.PATH_DIVIDER) if hb else [],
+                "check": set.HB_CHECK_KEYS
             },
-            ls.RC: {
-                "path": rc.split(win.PATH_DIVIDER) if rc else [],
-                "check": ls.RC_CHECK_KEYS
+            set.RC: {
+                "path": rc.split(set.PATH_DIVIDER) if rc else [],
+                "check": set.RC_CHECK_KEYS
             },
-            ls.ST: {
-                "path": st.split(win.PATH_DIVIDER) if st else [],
-                "check": ls.ST_CHECK_KEYS
+            set.ST: {
+                "path": st.split(set.PATH_DIVIDER) if st else [],
+                "check": set.ST_CHECK_KEYS
             },
-            ls.CD: {
-                "path": cd.split(win.PATH_DIVIDER) if cd else [],
-                "check": ls.CD_CHECK_KEYS
+            set.CD: {
+                "path": cd.split(set.PATH_DIVIDER) if cd else [],
+                "check": set.CD_CHECK_KEYS
             },
         }
 
@@ -70,8 +68,8 @@ class GetXlsx:
         }
 
         # Проверка переданных файлов
-        logging.info(log.LOG_CHECK_FILES_START)
-        logging.info(log.LOG_CHECK_FILES_CALL)
+        logging.info(set.LOG_CHECK_FILES_START)
+        logging.info(set.LOG_CHECK_FILES_CALL)
         for field, file_info in self.files_dict.items():
             if not self.check_files(
                 file_info['path'],
@@ -79,11 +77,11 @@ class GetXlsx:
                 field
             ):
                 return False
-        logging.info(log.LOG_CHECK_FILES_DONE)
+        logging.info(set.LOG_CHECK_FILES_DONE)
 
         # Получение данных и запихивание их в словарь
-        logging.info(log.LOG_PARSE_START)
-        logging.info(log.LOG_PARSE_CALL)
+        logging.info(set.LOG_PARSE_START)
+        logging.info(set.LOG_PARSE_CALL)
         parser = Parser()
         for key, value in self.files_dict.items():
             parser.parse_weld_data(value['path'], key)
@@ -92,11 +90,11 @@ class GetXlsx:
         )
 
         # Составление итоговой таблицы
-        logging.info(log.LOG_TABLE_START)
-        logging.info(log.LOG_TABLE_METHOD_CALL)
+        logging.info(set.LOG_TABLE_START)
+        logging.info(set.LOG_TABLE_METHOD_CALL)
         create_summary = CreateSummary()
         create_summary.create_summary_excel(parser.welds_data, self.save_path)
-        logging.info(log.LOG_TABLE_DONE)
+        logging.info(set.LOG_TABLE_DONE)
         return True
 
     def check_files(self, paths, check_keys, field):
@@ -104,9 +102,9 @@ class GetXlsx:
            строках. Это необходимо, чтобы понять, в том ли текстовом поле
            загружен файл. Это важно для последующей обработки файлов."""
         for path in paths:
-            filename = path.split(ls.FILEPATH_DIVIDER)[-1]
-            file_extension = filename.split(ls.EXTENSION_DIVIDER)[-1]
-            if file_extension not in ls.EXTENSIONS:
+            filename = path.split(set.FILEPATH_DIVIDER)[-1]
+            file_extension = filename.split(set.EXTENSION_DIVIDER)[-1]
+            if file_extension not in set.EXTENSIONS:
                 message = (
                     f"Какой-то непонятный файл тут: {path}\n"
                     "Приложение закроется!"
@@ -123,8 +121,8 @@ class GetXlsx:
 
                 # Проверяем первые N строк первого столбца
                 for row in range(
-                    ls.MIN_ROW_RANGE_VALUE,
-                    ls.MAX_ROW_RANGE_VALUE
+                    set.MIN_ROW_RANGE_VALUE,
+                    set.MAX_ROW_RANGE_VALUE
                 ):
                     cell_value = sheet.cell(row=row, column=1).value
                     if cell_value and any(
