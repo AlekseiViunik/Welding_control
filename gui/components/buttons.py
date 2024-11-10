@@ -1,3 +1,4 @@
+import json
 import tkinter as tk
 
 from settings.gui.components import buttons as btn
@@ -31,7 +32,7 @@ class LangButton:
             height=30,
             command=command
         )
-        self.img_button.image = img_photo  # Сохраняем ссылку на изображение
+        self.img_button.image = img_photo
         self.img_button.pack(side=tk.LEFT, padx=20)
 
     def open_lang_settings(self):
@@ -49,5 +50,17 @@ class LangButton:
             )
 
     def set_language(self, lang_code, win):
+        """Устанавливает язык приложения и обновляет настройки."""
+        with open(us.SETTINGS_FILE_NAME, 'r') as f:
+            settings = json.load(f)
+
+        settings[us.DEFAULT_LANG_KEY][us.DEFAULT_LANG_ICON_PATH_KEY] = (
+            btn.lang[lang_code]
+        )
+        settings[us.DEFAULT_LANG_KEY][us.DEFAULT_LANG_CODE_KEY] = lang_code
+
+        with open(us.SETTINGS_FILE_NAME, 'w') as f:
+            json.dump(settings, f, indent=us.JSON_INDENT)
+
         print(f"Язык установлен на: {lang_code}")
         win.destroy()
