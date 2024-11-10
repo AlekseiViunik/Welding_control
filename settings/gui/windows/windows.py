@@ -32,13 +32,13 @@ PNG_ICON_FILEPATH = "files/icons/mark32x32.png"
 ICO_ICON_FILEPATH = "files/icons/mark32x32.ico"
 
 # Путь к .png иконке флага РФ
-RU_ICON_PATH = 'files/icons/ru.png'
+RU_ICON_PATH = 'files/icons/ru40x30.png'
 
 # Путь к .png иконке флага Великобритании
-GB_ICON_PATH = 'files/icons/gb.png'
+GB_ICON_PATH = 'files/icons/gb40x30.png'
 
 # Путь к .png иконке флага Италии
-IT_ICON_PATH = 'files/icons/it.png'
+IT_ICON_PATH = 'files/icons/it40x30.png'
 
 # Код языка РФ
 RU_ICON_CODE = 'ru'
