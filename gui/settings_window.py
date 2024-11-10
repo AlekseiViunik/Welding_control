@@ -4,21 +4,28 @@ import tkinter as tk
 from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
 from gui.components.frames import Frame
+from logic.settings_handler import SettingsHandler
 from settings import settings as set
 
 
 class SettingsWindow:
-    def __init__(self, root):
+    def __init__(self, root, lang_settings):
         self.root = root
         self.helper = AppHelper(root)
         self.message_box = MessageBox()
+        self.settings_handler = SettingsHandler()
+        self.lang_settings = lang_settings
 
     def create_window(self):
         """Открывает окно настроек."""
         settings_window = tk.Toplevel(self.root)
-        settings_window.title(set.SETTINGS_WINDOW_TITLE)
+        settings_window.title(
+            set.SETTINGS_WINDOW_TITLE[
+                self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+            ]
+        )
         settings_window.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
-        settings = self.load_settings(set.SETTINGS_FILE_NAME)
+        settings = self.settings_handler.file_read()
         save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
 
         frame = Frame(settings_window, self)
@@ -41,7 +48,7 @@ class SettingsWindow:
 
     def save_settings(self, path, window):
         """Сохраняет настройки в JSON файл."""
-        settings = self.load_settings(set.SETTINGS_FILE_NAME)
+        settings = self.settings_handler.file_read()
         settings[set.DEFAULT_SAVE_PATH_KEY] = path.get()
 
         with open(set.SETTINGS_FILE_NAME, 'w') as f:
@@ -52,10 +59,6 @@ class SettingsWindow:
             set.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
         window.destroy()
-
-    def load_settings(self, settings_file):
-        with open(settings_file, 'r') as f:
-            return json.load(f)
 
     def destroy(self, instance):
         instance.destroy()

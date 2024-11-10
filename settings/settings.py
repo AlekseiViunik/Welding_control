@@ -10,13 +10,27 @@ import os
 # ==========================          ОКНА          ==========================
 # ==========================     Основные окна      ==========================
 # ============================================================================
+
+# Код языка РФ
+RU_ICON_CODE = 'ru'
+
+# Код языка Великобритании
+GB_ICON_CODE = 'gb'
+
+# Код языка Италии
+IT_ICON_CODE = 'it'
+
 # Имя Главного окна
 # Default: "Dates Control - v1.0.0"
 START_WINDOW_TITLE = "Dates Control - v1.0.0"
 
 # Имя окна настроек
 # Default: "Настройки"
-SETTINGS_WINDOW_TITLE = "Настройки"
+SETTINGS_WINDOW_TITLE = {
+    RU_ICON_CODE: "Настройки",
+    GB_ICON_CODE: "Settings",
+    IT_ICON_CODE: "Impostazioni"
+}
 
 # Размеры стартового окна
 WINDOW_WIDTH = 600  # Default: 600
@@ -47,15 +61,6 @@ GB_ICON_PATH = 'files/icons/gb40x30.png'
 
 # Путь к .png иконке флага Италии
 IT_ICON_PATH = 'files/icons/it40x30.png'
-
-# Код языка РФ
-RU_ICON_CODE = 'ru'
-
-# Код языка Великобритании
-GB_ICON_CODE = 'gb'
-
-# Код языка Италии
-IT_ICON_CODE = 'it'
 
 # ======================Настройки для метода browse_file======================
 

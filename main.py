@@ -9,6 +9,7 @@ import sys
 
 from gui.start_window import App
 from logging_files.limited_size_file_handler import LimitedSizeFileHandler
+from logic.settings_handler import SettingsHandler
 from settings import settings as set
 
 # Настройка логирования
@@ -35,6 +36,7 @@ logger.addHandler(handler)
 # console_handler.setFormatter(formatter)
 # logger.addHandler(console_handler)
 
+settings_handler = SettingsHandler()
 default_settings = {
     set.DEFAULT_SAVE_PATH_KEY: set.DEFAULT_SAVE_PATH,
     set.DEFAULT_LANG_KEY: {
@@ -48,8 +50,7 @@ if not os.path.exists(set.SETTINGS_FILE_NAME):
     with open(set.SETTINGS_FILE_NAME, 'w') as f:
         json.dump(default_settings, f)
 else:
-    with open(set.SETTINGS_FILE_NAME, 'r') as f:
-        settings = json.load(f)
+    settings = settings_handler.file_read()
 
     if not settings.get(set.DEFAULT_SAVE_PATH_KEY):
         summary_file_path = (
@@ -71,10 +72,9 @@ sys.path.append(
 if __name__ == "__main__":
     import tkinter as tk
 
-    with open(set.SETTINGS_FILE_NAME, 'r') as f:
-        settings = json.load(f)
-        save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
-        lang_settings = settings[set.DEFAULT_LANG_KEY]
+    settings = settings_handler.file_read()
+    save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
+    lang_settings = settings[set.DEFAULT_LANG_KEY]
     root = tk.Tk()
     app = App(root, save_path, lang_settings)
     root.mainloop()

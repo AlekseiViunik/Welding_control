@@ -1,6 +1,7 @@
 import json
 import tkinter as tk
 
+from logic.settings_handler import SettingsHandler
 from settings import settings as set
 
 
@@ -9,6 +10,7 @@ class LangButton:
         self.root = root
         self.lang_settings = lang_settings
         self.open_settings_button = None
+        self.settings_handler = SettingsHandler()
 
     def create_lang_button(self, root=None, icon_path=None, command=None):
         if not icon_path:
@@ -52,8 +54,7 @@ class LangButton:
 
     def set_language(self, lang_code, win):
         """Устанавливает язык приложения и обновляет настройки."""
-        with open(set.SETTINGS_FILE_NAME, 'r') as f:
-            settings = json.load(f)
+        settings = self.settings_handler.file_read()
 
         settings[set.DEFAULT_LANG_KEY][set.DEFAULT_LANG_ICON_PATH_KEY] = (
             set.lang[lang_code]
@@ -70,8 +71,7 @@ class LangButton:
 
     def update_lang_button(self):
         """Обновляет кнопку выбора языка с новым флагом."""
-        with open(set.SETTINGS_FILE_NAME, 'r') as f:
-            settings = json.load(f)
+        settings = self.settings_handler.file_read()
         self.lang_settings = settings[set.DEFAULT_LANG_KEY]
         self.open_settings_button.destroy()
         self.create_lang_button()

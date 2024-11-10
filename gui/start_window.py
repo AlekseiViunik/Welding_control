@@ -3,7 +3,6 @@ GUI гллавного экрана. На нем мы выбираем файл�
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
 import ctypes
-import json
 import logging
 import os
 import sys
@@ -15,6 +14,7 @@ from gui.settings_window import SettingsWindow
 from gui.components.frames import Frame
 from gui.components.buttons import LangButton
 from logic.get_xlsx import GetXlsx
+from logic.settings_handler import SettingsHandler
 from settings import settings as set
 
 from .app_helper import AppHelper
@@ -25,10 +25,12 @@ class App:
         self.root = root
         self.save_path = save_path
         self.lang_settings = lang_settings
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
-        self.settings = SettingsWindow(root)
+        self.settings = SettingsWindow(root, self.lang_settings)
         self.lang_button = LangButton(root, self.lang_settings)
+        self.settings_handler = SettingsHandler()
+
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.title(set.START_WINDOW_TITLE)
         self.root.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
         self.set_window_icon()
@@ -99,7 +101,9 @@ class App:
         cd_paths = self.file_paths[3].get()
         hb_paths = self.file_paths[4].get()
 
-        self.get_save_path()
+        self.save_path = self.settings_handler.file_read(
+            set.DEFAULT_SAVE_PATH_KEY
+        )
 
         # Вызываем функцию из get_xlsx с нашим словарем
         logging.info(set.LOG_HANDLE_REQUEST_CALL)
@@ -119,11 +123,6 @@ class App:
         if self.helper.info_window:
             self.helper.info_window.destroy()
 
-    def get_save_path(self):
-        with open(set.SETTINGS_FILE_NAME, 'r') as f:
-            settings = json.load(f)
-            self.save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
-
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
@@ -132,7 +131,9 @@ class App:
     def open_settings(self):
         """Открывает окно настроек."""
         self.settings.create_window()
-        self.get_save_path()
+        self.save_path = self.settings_handler.file_read(
+            set.DEFAULT_SAVE_PATH_KEY
+        )
 
     def set_window_icon(self):
         """Устанавливает иконку для окна."""
