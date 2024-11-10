@@ -12,6 +12,8 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
+from gui.components.frames import Frame
+from gui.components.buttons import LangButton
 from logic.get_xlsx import GetXlsx
 from settings import logging_settings as log
 from settings import user_settings as us
@@ -20,17 +22,19 @@ from settings.gui.components import (
     labels as lbl
 )
 from settings.gui.windows import windows as win
-from gui.components.frames import Frame
+
 from .app_helper import AppHelper
 
 
 class App:
-    def __init__(self, root, save_path):
+    def __init__(self, root, save_path, lang_settings):
         self.root = root
         self.save_path = save_path
+        self.lang_settings = lang_settings
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
+        self.lang_button = LangButton(root, self)
         self.root.title(win.START_WINDOW_TITLE)
         self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         self.set_window_icon()
@@ -69,6 +73,7 @@ class App:
             anchor=lbl.AUTHOR_ANCHOR,
             y=lbl.AUTHOR_PADY,
         )
+        self.lang_button.create_lang_button()
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
