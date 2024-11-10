@@ -34,7 +34,7 @@ class App:
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.helper = AppHelper(root)
         self.settings = SettingsWindow(root)
-        self.lang_button = LangButton(root, self)
+        self.lang_button = LangButton(root, self.lang_settings)
         self.root.title(win.START_WINDOW_TITLE)
         self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
         self.set_window_icon()
@@ -73,6 +73,8 @@ class App:
             anchor=lbl.AUTHOR_ANCHOR,
             y=lbl.AUTHOR_PADY,
         )
+
+        # Кнопка смены языка
         self.lang_button.create_lang_button()
 
     def start_process(self):
