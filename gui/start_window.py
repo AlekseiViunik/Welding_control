@@ -113,7 +113,8 @@ class App:
             rc_paths,
             st_paths,
             cd_paths,
-            self.save_path
+            self.save_path,
+            self.lang_settings
         )
         if not get_xlsx.handle_request():
             logging.error(set.LOG_ERROR_MSG)

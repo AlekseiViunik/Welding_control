@@ -25,13 +25,14 @@ from .parser import Parser
 
 
 class GetXlsx:
-    def __init__(self, vmc, hb, rc, st, cd, save_path):
+    def __init__(self, vmc, hb, rc, st, cd, save_path, lang_settings):
         self.vmc = vmc
         self.hb = hb
         self.rc = rc
         self.st = st
         self.cd = cd
         self.save_path = save_path
+        self.lang_settings = lang_settings
         self.message_box = MessageBox()
         self.files_dict = {
             set.VMC: {
@@ -109,7 +110,10 @@ class GetXlsx:
                     f"Какой-то непонятный файл тут: {path}\n"
                     "Приложение закроется!"
                 )
-                self.message_box.show_error(message)
+                self.message_box.show_error(
+                    message,
+                    self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                )
                 logging.error(f"Файл с недопустимым разрешением: {path}")
                 return False
             try:
@@ -136,7 +140,10 @@ class GetXlsx:
                         f"Я не верю, что {filename} находится в нужном "
                         "поле.\nПриложение закроется!"
                     )
-                    self.message_box.show_error(message)
+                    self.message_box.show_error(
+                        message,
+                        self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                    )
                     log_message = (
                         f"Файл не на своем месте: {path} загружен для "
                         f"поля {field}"
@@ -146,7 +153,10 @@ class GetXlsx:
 
             except Exception as e:
                 message = f"Ошибка при проверке файла {path}: {e}"
-                self.message_box.show_error(message)
+                self.message_box.show_error(
+                    message,
+                    self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                )
                 logging.error(f"Ошибка при проверке файла {path}: {e}")
                 return False
         return True
