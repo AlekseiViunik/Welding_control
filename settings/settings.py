@@ -25,7 +25,12 @@ IT_ICON_CODE = 'it'
 START_WINDOW_TITLE = "Dates Control - v1.0.0"
 
 # Имя окна настроек
-# Default: "Настройки"
+# Default:
+# {
+#     RU_ICON_CODE: "Настройки",
+#     GB_ICON_CODE: "Settings",
+#     IT_ICON_CODE: "Impostazioni"
+# }
 SETTINGS_WINDOW_TITLE = {
     RU_ICON_CODE: "Настройки",
     GB_ICON_CODE: "Settings",
@@ -80,7 +85,17 @@ PATH_DIVIDER = '; '  # Default: '; '
 # =========================Настройки для MessageBox===========================
 
 # Заголовок окна об ошибке
-ERROR_MESSAGE_TITLE = 'Ошибка'  # Default: 'Ошибка'
+# Default:
+# {
+#     RU_ICON_CODE: "Ошибка",
+#     GB_ICON_CODE: "Error",
+#     IT_ICON_CODE: "Errore"
+# }
+ERROR_MESSAGE_TITLE = {
+    RU_ICON_CODE: "Ошибка",
+    GB_ICON_CODE: "Error",
+    IT_ICON_CODE: "Errore"
+}
 
 # =========================Настройки для InfoWindow===========================
 # Это окно вылезает, когда начинается процесс обработки файлов и предупреждает
