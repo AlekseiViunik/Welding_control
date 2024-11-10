@@ -1,4 +1,3 @@
-import json
 import tkinter as tk
 
 from gui.app_helper import AppHelper
@@ -51,8 +50,7 @@ class SettingsWindow:
         settings = self.settings_handler.file_read()
         settings[set.DEFAULT_SAVE_PATH_KEY] = path.get()
 
-        with open(set.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=set.JSON_INDENT)
+        self.settings_handler.file_write(settings)
 
         self.message_box.show_message(
             set.SUCCESS_TITLE,

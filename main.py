@@ -2,7 +2,6 @@
 Главный файл. С него начинается работа программы. Он по сути делает только
 одно: запускает главный экран приложения.
 """
-import json
 import logging
 import os
 import sys
@@ -47,20 +46,15 @@ default_settings = {
 
 # TODO create file handler to open files and get data
 if not os.path.exists(set.SETTINGS_FILE_NAME):
-    with open(set.SETTINGS_FILE_NAME, 'w') as f:
-        json.dump(default_settings, f, indent=set.JSON_INDENT)
+    settings_handler.file_write(default_settings)
 else:
     settings = settings_handler.file_read()
 
     if not settings.get(set.DEFAULT_SAVE_PATH_KEY):
-        summary_file_path = (
-            default_settings[set.DEFAULT_SAVE_PATH_KEY] +
-            "/" +
-            set.SAVE_FILE_NAME
+        settings[set.DEFAULT_SAVE_PATH_KEY] = (
+            default_settings[set.DEFAULT_SAVE_PATH_KEY]
         )
-        settings[set.DEFAULT_SAVE_PATH_KEY] = summary_file_path
-        with open(set.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=set.JSON_INDENT)
+        settings_handler.file_write(settings)
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), set.LOGIC_PATH))

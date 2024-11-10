@@ -1,4 +1,3 @@
-import json
 import tkinter as tk
 
 from logic.settings_handler import SettingsHandler
@@ -61,8 +60,7 @@ class LangButton:
         )
         settings[set.DEFAULT_LANG_KEY][set.DEFAULT_LANG_CODE_KEY] = lang_code
 
-        with open(set.SETTINGS_FILE_NAME, 'w') as f:
-            json.dump(settings, f, indent=set.JSON_INDENT)
+        self.settings_handler.file_write(settings)
 
         print(f"Язык установлен на: {lang_code}")
 
