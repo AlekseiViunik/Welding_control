@@ -3,7 +3,7 @@ import tkinter as tk
 from settings import user_settings as us
 
 
-class Button:
+class LangButton:
     def __init__(self, root, instance):
         self.root = root
         self.instance = instance
