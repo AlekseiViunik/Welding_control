@@ -43,6 +43,7 @@ default_settings = {
     }
 }
 
+# TODO create file handler to open files and get data
 if not os.path.exists(us.SETTINGS_FILE_NAME):
     with open(us.SETTINGS_FILE_NAME, 'w') as f:
         json.dump(default_settings, f)
