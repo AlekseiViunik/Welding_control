@@ -1,33 +1,53 @@
 import tkinter as tk
 
+from settings.gui.components import buttons as btn
 from settings import user_settings as us
 
 
 class LangButton:
-    def __init__(self, root, instance):
+    def __init__(self, root, lang_settings):
         self.root = root
-        self.instance = instance
+        self.lang_settings = lang_settings
 
-    def create_lang_button(self, icon_path=None, comand=None):
+    def create_lang_button(self, root=None, icon_path=None, command=None):
         if not icon_path:
             img_photo = tk.PhotoImage(
-                file=self.instance.lang_settings[us.DEFAULT_LANG_ICON_PATH_KEY]
+                file=self.lang_settings[us.DEFAULT_LANG_ICON_PATH_KEY]
             )
         else:
             img_photo = tk.PhotoImage(
                 file=icon_path
             )
-        if not comand:
-            comand = self.open_lang_settings
+        if not command:
+            command = self.open_lang_settings
+
+        if not root:
+            root = self.root
+
         self.img_button = tk.Button(
-            self.root,
+            root,
             image=img_photo,
             width=40,
             height=30,
-            command=comand
+            command=command
         )
         self.img_button.image = img_photo  # Сохраняем ссылку на изображение
         self.img_button.pack(side=tk.LEFT, padx=20)
 
     def open_lang_settings(self):
-        pass
+        lang_window = tk.Toplevel(self.root)
+        lang_window.title("Выбор языка")
+
+        for lang_code, icon_path in btn.lang.items():
+            # Создаем кнопку для каждого языка
+            self.create_lang_button(
+                lang_window,
+                icon_path,
+                command=(
+                    lambda lc=lang_code, win=lang_window:
+                        self.set_language(lc, win))
+            )
+
+    def set_language(self, lang_code, win):
+        print(f"Язык установлен на: {lang_code}")
+        win.destroy()
