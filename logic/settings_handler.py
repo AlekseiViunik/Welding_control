@@ -15,4 +15,5 @@ class SettingsHandler:
             return settings
 
     def file_write(self, to_write=None, encoding=set.ENCODING):
-        pass
+        with open(self.settings_filename, 'w') as f:
+            json.dump(to_write, f, indent=set.JSON_INDENT)
