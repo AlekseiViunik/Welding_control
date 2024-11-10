@@ -9,9 +9,13 @@ class LangButton:
     def __init__(self, root, lang_settings):
         self.root = root
         self.lang_settings = lang_settings
+        self.open_settings_button = None
 
     def create_lang_button(self, root=None, icon_path=None, command=None):
         if not icon_path:
+            with open(us.SETTINGS_FILE_NAME, 'r') as f:
+                settings = json.load(f)
+            self.lang_settings = settings[us.DEFAULT_LANG_KEY]
             img_photo = tk.PhotoImage(
                 file=self.lang_settings[us.DEFAULT_LANG_ICON_PATH_KEY]
             )
@@ -36,6 +40,7 @@ class LangButton:
         self.img_button.pack(side=tk.LEFT, padx=20)
 
     def open_lang_settings(self):
+        self.open_settings_button = self.img_button
         lang_window = tk.Toplevel(self.root)
         lang_window.title("Выбор языка")
 
@@ -63,4 +68,11 @@ class LangButton:
             json.dump(settings, f, indent=us.JSON_INDENT)
 
         print(f"Язык установлен на: {lang_code}")
+
+        self.update_lang_button()
         win.destroy()
+
+    def update_lang_button(self):
+        """Обновляет кнопку выбора языка с новым флагом."""
+        self.open_settings_button.destroy()
+        self.create_lang_button()
