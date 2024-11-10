@@ -706,16 +706,9 @@ DEFAULT_LANG_KEY = "lang"  # Default "lang"
 # выбранного языка
 DEFAULT_LANG_CODE_KEY = "code"  # Default: "code"
 
-# Здесь указан код страны по умолчанию
-DEFAULT_LANG_CODE = "ru"  # Default: "ru"
-
 # Здесь указан ключ файла json, значением которого является путь к файлу с
 # иконкой страны выбранного языка
 DEFAULT_LANG_ICON_PATH_KEY = "icon_path"  # Default: "icon_path"
-
-# Здесь указан путь к файлу с иконкой страны выбранного языка по умолчанию
-# Default: "files/icons/ru.png"
-DEFAULT_LANG_ICON_PATH = "files/icons/ru.png"
 
 # Указываем имя файла, под которым будут сохраняться пользовательские
 # настройки
