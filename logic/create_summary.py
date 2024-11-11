@@ -22,15 +22,15 @@ class CreateSummary:
             output_file=set.SAVE_FILE_NAME
             ):
         """Создает итоговую таблицу в формате Excel на основе данных о швах."""
-        logging.info(set.LOG_TABLE_CREATING)
+        logging.info(set.log_table_creating[self.lang_code])
         wb = openpyxl.Workbook()
         ws = wb.active
 
         # Записываем заголовки в таблицу
-        logging.info(set.LOG_ADD_HEADERS)
-        ws.append(set.HEADERS[self.lang_code])
+        logging.info(set.log_add_headers[self.lang_code])
+        ws.append(set.headers[self.lang_code])
 
-        logging.info(set.LOG_ADD_DATA)
+        logging.info(set.log_add_data[self.lang_code])
         for weld_number, control_dates in welds_data.items():
             # Получаем даты контроля по ключам
             hb = datetime.strptime(
@@ -97,11 +97,11 @@ class CreateSummary:
                 note.strip()
             ]
             ws.append(row)
-        logging.info(set.LOG_DATA_ADDED)
+        logging.info(set.log_data_added[self.lang_code])
         file_direction = save_path + "/" + output_file
         logging.info(f"Сохраняем таблицу в {file_direction}")
         wb.save(file_direction)
-        logging.info(set.LOG_TABLE_SAVED)
+        logging.info(set.log_table_saved[self.lang_code])
 
         self.message_box.show_message(
             set.success_title[self.lang_code],

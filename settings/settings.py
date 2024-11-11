@@ -728,7 +728,7 @@ DATE_FORMAT = "%d/%m/%Y"  # Default: "%d/%m/%Y"
 #    "ЦД",
 #    "Примечания"
 # ]
-HEADERS = {
+headers = {
     RU_CODE: [
         "Номер шва",
         "ВИК",
@@ -932,73 +932,225 @@ LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
 LOG_DIVIDER = "******************************************************"
 
 # Информирует о начале выполнения логики.
-LOG_START = "Начало выполнения логики"  # Default: "Начало выполнения логики"
+# Default:
+# {
+#     RU_CODE: "Начало выполнения логики",
+#     GB_CODE: "The beginning of logic execution",
+#     IT_CODE: "Inizio dell'esecuzione della logica",
+# }
+log_start = {
+    RU_CODE: "Начало выполнения логики",
+    GB_CODE: "The beginning of logic execution",
+    IT_CODE: "Inizio dell'esecuzione della logica",
+}
 
 # Информирует о вызове метода App.calculate_dates
-# Default: "Вызов метода App.calculate_dates"
-LOG_CALCULATE_DATES_CALL = "Вызов метода App.calculate_dates"
+# Default:
+# {
+#     RU_CODE: "Вызов метода App.calculate_dates",
+#     GB_CODE: "Calling the App.calculate_dates method",
+#     IT_CODE: "Chiamare il metodo App.calculate_dates",
+# }
+log_calculate_dates_call = {
+    RU_CODE: "Вызов метода App.calculate_dates",
+    GB_CODE: "Calling the App.calculate_dates method",
+    IT_CODE: "Chiamare il metodo App.calculate_dates",
+}
 
 # Информирует о вызове метода App.handle_request
-# Default: "Вызов метода App.handle_request"
-LOG_HANDLE_REQUEST_CALL = "Вызов метода App.handle_request"
+# Default:
+# {
+#     RU_CODE: "Вызов метода App.handle_request",
+#     GB_CODE: "Calling the App.handle_request method",
+#     IT_CODE: "Chiamare il metodo App.handle_request",
+# }
+log_handle_request_call = {
+    RU_CODE: "Вызов метода App.handle_request",
+    GB_CODE: "Calling the App.handle_request method",
+    IT_CODE: "Chiamare il metodo App.handle_request",
+}
 
 # Информирует об ошибке в программе без конкретизации
-# Default: "Обработка завершилась с ошибкой."
-LOG_ERROR_MSG = "Обработка завершилась с ошибкой."
+# Default:
+# {
+#     RU_CODE: "Обработка завершилась с ошибкой",
+#     GB_CODE: "Processing failed with an error",
+#     IT_CODE: "L'elaborazione non è riuscita con un errore",
+# }
+log_error_msg = {
+    RU_CODE: "Обработка завершилась с ошибкой",
+    GB_CODE: "Processing failed with an error",
+    IT_CODE: "L'elaborazione non è riuscita con un errore",
+}
 
 # Информирует о начале проверки файлов
-# Default: "Начало проверки файлов, правильно ли они раскиданы по путям"
-LOG_CHECK_FILES_START = (
-    "Начало проверки файлов, правильно ли они раскиданы по путям"
-)
+# Default:
+# {
+#     RU_CODE: "Начало проверки файлов",
+#     GB_CODE: "Start files check",
+#     IT_CODE: "Inizio del controllo dei file",
+# }
+log_check_files_start = {
+    RU_CODE: "Начало проверки файлов",
+    GB_CODE: "Start files check",
+    IT_CODE: "Inizio del controllo dei file",
+}
 
 # Информирует о вызове метода check_files
-# Default: "Вызов метода check_files"
-LOG_CHECK_FILES_CALL = "Вызов метода check_files"
+# Default:
+# {
+#     RU_CODE: "Вызов метода check_files",
+#     GB_CODE: "Calling check_files method",
+#     IT_CODE: "Chiamare il metodo check_files",
+# }
+log_check_files_call = {
+    RU_CODE: "Вызов метода check_files",
+    GB_CODE: "Calling check_files method",
+    IT_CODE: "Chiamare il metodo check_files",
+}
 
 # Информирует об окончании проверки check_files
-# Default: "Проверка выполнена"
-LOG_CHECK_FILES_DONE = "Проверка выполнена"
+# Default:
+# {
+#     RU_CODE: "Проверка выполнена",
+#     GB_CODE: "Checking is completed",
+#     IT_CODE: "Verifica eseguita",
+# }
+log_check_files_done = {
+    RU_CODE: "Проверка выполнена",
+    GB_CODE: "Checking is completed",
+    IT_CODE: "Verifica eseguita",
+}
 
 # Информирует начале парсинга
-# Default: "Начало парсинга предоставленных файлов"
-LOG_PARSE_START = "Начало парсинга предоставленных файлов"
+# Default:
+# {
+#     RU_CODE: "Начало парсинга предоставленных файлов",
+#     GB_CODE: "Start parsing",
+#     IT_CODE: "Inizio del parsing",
+# }
+log_parse_start = {
+    RU_CODE: "Начало парсинга предоставленных файлов",
+    GB_CODE: "Start parsing",
+    IT_CODE: "Inizio del parsing",
+}
 
 # Информирует вызове метода parser.parse_weld_data
-# Default: "Вызов метода parser.parse_weld_data"
-LOG_PARSE_CALL = "Вызов метода parser.parse_weld_data"
+# Default:
+# {
+#     RU_CODE: "Вызов метода parser.parse_weld_data",
+#     GB_CODE: "Calling parser.parse_weld_data method",
+#     IT_CODE: "Chiamare il metodo parser.parse_weld_data",
+# }
+log_parse_call = {
+    RU_CODE: "Вызов метода parser.parse_weld_data",
+    GB_CODE: "Calling parser.parse_weld_data method",
+    IT_CODE: "Chiamare il metodo parser.parse_weld_data",
+}
 
 # Информирование о начале создания итоговой таблицы
-# Default: "Начало составления итоговой таблицы"
-LOG_TABLE_START = "Начало составления итоговой таблицы"
+# Default:
+# {
+#     RU_CODE: "Начало составления итоговой таблицы",
+#     GB_CODE: "Starting summary table creation",
+#     IT_CODE: "Avvio della creazione della tabella riassuntiva",
+# }
+log_table_start = {
+    RU_CODE: "Начало составления итоговой таблицы",
+    GB_CODE: "Starting summary table creation",
+    IT_CODE: "Avvio della creazione della tabella riassuntiva",
+}
 
 # Информирует о вызове метода create_summary.create_summary_excel
-# Default: "Вызов метода create_summary.create_summary_excel"
-LOG_TABLE_METHOD_CALL = "Вызов метода create_summary.create_summary_excel"
+# Default:
+# {
+#     RU_CODE: "Вызов метода create_summary.create_summary_excel",
+#     GB_CODE: "Calling CreateSummary.create_summary_excel method",
+#     IT_CODE: "Chiamare il metodo CreateSummary.create_summary_excel",
+# }
+log_table_method_call = {
+    RU_CODE: "Вызов метода create_summary.create_summary_excel",
+    GB_CODE: "Calling CreateSummary.create_summary_excel method",
+    IT_CODE: "Chiamare il metodo CreateSummary.create_summary_excel",
+}
 
 # Информирует о создании итоговой таблицы
-# Default: "Таблица составлена"
-LOG_TABLE_DONE = "Таблица составлена"
+# Default:
+# {
+#     RU_CODE: "Таблица составлена",
+#     GB_CODE: "The table is done",
+#     IT_CODE: "La tabella è fatta",
+# }
+log_table_done = {
+    RU_CODE: "Таблица составлена",
+    GB_CODE: "The table is done",
+    IT_CODE: "La tabella è fatta",
+}
 
 # Информирует о запуске процесса создания итоговой таблицы
-# Default: "Создаем таблицу"
-LOG_TABLE_CREATING = "Создаем таблицу"
+# Default:
+# {
+#     RU_CODE: "Создаем основу",
+#     GB_CODE: "Create the base",
+#     IT_CODE: "Crea una base",
+# }
+log_table_creating = {
+    RU_CODE: "Создаем основу",
+    GB_CODE: "Create the base",
+    IT_CODE: "Creare una base",
+}
 
 # Информирует о добавлении заголовков в итоговую таблицу
-# Default: "Создаем заголовки"
-LOG_ADD_HEADERS = "Создаем заголовки"
+# Default:
+# {
+#     RU_CODE: "Создаем заголовки",
+#     GB_CODE: "Create headers",
+#     IT_CODE: "Creare titoli",
+# }
+log_add_headers = {
+    RU_CODE: "Создаем заголовки",
+    GB_CODE: "Create headers",
+    IT_CODE: "Creare titoli",
+}
 
 # Информирует о добавлении данных в итоговую таблицу
-# Default: "Записываем данные..."
-LOG_ADD_DATA = "Записываем данные..."
+# Default:
+# {
+#     RU_CODE: "Записываем данные...",
+#     GB_CODE: "Recording the data...",
+#     IT_CODE: "Registriamo i dati...",
+# }
+log_add_data = {
+    RU_CODE: "Записываем данные...",
+    GB_CODE: "Recording the data...",
+    IT_CODE: "Registriamo i dati...",
+}
 
 # Информирует о добавлении данных в итоговую таблицу
-# Default: "Данные записаны"
-LOG_DATA_ADDED = "Данные записаны"
+# Default:
+# {
+#     RU_CODE: "Данные записаны",
+#     GB_CODE: "The data is recorded",
+#     IT_CODE: "I dati sono registrati",
+# }
+log_data_added = {
+    RU_CODE: "Данные записаны",
+    GB_CODE: "The data is recorded",
+    IT_CODE: "I dati sono registrati",
+}
 
 # Информирует о сохранении итоговой таблицы
-# Default: "Таблица сохранена"
-LOG_TABLE_SAVED = "Таблица сохранена"
+# Default:
+# {
+#     RU_CODE: "Таблица сохранена",
+#     GB_CODE: "The table is saved",
+#     IT_CODE: "La tabella è salvata",
+# }
+log_table_saved = {
+    RU_CODE: "Таблица сохранена",
+    GB_CODE: "The table is saved",
+    IT_CODE: "La tabella è salvata",
+}
 """
 ==============================================================================
 """

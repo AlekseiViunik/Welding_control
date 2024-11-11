@@ -77,7 +77,7 @@ class App:
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
         logging.info(set.LOG_DIVIDER)
-        logging.info(set.LOG_START)
+        logging.info(set.log_start[self.lang_code])
         logging.info(
             f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
             f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
@@ -85,7 +85,7 @@ class App:
         )
         logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
         self.helper.show_info_window()
-        logging.info(set.LOG_CALCULATE_DATES_CALL)
+        logging.info(set.log_calculate_dates_call[self.lang_code])
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -107,7 +107,7 @@ class App:
         )
 
         # Вызываем функцию из get_xlsx с нашим словарем
-        logging.info(set.LOG_HANDLE_REQUEST_CALL)
+        logging.info(set.log_handle_request_call[self.lang_code])
         get_xlsx = GetXlsx(
             vmc_paths,
             hb_paths,
@@ -118,7 +118,7 @@ class App:
             self.lang_code
         )
         if not get_xlsx.handle_request():
-            logging.error(set.LOG_ERROR_MSG)
+            logging.error(set.log_error_msg[self.lang_code])
             self.on_closing()
 
         # Закрываем информационное окно по завершении работы

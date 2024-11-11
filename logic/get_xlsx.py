@@ -69,8 +69,8 @@ class GetXlsx:
         }
 
         # Проверка переданных файлов
-        logging.info(set.LOG_CHECK_FILES_START)
-        logging.info(set.LOG_CHECK_FILES_CALL)
+        logging.info(set.log_check_files_start[self.lang_code])
+        logging.info(set.log_check_files_call[self.lang_code])
         for field, file_info in self.files_dict.items():
             if not self.check_files(
                 file_info['path'],
@@ -78,11 +78,11 @@ class GetXlsx:
                 field
             ):
                 return False
-        logging.info(set.LOG_CHECK_FILES_DONE)
+        logging.info(set.log_check_files_done[self.lang_code])
 
         # Получение данных и запихивание их в словарь
-        logging.info(set.LOG_PARSE_START)
-        logging.info(set.LOG_PARSE_CALL)
+        logging.info(set.log_parse_start[self.lang_code])
+        logging.info(set.log_parse_call[self.lang_code])
         parser = Parser(self.lang_code)
         for key, value in self.files_dict.items():
             parser.parse_weld_data(value['path'], key)
@@ -91,11 +91,11 @@ class GetXlsx:
         )
 
         # Составление итоговой таблицы
-        logging.info(set.LOG_TABLE_START)
-        logging.info(set.LOG_TABLE_METHOD_CALL)
+        logging.info(set.log_table_start[self.lang_code])
+        logging.info(set.log_table_method_call[self.lang_code])
         create_summary = CreateSummary(self.lang_code)
         create_summary.create_summary_excel(parser.welds_data, self.save_path)
-        logging.info(set.LOG_TABLE_DONE)
+        logging.info(set.log_table_done[self.lang_code])
         return True
 
     def check_files(self, paths, check_keys, field):
