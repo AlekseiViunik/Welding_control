@@ -41,7 +41,7 @@ class AppHelper:
 
         label = tk.Label(
             self.info_window,
-            text=set.INFO_LABEL_TEXT,
+            text=set.info_label_text[self.lang_code],
             padx=set.INFO_LABEL_PADX,
             pady=set.INFO_LABEL_PADY
         )

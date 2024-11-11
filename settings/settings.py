@@ -422,8 +422,17 @@ AUTHOR_RELY = 1.0
 
 # =============Настройки для Лейбла информационного окна=============
 # Текст информационного сообщения
-# Default: "Работа пошла.\nПодожди немного!"
-INFO_LABEL_TEXT = "Работа пошла.\nПодожди немного!"
+# Default:
+# {
+#     RU_CODE: "Работа пошла.\nПодожди немного!",
+#     GB_CODE: "The work has started.\nWait a bit!",
+#     IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!"
+# }
+info_label_text = {
+    RU_CODE: "Работа пошла.\nПодожди немного!",
+    GB_CODE: "The work has started.\nWait a bit!",
+    IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!"
+}
 
 # Отступ по краям окна по горизонтали
 INFO_LABEL_PADX = 20  # Default: 20
