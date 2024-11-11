@@ -57,10 +57,7 @@ class Parser:
                         weld_number_ru = (
                             (set.REPLACEMENT_DICT[weld_number[0]] +
                              weld_number[1:])
-                            if (
-                                weld_number[0] in set.REPLACEMENT_DICT and
-                                self.lang_code == set.RU_CODE
-                            )
+                            if weld_number[0] in set.REPLACEMENT_DICT
                             else weld_number
                         )
                         if weld_number_ru not in self.welds_data.keys():

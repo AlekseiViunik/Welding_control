@@ -667,8 +667,8 @@ MAX_ROW_RANGE_VALUE = 11  # Default: 10
 # }
 joint_id_regexp = {
     RU_CODE: r'^[CYTNHСНТУ][-\d]*$',
-    GB_CODE: r'^[a-zA-Z][-\d]*$',
-    IT_CODE: r'^[a-zA-Z][-\d]*$',
+    GB_CODE: r'^[a-zA-ZСНТУ][-\d]*$',
+    IT_CODE: r'^[a-zA-ZСНТУ][-\d]*$',
 }
 
 # Поскольку в номерах швов у нас должны быть только кириллические буквы,
