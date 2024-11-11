@@ -55,30 +55,30 @@ class CreateSummary:
             # Сравнение дат
             if vmc:
                 if hb and hb < vmc:
-                    note += set.NOTE_HB_LT_VMC
+                    note += set.note_hb_lt_vmc[self.lang_code]
                 if st:
                     if st < vmc:
-                        note += set.NOTE_ST_LT_VMC
+                        note += set.note_st_lt_vmc[self.lang_code]
                     elif hb and st < hb:
-                        note += set.NOTE_ST_LT_HB
+                        note += set.note_st_lt_hb[self.lang_code]
                 if rc:
                     if rc < vmc:
-                        note += set.NOTE_RC_LT_VMC
+                        note += set.note_rc_lt_vmc[self.lang_code]
                     elif hb and rc < hb:
-                        note += set.NOTE_RC_LT_HB
+                        note += set.note_rc_lt_hb[self.lang_code]
                     elif st and rc < st:
-                        note += set.NOTE_RC_LT_ST
+                        note += set.note_rc_lt_st[self.lang_code]
                 if cd:
                     if cd < vmc:
-                        note += set.NOTE_CD_LT_VMC
+                        note += set.note_cd_lt_vmc[self.lang_code]
                     elif hb and cd < hb:
-                        note += set.NOTE_CD_LT_HB
+                        note += set.note_cd_lt_hb[self.lang_code]
                     elif st and cd < st:
-                        note += set.NOTE_CD_LT_ST
+                        note += set.note_cd_lt_st[self.lang_code]
                     elif rc and cd < rc:
-                        note += set.NOTE_CD_LT_RC
+                        note += set.note_cd_lt_rc[self.lang_code]
             else:
-                note = set.NOTE_VMC_DOES_NOT_EXIST
+                note = set.note_vmc_does_not_exist[self.lang_code]
 
             # Записываем данные в строку таблицы
             # используем символ " ' ", чтобы дата не записалась как число

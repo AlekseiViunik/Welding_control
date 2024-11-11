@@ -758,10 +758,6 @@ HEADERS = {
     ],
 }
 
-# Тут должны были быть константы для ключей типа VMC, CD, RC, HB и ST,
-# но я их перенес выше, так как они используются сразу в двух файлах.
-# Ищи их там
-
 # Дефолтное значение ячейки в столбце с примечаниями:
 NOTE = ""  # Default: ""
 
@@ -771,28 +767,133 @@ NOTE = ""  # Default: ""
 # что контроль <тип_контроля> проведен раньше, чем <другой_тип_контроля>,
 # что является ошибкой и такого быть не должно.
 
-# Default: "Замер твердости проведен раньше ВИК; "
-NOTE_HB_LT_VMC = "Замер твердости проведен раньше ВИК; "
-# Default: "Стилоскопирование проведено раньше ВИК; "
-NOTE_ST_LT_VMC = "Стилоскопирование проведено раньше ВИК; "
-# Default: "Стилоскопирование проведено раньше замеров твердости; "
-NOTE_ST_LT_HB = "Стилоскопирование проведено раньше замеров твердости; "
-# Default: "РК или УЗК проведено раньше ВИК; "
-NOTE_RC_LT_VMC = "РК или УЗК проведено раньше ВИК; "
-# Default: "РК или УЗК проведено раньше замеров твердости; "
-NOTE_RC_LT_HB = "РК или УЗК проведено раньше замеров твердости; "
-# Default: "РК или УЗК проведено раньше стилоскопирования; "
-NOTE_RC_LT_ST = "РК или УЗК проведено раньше стилоскопирования; "
-# Default: "ЦД проведена раньше ВИК; "
-NOTE_CD_LT_VMC = "ЦД проведена раньше ВИК; "
-# Default: "ЦД проведена раньше замеров твердости; "
-NOTE_CD_LT_HB = "ЦД проведена раньше замеров твердости; "
-# Default: "ЦД проведена раньше замеров стилоскопирования; "
-NOTE_CD_LT_ST = "ЦД проведена раньше замеров стилоскопирования; "
-# Default: "ЦД проведена раньше замеров РК или УЗК; "
-NOTE_CD_LT_RC = "ЦД проведена раньше замеров РК или УЗК; "
-# Default: "Дата ВИК не указана!"
-NOTE_VMC_DOES_NOT_EXIST = "Дата ВИК не указана!"
+# Default:
+# {
+#     RU_CODE: "Замер твердости проведен раньше ВИК; ",
+#     GB_CODE: "Hardness measurement is carried out before visual control",
+#     IT_CODE: "Misurazione della durezza eseguita prima del controllo visivo",
+# }
+note_hb_lt_vmc = {
+    RU_CODE: "Замер твердости проведен раньше ВИК; ",
+    GB_CODE: "Hardness measurement is carried out before visual control",
+    IT_CODE: "Misurazione della durezza eseguita prima del controllo visivo",
+}
+# Default:
+# {
+#     RU_CODE: "Стилоскопирование проведено раньше ВИК; ",
+#     GB_CODE: "Styloscopy is performed before visual control",
+#     IT_CODE: "Stiloscopia eseguita prima del controllo visivo",
+# }
+note_st_lt_vmc = {
+    RU_CODE: "Стилоскопирование проведено раньше ВИК; ",
+    GB_CODE: "Styloscopy is performed before visual control",
+    IT_CODE: "Stiloscopia eseguita prima del controllo visivo",
+}
+# Default:
+# {
+#     RU_CODE: "Стилоскопирование проведено раньше замеров твердости; ",
+#     GB_CODE: "Styloscopy is performed before hardness measurements",
+#     IT_CODE: "Stiloscopia eseguita prima delle misure di durezza",
+# }
+note_st_lt_hb = {
+    RU_CODE: "Стилоскопирование проведено раньше замеров твердости; ",
+    GB_CODE: "Styloscopy is performed before hardness measurements",
+    IT_CODE: "Stiloscopia eseguita prima delle misure di durezza",
+}
+# Default:
+# {
+#     RU_CODE: "РК или УЗК проведено раньше ВИК; ",
+#     GB_CODE:
+#         "Radiography or Ultrasonic are performed before visual control",
+#     IT_CODE: "Radiografia o Ultrasuoni eseguiti prima del controllo visivo",
+# }
+note_rc_lt_vmc = {
+    RU_CODE: "РК или УЗК проведено раньше ВИК; ",
+    GB_CODE:
+        "Radiography or Ultrasonic are performed before visual control",
+    IT_CODE: "Radiografia o Ultrasuoni eseguiti prima del controllo visivo",
+}
+# Default:
+# {
+#     RU_CODE: "РК или УЗК проведено раньше замеров твердости; ",
+#     GB_CODE: "Radiography or Ultrasonic are performed before Hardness",
+#     IT_CODE:
+#         "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza",
+# }
+note_rc_lt_hb = {
+    RU_CODE: "РК или УЗК проведено раньше замеров твердости; ",
+    GB_CODE: "Radiography or Ultrasonic are performed before Hardness",
+    IT_CODE:
+        "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza",
+}
+# Default:
+# {
+#     RU_CODE: "РК или УЗК проведено раньше стилоскопирования; ",
+#     GB_CODE: "Radiography or Ultrasound are performed before Styloscopy",
+#     IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia",
+# }
+note_rc_lt_st = {
+    RU_CODE: "РК или УЗК проведено раньше стилоскопирования; ",
+    GB_CODE: "Radiography or Ultrasound are performed before Styloscopy",
+    IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia",
+}
+# Default:
+# {
+#     RU_CODE: "ЦД проведена раньше ВИК; ",
+#     GB_CODE: "Color flaw detection is performed before visual control",
+#     IT_CODE: "Difetti di colore eseguiti prima del controllo visivo",
+# }
+note_cd_lt_vmc = {
+    RU_CODE: "ЦД проведена раньше ВИК; ",
+    GB_CODE: "Color flaw detection is performed before visual control",
+    IT_CODE: "Difetti di colore eseguiti prima del controllo visivo",
+}
+# Default:
+# {
+#     RU_CODE: "ЦД проведена раньше замеров твердости; ",
+#     GB_CODE: "Color flaw detection is performed before hardness",
+#     IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza",
+# }
+note_cd_lt_hb = {
+    RU_CODE: "ЦД проведена раньше замеров твердости; ",
+    GB_CODE: "Color flaw detection is performed before hardness",
+    IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza",
+}
+# Default:
+# {
+#     RU_CODE: "ЦД проведена раньше замеров стилоскопирования; ",
+#     GB_CODE: "Color flaw detection is performed before Styloscopy",
+#     IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia",
+# }
+note_cd_lt_st = {
+    RU_CODE: "ЦД проведена раньше замеров стилоскопирования; ",
+    GB_CODE: "Color flaw detection is performed before Styloscopy",
+    IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia",
+}
+# Default:
+# {
+#     RU_CODE: "ЦД проведена раньше замеров РК или УЗК; ",
+#     GB_CODE:
+#         "Color flaw detection is performed before Radiography or Ultrasound",
+#     IT_CODE: "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni",
+# }
+note_cd_lt_rc = {
+    RU_CODE: "ЦД проведена раньше замеров РК или УЗК; ",
+    GB_CODE:
+        "Color flaw detection is performed before Radiography or Ultrasound",
+    IT_CODE: "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni",
+}
+# Default:
+# {
+#     RU_CODE: "Дата ВИК не указана!",
+#     GB_CODE: "The date of visual control is not specified!",
+#     IT_CODE: "Nessuna data di controllo visivo specificata!",
+# }
+note_vmc_does_not_exist = {
+    RU_CODE: "Дата ВИК не указана!",
+    GB_CODE: "The date of visual control is not specified!",
+    IT_CODE: "Nessuna data di controllo visivo specificata!",
+}
 
 # Формат даты по умолчанию для записи в итоговый файл
 DATE_FORMAT = "%d/%m/%Y"  # Default: "%d/%m/%Y"
