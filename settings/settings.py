@@ -728,15 +728,35 @@ DATE_FORMAT = "%d/%m/%Y"  # Default: "%d/%m/%Y"
 #    "ЦД",
 #    "Примечания"
 # ]
-HEADERS = [
-    "Номер шва",
-    "ВИК",
-    "Твёрдость",
-    "Стилоскопирование",
-    "РК или УЗК",
-    "ЦД",
-    "Примечания"
-]
+HEADERS = {
+    RU_CODE: [
+        "Номер шва",
+        "ВИК",
+        "Твёрдость",
+        "Стилоскопирование",
+        "РК или УЗК",
+        "ЦД",
+        "Примечания"
+    ],
+    GB_CODE: [
+        "Joint id",
+        "Visual",
+        "Hardness",
+        "Styloscopy",
+        "Radioghraph or Ultrasonic",
+        "Color",
+        "Notes"
+    ],
+    IT_CODE: [
+        "Id saldatura",
+        "Visivo",
+        "Durezza",
+        "Stiloscopia",
+        "Radiografia o ultrasuoni",
+        "Colore",
+        "Nota"
+    ],
+}
 
 # Тут должны были быть константы для ключей типа VMC, CD, RC, HB и ST,
 # но я их перенес выше, так как они используются сразу в двух файлах.

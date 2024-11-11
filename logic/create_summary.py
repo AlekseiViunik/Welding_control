@@ -28,7 +28,7 @@ class CreateSummary:
 
         # Записываем заголовки в таблицу
         logging.info(set.LOG_ADD_HEADERS)
-        ws.append(set.HEADERS)
+        ws.append(set.HEADERS[self.lang_code])
 
         logging.info(set.LOG_ADD_DATA)
         for weld_number, control_dates in welds_data.items():
