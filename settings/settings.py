@@ -31,7 +31,7 @@ START_WINDOW_TITLE = "Dates Control - v1.0.0"
 #     GB_ICON_CODE: "Settings",
 #     IT_ICON_CODE: "Impostazioni"
 # }
-SETTINGS_WINDOW_TITLE = {
+settings_window_title = {
     RU_ICON_CODE: "Настройки",
     GB_ICON_CODE: "Settings",
     IT_ICON_CODE: "Impostazioni"
@@ -91,7 +91,7 @@ PATH_DIVIDER = '; '  # Default: '; '
 #     GB_ICON_CODE: "Error",
 #     IT_ICON_CODE: "Errore"
 # }
-ERROR_MESSAGE_TITLE = {
+error_message_title = {
     RU_ICON_CODE: "Ошибка",
     GB_ICON_CODE: "Error",
     IT_ICON_CODE: "Errore"
@@ -102,13 +102,23 @@ ERROR_MESSAGE_TITLE = {
 # юзера, что работа пошла, чтобы юзер не подумал, что приложение зависло.
 
 # Ширина инфобокса
-INFO_WINDOW_WIDTH = 200  # Default: 200
+INFO_WINDOW_WIDTH = 400  # Default: 200
 
 # Высота инфобокса
 INFO_WINDOW_HEIGHT = 100  # Default: 100
 
 # Заголовок инфобокса
-INFO_WINDOW_TITLE = 'Для справки'  # Default: 'Для справки'
+# Default:
+# {
+#     RU_ICON_CODE: "Для справки!",
+#     GB_ICON_CODE: "For your information!",
+#     IT_ICON_CODE: "Per l'informazione"
+# }
+info_window_title = {
+    RU_ICON_CODE: "Для справки!",
+    GB_ICON_CODE: "For your information!",
+    IT_ICON_CODE: "Per l'informazione"
+}
 
 # =============Настройки информационных окон об успехе===============
 
