@@ -99,7 +99,10 @@ class CreateSummary:
             ws.append(row)
         logging.info(set.log_data_added[self.lang_code])
         file_direction = save_path + "/" + output_file
-        logging.info(f"Сохраняем таблицу в {file_direction}")
+        save_table_message = (
+            set.log_save_table_to[self.lang_code].format(file_direction)
+        )
+        logging.info(save_table_message)
         wb.save(file_direction)
         logging.info(set.log_table_saved[self.lang_code])
 

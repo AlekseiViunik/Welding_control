@@ -903,6 +903,19 @@ log_chosen_files = {
     IT_CODE: "I file scelti: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
 }
 
+# Информирует о том, куда сохраняем таблицу
+# Default:
+# {
+#     RU_CODE: "Сохраняем таблицу в {}",
+#     GB_CODE: "Save table to {}",
+#     IT_CODE: "Salvare la tabella in {}",
+# }
+log_save_table_to = {
+    RU_CODE: "Сохраняем таблицу в {}",
+    GB_CODE: "Save table to {}",
+    IT_CODE: "Salvare la tabella in {}",
+}
+
 """
 ==============================================================================
 """
