@@ -145,7 +145,7 @@ success_title = {
 saved_settings_success_message = {
     RU_ICON_CODE: "Настройки сохранены!",
     GB_ICON_CODE: "The settings are saved!",
-    IT_ICON_CODE: "Impostazioni salvate!"
+    IT_ICON_CODE: "Le impostazioni sono salvate!"
 }
 
 # Сообщение окна об успехе сохранения настроек
@@ -215,7 +215,17 @@ BUTTONS_WIDTH = 15  # Default: 15
 # ====================Настройки для кнопки "Обзор"===================
 
 # Текст кнопки
-BROWSE_BUTTON_TEXT = 'Обзор'  # Default: 'Обзор'
+# Default:
+# {
+#     RU_ICON_CODE: "Обзор",
+#     GB_ICON_CODE: "Browse",
+#     IT_ICON_CODE: "Navigazione"
+# }
+browse_button_text = {
+    RU_ICON_CODE: "Обзор",
+    GB_ICON_CODE: "Browse",
+    IT_ICON_CODE: "Navigazione"
+}
 
 # Размещение кнопки внутри фрейма
 # При указании одной и той же стороны, элементы будут прижаты друг к другу
