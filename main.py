@@ -39,7 +39,7 @@ settings_handler = SettingsHandler()
 default_settings = {
     set.DEFAULT_SAVE_PATH_KEY: set.DEFAULT_SAVE_PATH,
     set.DEFAULT_LANG_KEY: {
-        set.DEFAULT_LANG_CODE_KEY: set.RU_ICON_CODE,
+        set.DEFAULT_LANG_CODE_KEY: set.RU_CODE,
         set.DEFAULT_LANG_ICON_PATH_KEY: set.RU_ICON_PATH
     }
 }

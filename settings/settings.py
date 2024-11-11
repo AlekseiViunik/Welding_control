@@ -12,13 +12,17 @@ import os
 # ============================================================================
 
 # Код языка РФ
-RU_ICON_CODE = 'ru'
+RU_CODE = 'ru'
 
 # Код языка Великобритании
-GB_ICON_CODE = 'gb'
+GB_CODE = 'gb'
 
 # Код языка Италии
-IT_ICON_CODE = 'it'
+IT_CODE = 'it'
+
+# Список доступных кодов
+# Сюда добавлять все константы кодов выше
+LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 
 # Имя Главного окна
 # Default: "Dates Control - v1.0.0"
@@ -32,9 +36,9 @@ START_WINDOW_TITLE = "Dates Control - v1.0.0"
 #     IT_ICON_CODE: "Impostazioni"
 # }
 settings_window_title = {
-    RU_ICON_CODE: "Настройки",
-    GB_ICON_CODE: "Settings",
-    IT_ICON_CODE: "Impostazioni"
+    RU_CODE: "Настройки",
+    GB_CODE: "Settings",
+    IT_CODE: "Impostazioni"
 }
 
 # Размеры стартового окна
@@ -92,9 +96,9 @@ PATH_DIVIDER = '; '  # Default: '; '
 #     IT_ICON_CODE: "Errore"
 # }
 error_message_title = {
-    RU_ICON_CODE: "Ошибка",
-    GB_ICON_CODE: "Error",
-    IT_ICON_CODE: "Errore"
+    RU_CODE: "Ошибка",
+    GB_CODE: "Error",
+    IT_CODE: "Errore"
 }
 
 # =========================Настройки для InfoWindow===========================
@@ -115,9 +119,9 @@ INFO_WINDOW_HEIGHT = 100  # Default: 100
 #     IT_ICON_CODE: "Per l'informazione"
 # }
 info_window_title = {
-    RU_ICON_CODE: "Для справки!",
-    GB_ICON_CODE: "For your information!",
-    IT_ICON_CODE: "Per l'informazione"
+    RU_CODE: "Для справки!",
+    GB_CODE: "For your information!",
+    IT_CODE: "Per l'informazione"
 }
 
 # =============Настройки информационных окон об успехе===============
@@ -130,9 +134,9 @@ info_window_title = {
 #     IT_ICON_CODE: "Successo!"
 # }
 success_title = {
-    RU_ICON_CODE: "Успех!",
-    GB_ICON_CODE: "Success!",
-    IT_ICON_CODE: "Successo!"
+    RU_CODE: "Успех!",
+    GB_CODE: "Success!",
+    IT_CODE: "Successo!"
 }
 
 # Сообщение окна об успехе сохранения файла настроек
@@ -143,9 +147,9 @@ success_title = {
 #     IT_ICON_CODE: "Impostazioni salvate!"
 # }
 saved_settings_success_message = {
-    RU_ICON_CODE: "Настройки сохранены!",
-    GB_ICON_CODE: "The settings are saved!",
-    IT_ICON_CODE: "Le impostazioni sono salvate!"
+    RU_CODE: "Настройки сохранены!",
+    GB_CODE: "The settings are saved!",
+    IT_CODE: "Le impostazioni sono salvate!"
 }
 
 # Сообщение окна об успехе сохранения настроек
@@ -158,9 +162,9 @@ saved_settings_success_message = {
 #     IT_ICON_CODE: "La tabella finale è salvata in"
 # }
 saved_file_success_message = {
-    RU_ICON_CODE: "Итоговая таблица сохранена в ",
-    GB_ICON_CODE: "The final table is saved in ",
-    IT_ICON_CODE: "La tabella finale è salvata in "
+    RU_CODE: "Итоговая таблица сохранена в ",
+    GB_CODE: "The final table is saved in ",
+    IT_CODE: "La tabella finale è salvata in "
 }
 
 # ============================================================================
@@ -222,9 +226,9 @@ BUTTONS_WIDTH = 15  # Default: 15
 #     IT_ICON_CODE: "Navigazione"
 # }
 browse_button_text = {
-    RU_ICON_CODE: "Обзор",
-    GB_ICON_CODE: "Browse",
-    IT_ICON_CODE: "Navigazione"
+    RU_CODE: "Обзор",
+    GB_CODE: "Browse",
+    IT_CODE: "Navigazione"
 }
 
 # Размещение кнопки внутри фрейма
@@ -245,10 +249,30 @@ BROWSE_BUTTON_RIGHT_PADX = 0  # Default: 0
 # ============Настройки для кнопок фрейма окна настроек==============
 
 # Имя кнопки для сохранения
-SAVE_BUTTON_NAME = "Сохранить"  # Default: "Сохранить"
+# Default:
+# {
+#     RU_ICON_CODE: "Сохранить",
+#     GB_ICON_CODE: "Save",
+#     IT_ICON_CODE: "Salvare"
+# }
+save_button_name = {
+    RU_CODE: "Сохранить",
+    GB_CODE: "Save",
+    IT_CODE: "Salvare"
+}
 
-# Имя кнопки для сохранения
-CANCEL_BUTTON_NAME = "Отмена"  # Default: "Отмена"
+# Имя кнопки для отмены
+# Default:
+# {
+#     RU_ICON_CODE: "Отмена",
+#     GB_ICON_CODE: "Cancel",
+#     IT_ICON_CODE: "Annullare"
+# }
+cancel_button_name = {
+    RU_CODE: "Отмена",
+    GB_CODE: "Cancel",
+    IT_CODE: "Annullare"
+}
 
 # Размещение кнопок внутри фрейма с учетом других кнопок
 # При указании одной и той же стороны, элементы будут прижаты друг к другу
@@ -263,16 +287,22 @@ SETTINGS_BUTTONS_PACK_SIDE = "left"  # Default: "left"
 # Отступы от края и друг от друга по горизонтали
 SETTINGS_BUTTONS_PADX = 5  # Default: 5
 
-# Текст, отображаемый на кнопках в порядке указания элементов в массиве
+# Текст, отображаемый на кнопках окна настроек.
 # И процесс, запускаемый для каждой кнопки
-# Default: BUTTON_TEXTS = {
-#    "Погнали": "start_process",
-#    "Забить": "clear_entries",
-#    "Настройки": "open_settings",
-#    }
+# Default:
+# {
+#     code: {
+#         save_button_name[code]: "save_settings",
+#         cancel_button_name[code]: "destroy",
+#     }
+#     for code in LANG_CODES
+# }
 settings_buttons_name_to_process = {
-    SAVE_BUTTON_NAME: "save_settings",
-    CANCEL_BUTTON_NAME: "destroy",
+    code: {
+        save_button_name[code]: "save_settings",
+        cancel_button_name[code]: "destroy",
+    }
+    for code in LANG_CODES
 }
 
 # ==============Настройки фрейма кнопок стартового окна==============
@@ -319,9 +349,9 @@ FRAME_BUTTONS_SIDE = 'left'  # Default: 'left'
 
 # =====================Найстройки языковых кнопок====================
 lang = {
-    RU_ICON_CODE: RU_ICON_PATH,
-    GB_ICON_CODE: GB_ICON_PATH,
-    IT_ICON_CODE: IT_ICON_PATH
+    RU_CODE: RU_ICON_PATH,
+    GB_CODE: GB_ICON_PATH,
+    IT_CODE: IT_ICON_PATH
 }
 
 # ============================================================================

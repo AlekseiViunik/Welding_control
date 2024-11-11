@@ -33,11 +33,15 @@ class SettingsWindow:
 
         # Фрейм с кнопками "Сохранить" и "Отмена"
         buttons_args = {
-            set.SAVE_BUTTON_NAME: [current_path, settings_window],
-            set.CANCEL_BUTTON_NAME: [settings_window]
+            set.save_button_name[self.lang_code]: [
+                current_path, settings_window
+            ],
+            set.cancel_button_name[self.lang_code]: [
+                settings_window
+            ]
         }
         frame.create_button_frame(
-            set.settings_buttons_name_to_process,
+            set.settings_buttons_name_to_process[self.lang_code],
             buttons_args
         )
 
