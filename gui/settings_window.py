@@ -29,7 +29,11 @@ class SettingsWindow:
         )
 
         # Фрейм с лейблом, текстовым полем для ввода и кнопкой "Обзор"
-        frame.create_entry_frame(set.WHERE_TO_SAVE, current_path, True)
+        frame.create_entry_frame(
+            set.where_to_save[self.lang_code],
+            current_path,
+            True
+        )
 
         # Фрейм с кнопками "Сохранить" и "Отмена"
         buttons_args = {

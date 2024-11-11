@@ -443,8 +443,17 @@ INFO_LABEL_PADY = 20  # Default: 20
 # ================Настройки лейбла для окна настроек=================
 
 # Текст для лейбла окна настроек
-# Default: "Куда сохранять итоговый файл?"
-WHERE_TO_SAVE = "Куда сохранять итоговый файл?"
+# Default:
+# {
+#     RU_CODE: "Куда сохранять итоговый файл?",
+#     GB_CODE: "Where should I save the final file?",
+#     IT_CODE: "Dove salvare il file finale?"
+# }
+where_to_save = {
+    RU_CODE: "Куда сохранять итоговый файл?",
+    GB_CODE: "Where should I save the final file?",
+    IT_CODE: "Dove salvare il file finale?"
+}
 
 # ==============Настройки для лейблов стартового окна================
 
