@@ -50,7 +50,7 @@ class SettingsWindow:
 
         self.message_box.show_message(
             set.success_title[self.lang_code],
-            set.SAVED_SETTINGS_SUCCESS_MESSAGE,
+            set.saved_settings_success_message[self.lang_code],
         )
         window.destroy()
 

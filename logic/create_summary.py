@@ -105,5 +105,5 @@ class CreateSummary:
 
         self.message_box.show_message(
             set.success_title[self.lang_code],
-            set.SAVED_FILE_SUCCESS_MESSAGE + save_path
+            set.saved_file_success_message[self.lang_code] + save_path
         )

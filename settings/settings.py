@@ -135,15 +135,33 @@ success_title = {
     IT_ICON_CODE: "Successo!"
 }
 
-# Сообщение окна об успехе сохранения файла
-# Default: "Настройки сохранены!"
-SAVED_SETTINGS_SUCCESS_MESSAGE = "Настройки сохранены!"
+# Сообщение окна об успехе сохранения файла настроек
+# Default:
+# {
+#     RU_ICON_CODE: "Настройки сохранены!",
+#     GB_ICON_CODE: "The settings are saved!",
+#     IT_ICON_CODE: "Impostazioni salvate!"
+# }
+saved_settings_success_message = {
+    RU_ICON_CODE: "Настройки сохранены!",
+    GB_ICON_CODE: "The settings are saved!",
+    IT_ICON_CODE: "Impostazioni salvate!"
+}
 
 # Сообщение окна об успехе сохранения настроек
-# Это сообщение составляется из 2х констант: SAVED_SETTINGS_SUCCESS_MESSAGE
-# и DEFAULT_SAVE_PATH (вторая находится в user_settings.py)
-# Default: "Итоговая таблица сохранена в "
-SAVED_FILE_SUCCESS_MESSAGE = "Итоговая таблица сохранена в "
+# Это сообщение составляется из 2х частей: этой и
+# пути из настроек в settings.json
+# Default:
+# {
+#     RU_ICON_CODE: "Итоговая таблица сохранена в ",
+#     GB_ICON_CODE: "The final table is saved in",
+#     IT_ICON_CODE: "La tabella finale è salvata in"
+# }
+saved_file_success_message = {
+    RU_ICON_CODE: "Итоговая таблица сохранена в ",
+    GB_ICON_CODE: "The final table is saved in ",
+    IT_ICON_CODE: "La tabella finale è salvata in "
+}
 
 # ============================================================================
 # ==========================       КОМПОНЕНТЫ       ==========================
