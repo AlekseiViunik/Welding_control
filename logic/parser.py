@@ -30,10 +30,13 @@ from settings import settings as set
 
 
 class Parser:
-    def __init__(self):
+    def __init__(self, lang_code):
         # TODO подключить Redis(?) для хранения данных вместо словаря
+        self.lang_code = lang_code
         self.welds_data = {}
-        self.weld_number_pattern = re.compile(set.WELD_ID_REGEXP)
+        self.weld_number_pattern = (
+            re.compile(set.joint_id_regexp[self.lang_code])
+        )
 
     def parse_weld_data(self, paths, key):
         """Парсим все страницы переданных файлов в поисках номеров швов и дат
@@ -54,7 +57,10 @@ class Parser:
                         weld_number_ru = (
                             (set.REPLACEMENT_DICT[weld_number[0]] +
                              weld_number[1:])
-                            if weld_number[0] in set.REPLACEMENT_DICT
+                            if (
+                                weld_number[0] in set.REPLACEMENT_DICT and
+                                self.lang_code == set.RU_CODE
+                            )
                             else weld_number
                         )
                         if weld_number_ru not in self.welds_data.keys():

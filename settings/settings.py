@@ -461,13 +461,30 @@ where_to_save = {
 # Будут расположены в том же порядке, в котором перечислены в списке
 # Порядок лучше не менять, иначе все по пизде пойдет.
 # Это будет исправлено в будущем.
-# Default: [
-#            "Выбери файлы Визуального контроля",
-#            "Выбери файлы Радиографического контроля",
-#            "Выбери файлы Стилоскопирования",
-#            "Выбери файлы Цветной дефектоскопии",
-#            "Выбери файлы Твердости"
-#          ]
+# Default:
+# {
+#     RU_CODE: [
+#         "Выбери файлы Визуального контроля",
+#         "Выбери файлы Радиографического контроля",
+#         "Выбери файлы Стилоскопирования",
+#         "Выбери файлы Цветной дефектоскопии",
+#         "Выбери файлы Твердости"
+#     ],
+#     GB_CODE: [
+#         "Select Visual Inspection files",
+#         "Select Radiographic Inspection files",
+#         "Select Styloscopy files",
+#         "Select the Color Flaw detection files",
+#         "Select the Hardness measurement files"
+#     ],
+#     IT_CODE: [
+#         "Scegli i file di controllo visivo",
+#         "Scegli i file di controllo radiografico",
+#         "Scegli i file di Styloscoping",
+#         "Scegli i file di rilevamento dei difetti A Colori",
+#         "Scegli i file di misurazione della durezza"
+#     ],
+# }
 labels = {
     RU_CODE: [
         "Выбери файлы Визуального контроля",
@@ -547,20 +564,38 @@ ENTRY_EXPAND = True  # Default: True
 # Например: файл ВИК был выбран в поле для файлов Стилоскопирования.
 
 # Ключ для проверки протоколов визуального и измерительного контроля (ВИК)
-VMC_CHECK_KEYS = ["визуальн"]  # Default ["визуальн"]
+# Default: ["визуальн", "visual", "visiv"]
+VMC_CHECK_KEYS = ["визуальн", "visual", "visiv"]
 
 # Ключ для проверки протоколов замеров твердости
-HB_CHECK_KEYS = ["твердост", "твёрдост"]  # Default ["твердост", "твёрдост"]
+# Default: ["твердост", "твёрдост", "hardness", "durezz"]
+HB_CHECK_KEYS = ["твердост", "твёрдост", "hardness", "durezz"]
 
 # Ключ для проверки протоколов радиографического контроля (РК или УЗК)
-# Default ["радиограф", "ультразвук"]
-RC_CHECK_KEYS = ["радиограф", "ультразвук"]
+# Default:
+# [
+#     "радиограф",
+#     "ультразвук",
+#     "radiograph",
+#     "radiograf",
+#     "ultrason",
+#     "ultrasuon"
+# ]
+RC_CHECK_KEYS = [
+    "радиограф",
+    "ультразвук",
+    "radiograph",
+    "radiograf",
+    "ultrason",
+    "ultrasuon"
+]
 
 # Ключ для проверки протоколов стилоскопирования (СТ)
-ST_CHECK_KEYS = ["флуоресцент"]  # Default ["флуоресцент"]
+# Default: ["флуоресцент", "styloscop"]
+ST_CHECK_KEYS = ["флуоресцент", "styloscop"]
 
 # Ключ для проверки протоколов цветной дефектоскопии (ЦД)
-CD_CHECK_KEYS = ["капилляр"]  # Default ["капилляр"]
+CD_CHECK_KEYS = ["капилляр", "color"]  # Default: ["капилляр", "color"]
 
 # Ключи у словаря files_dict у нас тоже настраиваемые и могут быть любыми,
 # поэтому перенесем имена ключей в константы.
@@ -624,7 +659,17 @@ MAX_ROW_RANGE_VALUE = 11  # Default: 10
 # A1-1
 # Это_номер_шва
 # TT-1-1-1
-WELD_ID_REGEXP = r'^[CYTNHСНТУ][-\d]*$'  # Default: r'^[CYTNHСНТУ][-\d]*$'
+# Default:
+# {
+#     RU_CODE: r'^[CYTNHСНТУ][-\d]*$',
+#     GB_CODE: r'^[a-zA-Z][-\d]*$',
+#     IT_CODE: r'^[a-zA-Z][-\d]*$',
+# }
+joint_id_regexp = {
+    RU_CODE: r'^[CYTNHСНТУ][-\d]*$',
+    GB_CODE: r'^[a-zA-Z][-\d]*$',
+    IT_CODE: r'^[a-zA-Z][-\d]*$',
+}
 
 # Поскольку в номерах швов у нас должны быть только кириллические буквы,
 # но имеются также и похожие буквы латиницы, то благодаря человеческому

@@ -83,7 +83,7 @@ class GetXlsx:
         # Получение данных и запихивание их в словарь
         logging.info(set.LOG_PARSE_START)
         logging.info(set.LOG_PARSE_CALL)
-        parser = Parser()
+        parser = Parser(self.lang_code)
         for key, value in self.files_dict.items():
             parser.parse_weld_data(value['path'], key)
         logging.info(
