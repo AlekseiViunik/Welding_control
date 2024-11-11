@@ -83,7 +83,7 @@ class App:
             f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
             f"CD: {self.file_paths[3].get()}, HB: {self.file_paths[4].get()}"
         )
-        logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
+        logging.info(f"{set.log_save_path_is[self.lang_code]}{self.save_path}")
         self.helper.show_info_window()
         logging.info(set.log_calculate_dates_call[self.lang_code])
         thread = Thread(target=self.calculate_dates)

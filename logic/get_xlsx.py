@@ -87,7 +87,8 @@ class GetXlsx:
         for key, value in self.files_dict.items():
             parser.parse_weld_data(value['path'], key)
         logging.info(
-            f"Парсинг выполнен. Количесвто элементов: {len(parser.welds_data)}"
+            f"{set.log_parse_done_el_amount[self.lang_code]}"
+            f"{len(parser.welds_data)}"
         )
 
         # Составление итоговой таблицы
