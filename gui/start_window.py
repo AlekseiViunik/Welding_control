@@ -45,9 +45,9 @@ class App:
         self.stop_threads = False
 
         buttons_args = {
-            set.GO_BUTTON_NAME: [],
-            set.CLEAN_BUTTON_NAME: [],
-            set.SETTINGS_BUTTON_NAME: []
+            set.go_button_name[self.lang_code]: [],
+            set.clean_button_name[self.lang_code]: [],
+            set.settings_button_name[self.lang_code]: []
         }
 
         frame = Frame(root, self)
@@ -59,7 +59,7 @@ class App:
 
         # Кнопки "Погнали", "Забей" и "Настройки"
         frame.create_button_frame(
-            set.start_buttons_name_to_process,
+            set.start_buttons_name_to_process[self.lang_code],
             buttons_args
         )
 

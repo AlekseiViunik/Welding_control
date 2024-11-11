@@ -308,13 +308,42 @@ settings_buttons_name_to_process = {
 # ==============Настройки фрейма кнопок стартового окна==============
 
 # Имя кнопки для запуска процесса обработки файлов
-GO_BUTTON_NAME = "Погнали"
+# Default:
+# {
+#     RU_CODE: "Погнали",
+#     GB_CODE: "Run",
+#     IT_CODE: "Vai"
+# }
+go_button_name = {
+    RU_CODE: "Погнали",
+    GB_CODE: "Run",
+    IT_CODE: "Vai"
+}
 
 # Имя кнопки для очистки всех текстовых полей
-CLEAN_BUTTON_NAME = "Забить"
+# {
+#     RU_CODE: "Забить",
+#     GB_CODE: "Clear",
+#     IT_CODE: "Cancellare"
+# }
+clean_button_name = {
+    RU_CODE: "Забить",
+    GB_CODE: "Clear",
+    IT_CODE: "Cancellare"
+}
 
 # Имя кнопки для открытия окна настроек
-SETTINGS_BUTTON_NAME = "Настройки"
+# Default:
+# {
+#     RU_CODE: "Настройки",
+#     GB_CODE: "Settings",
+#     IT_CODE: "Impostazioni"
+# }
+settings_button_name = {
+    RU_CODE: "Настройки",
+    GB_CODE: "Settings",
+    IT_CODE: "Impostazioni"
+}
 
 # Текст, отображаемый на кнопках в порядке указания элементов в массиве
 # И процесс, запускаемый для каждой кнопки
@@ -324,9 +353,12 @@ SETTINGS_BUTTON_NAME = "Настройки"
 #    "Настройки": "open_settings",
 #    }
 start_buttons_name_to_process = {
-    GO_BUTTON_NAME: "start_process",
-    CLEAN_BUTTON_NAME: "clear_entries",
-    SETTINGS_BUTTON_NAME: "open_settings",
+    code: {
+        go_button_name[code]: "start_process",
+        clean_button_name[code]: "clear_entries",
+        settings_button_name[code]: "open_settings"
+    }
+    for code in LANG_CODES
 }
 
 # =================Расположение кнопок внутри фрейма=================
