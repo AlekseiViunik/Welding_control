@@ -25,8 +25,9 @@ class App:
         self.root = root
         self.save_path = save_path
         self.lang_settings = lang_settings
-        self.helper = AppHelper(root)
-        self.settings = SettingsWindow(root, self.lang_settings)
+        self.lang_code = lang_settings[set.DEFAULT_LANG_CODE_KEY]
+        self.helper = AppHelper(root, self.lang_code)
+        self.settings = SettingsWindow(root, self.lang_code)
         self.lang_button = LangButton(root, self.lang_settings)
         self.settings_handler = SettingsHandler()
 
@@ -114,7 +115,7 @@ class App:
             st_paths,
             cd_paths,
             self.save_path,
-            self.lang_settings
+            self.lang_code
         )
         if not get_xlsx.handle_request():
             logging.error(set.LOG_ERROR_MSG)

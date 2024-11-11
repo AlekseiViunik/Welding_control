@@ -8,21 +8,17 @@ from settings import settings as set
 
 
 class SettingsWindow:
-    def __init__(self, root, lang_settings):
+    def __init__(self, root, lang_code):
         self.root = root
-        self.helper = AppHelper(root)
+        self.helper = AppHelper(root, lang_code)
         self.message_box = MessageBox()
         self.settings_handler = SettingsHandler()
-        self.lang_settings = lang_settings
+        self.lang_code = lang_code
 
     def create_window(self):
         """Открывает окно настроек."""
         settings_window = tk.Toplevel(self.root)
-        settings_window.title(
-            set.SETTINGS_WINDOW_TITLE[
-                self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
-            ]
-        )
+        settings_window.title(set.settings_window_title[self.lang_code])
         settings_window.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
         settings = self.settings_handler.file_read()
         save_path = settings[set.DEFAULT_SAVE_PATH_KEY]

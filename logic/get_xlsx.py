@@ -25,14 +25,14 @@ from .parser import Parser
 
 
 class GetXlsx:
-    def __init__(self, vmc, hb, rc, st, cd, save_path, lang_settings):
+    def __init__(self, vmc, hb, rc, st, cd, save_path, lang_code):
         self.vmc = vmc
         self.hb = hb
         self.rc = rc
         self.st = st
         self.cd = cd
         self.save_path = save_path
-        self.lang_settings = lang_settings
+        self.lang_code = lang_code
         self.message_box = MessageBox()
         self.files_dict = {
             set.VMC: {
@@ -112,7 +112,7 @@ class GetXlsx:
                 )
                 self.message_box.show_error(
                     message,
-                    self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                    self.lang_code
                 )
                 logging.error(f"Файл с недопустимым разрешением: {path}")
                 return False
@@ -142,7 +142,7 @@ class GetXlsx:
                     )
                     self.message_box.show_error(
                         message,
-                        self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                        self.lang_code
                     )
                     log_message = (
                         f"Файл не на своем месте: {path} загружен для "
@@ -155,7 +155,7 @@ class GetXlsx:
                 message = f"Ошибка при проверке файла {path}: {e}"
                 self.message_box.show_error(
                     message,
-                    self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+                    self.lang_code
                 )
                 logging.error(f"Ошибка при проверке файла {path}: {e}")
                 return False

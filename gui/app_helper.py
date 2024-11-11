@@ -5,9 +5,10 @@ from settings import settings as set
 
 
 class AppHelper:
-    def __init__(self, root):
+    def __init__(self, root, lang_code):
         self.root = root
         self.info_window = None
+        self.lang_code = lang_code
 
     def center_window(self, window, width, height):
         """Центрирует окно на экране."""
@@ -27,7 +28,8 @@ class AppHelper:
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(set.INFO_WINDOW_TITLE)
+        title = set.info_window_title[self.lang_code]
+        self.info_window.title(title)
         self.info_window.geometry(
             f"{set.INFO_WINDOW_WIDTH}x{set.INFO_WINDOW_HEIGHT}"
         )

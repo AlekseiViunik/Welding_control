@@ -13,7 +13,7 @@ class MessageBox:
         """Отображает всплывающее окно с сообщением об ошибке."""
         root = tk.Tk()
         root.withdraw()
-        title = set.ERROR_MESSAGE_TITLE[lang_code]
+        title = set.error_message_title[lang_code]
         messagebox.showerror(title, message)
         root.destroy()
 
