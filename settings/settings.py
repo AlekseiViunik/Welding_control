@@ -123,7 +123,17 @@ info_window_title = {
 # =============Настройки информационных окон об успехе===============
 
 # Заголовок окна об успехе
-SUCCESS_TITLE = "Успех!"
+# Default:
+# {
+#     RU_ICON_CODE: "Успех!",
+#     GB_ICON_CODE: "Success!",
+#     IT_ICON_CODE: "Successo!"
+# }
+success_title = {
+    RU_ICON_CODE: "Успех!",
+    GB_ICON_CODE: "Success!",
+    IT_ICON_CODE: "Successo!"
+}
 
 # Сообщение окна об успехе сохранения файла
 # Default: "Настройки сохранены!"

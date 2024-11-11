@@ -49,7 +49,7 @@ class SettingsWindow:
         self.settings_handler.file_write(settings)
 
         self.message_box.show_message(
-            set.SUCCESS_TITLE,
+            set.success_title[self.lang_code],
             set.SAVED_SETTINGS_SUCCESS_MESSAGE,
         )
         window.destroy()

@@ -93,7 +93,7 @@ class GetXlsx:
         # Составление итоговой таблицы
         logging.info(set.LOG_TABLE_START)
         logging.info(set.LOG_TABLE_METHOD_CALL)
-        create_summary = CreateSummary()
+        create_summary = CreateSummary(self.lang_code)
         create_summary.create_summary_excel(parser.welds_data, self.save_path)
         logging.info(set.LOG_TABLE_DONE)
         return True

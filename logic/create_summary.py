@@ -11,8 +11,9 @@ date_style = NamedStyle(name='datetime', number_format='DD/MM/YYYY')
 
 
 class CreateSummary:
-    def __init__(self):
+    def __init__(self, lang_code):
         self.message_box = MessageBox()
+        self.lang_code = lang_code
 
     def create_summary_excel(
             self,
@@ -103,6 +104,6 @@ class CreateSummary:
         logging.info(set.LOG_TABLE_SAVED)
 
         self.message_box.show_message(
-            set.SUCCESS_TITLE,
+            set.success_title[self.lang_code],
             set.SAVED_FILE_SUCCESS_MESSAGE + save_path
         )
