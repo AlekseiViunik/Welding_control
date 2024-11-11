@@ -36,24 +36,29 @@ class GetXlsx:
         self.message_box = MessageBox()
         self.files_dict = {
             set.VMC: {
-                "path": vmc.split(set.PATH_DIVIDER) if vmc else [],
-                "check": set.VMC_CHECK_KEYS
+                set.FILES_DICT_PATH_KEY:
+                    vmc.split(set.PATH_DIVIDER) if vmc else [],
+                set.FILES_DICT_CHECK_KEY: set.VMC_CHECK_KEYS
             },
             set.HB: {
-                "path": hb.split(set.PATH_DIVIDER) if hb else [],
-                "check": set.HB_CHECK_KEYS
+                set.FILES_DICT_PATH_KEY:
+                    hb.split(set.PATH_DIVIDER) if hb else [],
+                set.FILES_DICT_CHECK_KEY: set.HB_CHECK_KEYS
             },
             set.RC: {
-                "path": rc.split(set.PATH_DIVIDER) if rc else [],
-                "check": set.RC_CHECK_KEYS
+                set.FILES_DICT_PATH_KEY:
+                    rc.split(set.PATH_DIVIDER) if rc else [],
+                set.FILES_DICT_CHECK_KEY: set.RC_CHECK_KEYS
             },
             set.ST: {
-                "path": st.split(set.PATH_DIVIDER) if st else [],
-                "check": set.ST_CHECK_KEYS
+                set.FILES_DICT_PATH_KEY:
+                    st.split(set.PATH_DIVIDER) if st else [],
+                set.FILES_DICT_CHECK_KEY: set.ST_CHECK_KEYS
             },
             set.CD: {
-                "path": cd.split(set.PATH_DIVIDER) if cd else [],
-                "check": set.CD_CHECK_KEYS
+                set.FILES_DICT_PATH_KEY:
+                    cd.split(set.PATH_DIVIDER) if cd else [],
+                set.FILES_DICT_CHECK_KEY: set.CD_CHECK_KEYS
             },
         }
 
@@ -64,7 +69,7 @@ class GetXlsx:
         # Удаляем ключи, у которых значения пустые массивы
         self.files_dict = {
             key: value for key, value in self.files_dict.items() if value[
-                'path'
+                set.FILES_DICT_PATH_KEY
             ]
         }
 
@@ -73,8 +78,8 @@ class GetXlsx:
         logging.info(set.log_check_files_call[self.lang_code])
         for field, file_info in self.files_dict.items():
             if not self.check_files(
-                file_info['path'],
-                file_info['check'],
+                file_info[set.FILES_DICT_PATH_KEY],
+                file_info[set.FILES_DICT_CHECK_KEY],
                 field
             ):
                 return False
@@ -85,7 +90,7 @@ class GetXlsx:
         logging.info(set.log_parse_call[self.lang_code])
         parser = Parser(self.lang_code)
         for key, value in self.files_dict.items():
-            parser.parse_weld_data(value['path'], key)
+            parser.parse_weld_data(value[set.FILES_DICT_PATH_KEY], key)
         logging.info(
             f"{set.log_parse_done_el_amount[self.lang_code]}"
             f"{len(parser.welds_data)}"
@@ -108,14 +113,16 @@ class GetXlsx:
             file_extension = filename.split(set.EXTENSION_DIVIDER)[-1]
             if file_extension not in set.EXTENSIONS:
                 message = (
-                    f"Какой-то непонятный файл тут: {path}\n"
-                    "Приложение закроется!"
+                    f"{set.unnknown_file_error[self.lang_code]}{path}\n"
+                    f"{set.close_app_error[self.lang_code]}"
                 )
                 self.message_box.show_error(
                     message,
                     self.lang_code
                 )
-                logging.error(f"Файл с недопустимым разрешением: {path}")
+                logging.error(
+                    f"{set.log_unacceptable_extension[self.lang_code]}{path}"
+                )
                 return False
             try:
                 wb = openpyxl.load_workbook(path)
@@ -138,26 +145,30 @@ class GetXlsx:
 
                 if not found:
                     message = (
-                        f"Я не верю, что {filename} находится в нужном "
-                        "поле.\nПриложение закроется!"
+                        set.check_failed_error[self.lang_code].
+                        format(filename, set.close_app_error[self.lang_code])
                     )
                     self.message_box.show_error(
                         message,
                         self.lang_code
                     )
+
                     log_message = (
-                        f"Файл не на своем месте: {path} загружен для "
-                        f"поля {field}"
+                        set.log_check_failed_error[self.lang_code].
+                        format(path, field)
                     )
+
                     logging.error(log_message)
                     return False
 
             except Exception as e:
-                message = f"Ошибка при проверке файла {path}: {e}"
+                message = (
+                    set.file_check_error[self.lang_code].format(path, e)
+                )
                 self.message_box.show_error(
                     message,
                     self.lang_code
                 )
-                logging.error(f"Ошибка при проверке файла {path}: {e}")
+                logging.error(message)
                 return False
         return True

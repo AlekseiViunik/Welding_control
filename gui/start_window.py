@@ -78,11 +78,16 @@ class App:
         """Запускает процесс обработки и отображает информационное окно."""
         logging.info(set.LOG_DIVIDER)
         logging.info(set.log_start[self.lang_code])
-        logging.info(
-            f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
-            f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
-            f"CD: {self.file_paths[3].get()}, HB: {self.file_paths[4].get()}"
+        log_message = (
+            set.log_chosen_files[self.lang_code].format(
+                self.file_paths[0].get(),
+                self.file_paths[1].get(),
+                self.file_paths[2].get(),
+                self.file_paths[3].get(),
+                self.file_paths[4].get()
+            )
         )
+        logging.info(log_message)
         logging.info(f"{set.log_save_path_is[self.lang_code]}{self.save_path}")
         self.helper.show_info_window()
         logging.info(set.log_calculate_dates_call[self.lang_code])

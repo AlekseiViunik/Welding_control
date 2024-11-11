@@ -348,6 +348,52 @@ labels = {
 """
 ========================Константы и переменные логики=========================
 """
+# =========================Настройки для get_xlsx.py==========================
+
+# Сообщение о том, что приложение закроется.
+# Default:
+# {
+#     RU_CODE: "Приложение закроется!",
+#     GB_CODE: "The App will close!",
+#     IT_CODE: "L'app chiude!",
+# }
+close_app_error = {
+    RU_CODE: "Приложение закроется!",
+    GB_CODE: "The App will close!",
+    IT_CODE: "L'app chiude!",
+}
+
+# Сообщение о том, что загружен файл с непонятным разрешением
+# Default:
+# {
+#     RU_CODE: "Какой-то непонятный файл тут: ",
+#     GB_CODE: "Unnknown file here: ",
+#     IT_CODE: "Il file sconosciuto qui: ",
+# }
+unnknown_file_error = {
+    RU_CODE: "Какой-то непонятный файл тут: ",
+    GB_CODE: "Unnknown file here: ",
+    IT_CODE: "Il file sconosciuto qui: ",
+}
+
+# Сообщает, что файл находится не в нужном поле
+# Default:
+# {
+#     RU_CODE: "Я не верю, что {} находится в нужном поле.\n{}",
+#     GB_CODE: "I don't believe that {} is in the right place.\n{}",
+#     IT_CODE: "Non credo che {} si trovi al posto giusto.\n{}",
+# }
+check_failed_error = {
+    RU_CODE: "Я не верю, что {} находится в нужном поле.\n{}",
+    GB_CODE: "I don't believe that {} is in the right place.\n{}",
+    IT_CODE: "Non credo che {} si trovi al posto giusto.\n{}",
+}
+
+file_check_error = {
+    RU_CODE: "Ошибка при проверке файла {}: {}",
+    GB_CODE: "File check error {}: {}",
+    IT_CODE: "Errore durante la convalida del file {}: {}",
+}
 
 # ==========================Настройки для parser.py===========================
 
@@ -571,7 +617,7 @@ note_vmc_does_not_exist = {
 =====================Константы и переменные логирования=======================
 """
 
-# ==================Статические сообщения для логов==================
+# =====================Статические сообщения для логов========================
 
 # Информирует о начале выполнения логики.
 # Default:
@@ -807,10 +853,54 @@ log_save_path_is = {
     IT_CODE: "Percorso per salvare il file finale: ",
 }
 
+# Информирует, что парсинг выполнен и указывает количество элементов.
+# {
+#     RU_CODE: "Парсинг выполнен. Количесвто элементов: ",
+#     GB_CODE: "Parsing is done. Elements amount is : ",
+#     IT_CODE: "Parsing è fatta. Numero di elementi: ",
+# }
 log_parse_done_el_amount = {
     RU_CODE: "Парсинг выполнен. Количесвто элементов: ",
     GB_CODE: "Parsing is done. Elements amount is : ",
     IT_CODE: "Parsing è fatta. Numero di elementi: ",
+}
+
+# Информирует о том, что файл не на своем месте и показывает, что это
+# за файл и куда был загружен.
+# {
+#     RU_CODE: "Файл не на своем месте: {} загружен для поля {}",
+#     GB_CODE: "The file isn't at his place: {} is loaded for the field {}",
+#     IT_CODE: "Il file non è al suo posto: {} è caricato per il campo {}"
+# }
+log_check_failed_error = {
+    RU_CODE: "Файл не на своем месте: {} загружен для поля {}",
+    GB_CODE: "The file isn't at his place: {} is loaded for the field {}",
+    IT_CODE: "Il file non è al suo posto: {} è caricato per il campo {}"
+}
+
+# Информирует о том, что у загруженного файла недопустимое расширение.
+# {
+#     RU_CODE: "Файл с недопустимым расширением: ",
+#     GB_CODE: "File with unacceptable extension: ",
+#     IT_CODE: "File con estensione non valida: ",
+# }
+log_unacceptable_extension = {
+    RU_CODE: "Файл с недопустимым расширением: ",
+    GB_CODE: "File with unacceptable extension: ",
+    IT_CODE: "File con estensione non valida: ",
+}
+
+# Информирует о выбранных файлах:
+# Default:
+# {
+#     RU_CODE: "Выбранные файлы: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
+#     GB_CODE: "Chosen files: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
+#     IT_CODE: "I file scelti: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
+# }
+log_chosen_files = {
+    RU_CODE: "Выбранные файлы: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
+    GB_CODE: "Chosen files: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
+    IT_CODE: "I file scelti: VMC: {}, RC: {}, ST: {}, CD: {}, HB: {}",
 }
 
 """
@@ -1156,7 +1246,14 @@ ST = 'st'  # Default: 'st'
 # Ключ для цветной дефектоскопии
 CD = 'cd'  # Default: 'cd'
 
-# ========================Остальные настройки========================
+# Ключ для словаря files_dict значением которого является путь к файлу контроля
+FILES_DICT_PATH_KEY = 'path'  # Default: 'path'
+
+# Ключ для словаря files_dict значением которого являются ключи для проверки
+# файлов контроля
+FILES_DICT_CHECK_KEY = 'check'  # Default: 'check'
+
+# =============================Остальные настройки============================
 
 # Разделитель, который используется для строки, содержащей путь к файлу.
 # Необходим для получения имени файла из пути к нему.
@@ -1175,7 +1272,7 @@ EXTENSIONS = ['xlsx']
 MIN_ROW_RANGE_VALUE = 1  # Default: 1
 MAX_ROW_RANGE_VALUE = 11  # Default: 10
 
-# ======================Настройки для parser.py======================
+# ===========================Настройки для parser.py==========================
 
 # Поскольку в номерах швов у нас должны быть только кириллические буквы,
 # но имеются также и похожие буквы латиницы, то благодаря человеческому
