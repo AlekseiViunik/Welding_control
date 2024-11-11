@@ -468,13 +468,29 @@ where_to_save = {
 #            "Выбери файлы Цветной дефектоскопии",
 #            "Выбери файлы Твердости"
 #          ]
-LABELS = [
-            "Выбери файлы Визуального контроля",
-            "Выбери файлы Радиографического контроля",
-            "Выбери файлы Стилоскопирования",
-            "Выбери файлы Цветной дефектоскопии",
-            "Выбери файлы Твердости"
-        ]
+labels = {
+    RU_CODE: [
+        "Выбери файлы Визуального контроля",
+        "Выбери файлы Радиографического контроля",
+        "Выбери файлы Стилоскопирования",
+        "Выбери файлы Цветной дефектоскопии",
+        "Выбери файлы Твердости"
+    ],
+    GB_CODE: [
+        "Select Visual Inspection files",
+        "Select Radiographic Inspection files",
+        "Select Styloscopy files",
+        "Select the Color Flaw detection files",
+        "Select the Hardness measurement files"
+    ],
+    IT_CODE: [
+        "Scegli i file di controllo visivo",
+        "Scegli i file di controllo radiografico",
+        "Scegli i file di Styloscoping",
+        "Scegli i file di rilevamento dei difetti A Colori",
+        "Scegli i file di misurazione della durezza"
+    ],
+}
 
 # Определяем, к какой стороне окна будет привязка лейбла с текстом
 # Доступные варианты:

@@ -53,7 +53,7 @@ class App:
         frame = Frame(root, self)
 
         # Создание фреймов с полем для ввода и кнопкой "Обзор"
-        for label_text in set.LABELS:
+        for label_text in set.labels[self.lang_code]:
             entry = frame.create_entry_frame(label_text)
             self.file_paths.append(entry)
 
