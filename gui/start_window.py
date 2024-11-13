@@ -28,8 +28,9 @@ class App:
         self.lang_code = lang_settings[set.DEFAULT_LANG_CODE_KEY]
         self.helper = AppHelper(root, self.lang_code)
         self.settings = SettingsWindow(root, self.lang_code)
-        self.lang_button = LangButton(root, self.lang_settings)
         self.settings_handler = SettingsHandler()
+        self.main_frame = None
+        self.lang_button = None
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.title(set.START_WINDOW_TITLE)
@@ -40,9 +41,30 @@ class App:
             set.WINDOW_WIDTH,
             set.WINDOW_HEIGHT
         )
-        self.file_paths = []
         self.threads = []
         self.stop_threads = False
+
+        self.render_main_frame()
+
+    def render_main_frame(self):
+        if hasattr(self, 'main_frame') and self.main_frame:
+            self.main_frame.destroy()
+        self.main_frame = tk.Frame(self.root)
+        self.main_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.file_paths = []
+        frame = Frame(self.main_frame, self)
+
+        self.lang_button = LangButton(
+            self.main_frame,
+            self.lang_settings,
+            self
+        )
+
+        # Создание фреймов с полем для ввода и кнопкой "Обзор"
+        for label_text in set.labels[self.lang_code]:
+            entry = frame.create_entry_frame(label_text)
+            self.file_paths.append(entry)
 
         buttons_args = {
             set.go_button_name[self.lang_code]: [],
@@ -50,20 +72,13 @@ class App:
             set.settings_button_name[self.lang_code]: []
         }
 
-        frame = Frame(root, self)
-
-        # Создание фреймов с полем для ввода и кнопкой "Обзор"
-        for label_text in set.labels[self.lang_code]:
-            entry = frame.create_entry_frame(label_text)
-            self.file_paths.append(entry)
-
         # Кнопки "Погнали", "Забей" и "Настройки"
         frame.create_button_frame(
             set.start_buttons_name_to_process[self.lang_code],
             buttons_args
         )
 
-        label = tk.Label(root, text=set.AUTHOR_LABEL_TEXT,)
+        label = tk.Label(self.main_frame, text=set.AUTHOR_LABEL_TEXT,)
         label.place(
             relx=set.AUTHOR_RELX,
             rely=set.AUTHOR_RELY,

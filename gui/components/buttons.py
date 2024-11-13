@@ -5,11 +5,12 @@ from settings import settings as set
 
 
 class LangButton:
-    def __init__(self, root, lang_settings):
+    def __init__(self, root, lang_settings, instance):
         self.root = root
         self.lang_settings = lang_settings
         self.open_settings_button = None
         self.settings_handler = SettingsHandler()
+        self.instance = instance
 
     def create_lang_button(self, root=None, icon_path=None, command=None):
         if not icon_path:
@@ -64,7 +65,9 @@ class LangButton:
 
         print(f"Язык установлен на: {lang_code}")
 
-        self.update_lang_button()
+        self.instance.lang_settings = settings[set.DEFAULT_LANG_KEY]
+        self.instance.lang_code = lang_code
+        self.instance.render_main_frame()
         win.destroy()
 
     def update_lang_button(self):
