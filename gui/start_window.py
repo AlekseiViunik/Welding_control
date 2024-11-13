@@ -27,7 +27,7 @@ class App:
         self.lang_settings = lang_settings
         self.lang_code = lang_settings[set.DEFAULT_LANG_CODE_KEY]
         self.helper = AppHelper(root, self.lang_code)
-        self.settings = SettingsWindow(root, self.lang_code)
+        self.settings = None
         self.settings_handler = SettingsHandler()
         self.main_frame = None
         self.lang_button = None
@@ -49,6 +49,12 @@ class App:
     def render_main_frame(self):
         if hasattr(self, 'main_frame') and self.main_frame:
             self.main_frame.destroy()
+        self.lang_settings = self.settings_handler.file_read(
+            set.DEFAULT_LANG_KEY
+        )
+        self.lang_code = self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+        self.settings = SettingsWindow(self.root, self.lang_code)
+
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
