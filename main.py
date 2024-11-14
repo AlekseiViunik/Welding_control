@@ -44,7 +44,7 @@ default_settings = {
     }
 }
 
-# TODO create file handler to open files and get data
+
 if not os.path.exists(set.SETTINGS_FILE_NAME):
     settings_handler.file_write(default_settings)
 else:
@@ -70,5 +70,5 @@ if __name__ == "__main__":
     save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
     lang_settings = settings[set.DEFAULT_LANG_KEY]
     root = tk.Tk()
-    app = App(root, save_path, lang_settings)
+    app = App(root)
     root.mainloop()

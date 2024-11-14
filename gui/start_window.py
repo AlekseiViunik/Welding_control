@@ -21,39 +21,42 @@ from .app_helper import AppHelper
 
 
 class App:
-    def __init__(self, root, save_path, lang_settings):
+    def __init__(self, root):
         self.root = root
-        self.save_path = save_path
-        self.lang_settings = lang_settings
-        self.lang_code = lang_settings[set.DEFAULT_LANG_CODE_KEY]
-        self.helper = AppHelper(root, self.lang_code)
+        self.save_path = ''
+        self.lang_code = ''
+        self.lang_settings = {}
+        self.helper = None
         self.settings = None
-        self.settings_handler = SettingsHandler()
         self.main_frame = None
         self.lang_button = None
+        self.settings_handler = SettingsHandler()
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.title(set.START_WINDOW_TITLE)
         self.root.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
-        self.set_window_icon()
-        self.helper.center_window(
-            self.root,
-            set.WINDOW_WIDTH,
-            set.WINDOW_HEIGHT
-        )
         self.threads = []
         self.stop_threads = False
 
+        self.set_window_icon()
         self.render_main_frame()
 
     def render_main_frame(self):
         if hasattr(self, 'main_frame') and self.main_frame:
             self.main_frame.destroy()
-        self.lang_settings = self.settings_handler.file_read(
-            set.DEFAULT_LANG_KEY
-        )
+        settings = self.settings_handler.file_read()
+        self.lang_settings = settings[set.DEFAULT_LANG_KEY]
         self.lang_code = self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+        self.save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
+
         self.settings = SettingsWindow(self.root, self.lang_code)
+        self.helper = AppHelper(self.root, self.lang_code)
+
+        self.helper.center_window(
+            self.root,
+            set.WINDOW_WIDTH,
+            set.WINDOW_HEIGHT
+        )
 
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack(fill=tk.BOTH, expand=True)
@@ -128,10 +131,6 @@ class App:
         cd_paths = self.file_paths[3].get()
         hb_paths = self.file_paths[4].get()
 
-        self.save_path = self.settings_handler.file_read(
-            set.DEFAULT_SAVE_PATH_KEY
-        )
-
         # Вызываем функцию из get_xlsx с нашим словарем
         logging.info(set.log_handle_request_call[self.lang_code])
         get_xlsx = GetXlsx(
@@ -159,9 +158,6 @@ class App:
     def open_settings(self):
         """Открывает окно настроек."""
         self.settings.create_window()
-        self.save_path = self.settings_handler.file_read(
-            set.DEFAULT_SAVE_PATH_KEY
-        )
 
     def set_window_icon(self):
         """Устанавливает иконку для окна."""
