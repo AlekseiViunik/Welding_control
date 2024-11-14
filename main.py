@@ -31,10 +31,8 @@ handler.setFormatter(formatter)
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger.addHandler(handler)
-# console_handler = logging.StreamHandler()
-# console_handler.setFormatter(formatter)
-# logger.addHandler(console_handler)
 
+# Подготовка файла настроек
 settings_handler = SettingsHandler()
 default_settings = {
     set.DEFAULT_SAVE_PATH_KEY: set.DEFAULT_SAVE_PATH,
@@ -67,8 +65,6 @@ if __name__ == "__main__":
     import tkinter as tk
 
     settings = settings_handler.file_read()
-    save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
-    lang_settings = settings[set.DEFAULT_LANG_KEY]
     root = tk.Tk()
     app = App(root)
     root.mainloop()
