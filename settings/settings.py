@@ -544,21 +544,46 @@ joint_id_regexp = {
 }
 
 # =======================Настройки для create_summary.py======================
+# =========================create_summary.py settings=========================
 
-# Имена колонок для генерируемой таблицы. Идут слева направо по порядку
-# их перечисления в списке.
-# Лучше ничего не добавлять и не удалять, а то все по пизде пойдет.
+# Имена колонок для генерируемой таблицы.
+# Лучше не добавлять и не удалять колонки, а то все по пизде пойдет.
 # Но переименовывать можно. В будущем исправлю.
+# ****************************************************************************
+# Column names for the generated table.
+# It’s better not to add or delete new columns, or everything will go to hell.
+# But renaming is fine. I’ll fix this in the future.
+# ****************************************************************************
 # Default:
-# [
-#    "Номер шва",
-#    "ВИК",
-#    "Твёрдость",
-#    "Стилоскопирование",
-#    "РК или УЗК",
-#    "ЦД",
-#    "Примечания"
-# ]
+# {
+#     RU_CODE: [
+#         "Номер шва",
+#         "ВИК",
+#         "Твёрдость",
+#         "Стилоскопирование",
+#         "РК или УЗК",
+#         "ЦД",
+#         "Примечания",
+#     ],
+#     GB_CODE: [
+#         "Joint id",
+#         "Visual",
+#         "Hardness",
+#         "Styloscopy",
+#         "Radioghraph or Ultrasonic",
+#         "Color",
+#         "Notes",
+#     ],
+#     IT_CODE: [
+#         "Id saldatura",
+#         "Visivo",
+#         "Durezza",
+#         "Stiloscopia",
+#         "Radiografia o ultrasuoni",
+#         "Colore",
+#         "Nota",
+#     ],
+# }
 headers = {
     RU_CODE: [
         "Номер шва",
@@ -567,7 +592,7 @@ headers = {
         "Стилоскопирование",
         "РК или УЗК",
         "ЦД",
-        "Примечания"
+        "Примечания",
     ],
     GB_CODE: [
         "Joint id",
@@ -576,7 +601,7 @@ headers = {
         "Styloscopy",
         "Radioghraph or Ultrasonic",
         "Color",
-        "Notes"
+        "Notes",
     ],
     IT_CODE: [
         "Id saldatura",
@@ -585,130 +610,144 @@ headers = {
         "Stiloscopia",
         "Radiografia o ultrasuoni",
         "Colore",
-        "Nota"
+        "Nota",
     ],
 }
 
 # Ниже значения, которые мы будем дописывать в note, когда какая-то из дат
 # прописана неверно. Название констант будет составляться так:
-# NOTE_<тип_контроля>_LT(less_than)_<другой_тип_контроля>, что означает,
+# note_<тип_контроля>_LT(less_than)_<другой_тип_контроля>, что означает,
 # что контроль <тип_контроля> проведен раньше, чем <другой_тип_контроля>,
 # что является ошибкой и такого быть не должно.
+# ****************************************************************************
+# Values below will be added to the note when any of the dates are incorrect.
+# Constant names will be constructed as follows:
+# note_<control_type>_LT(less_than)_<other_control_type>, indicating that
+# <control_type> was completed before <other_control_type>, which is an error
+# and should not happen.
+# ****************************************************************************
+
 # Default:
 # {
 #     RU_CODE: "Замер твердости проведен раньше ВИК; ",
-#     GB_CODE: "Hardness measurement is carried out before visual control",
-#     IT_CODE: "Misurazione della durezza eseguita prima del controllo visivo",
+#     GB_CODE: "Hardness measurement is carried out before visual control; ",
+#     IT_CODE:
+#         "Misurazione della durezza eseguita prima del controllo visivo; ",
 # }
 note_hb_lt_vmc = {
     RU_CODE: "Замер твердости проведен раньше ВИК; ",
-    GB_CODE: "Hardness measurement is carried out before visual control",
-    IT_CODE: "Misurazione della durezza eseguita prima del controllo visivo",
+    GB_CODE: "Hardness measurement is carried out before visual control; ",
+    IT_CODE:
+        "Misurazione della durezza eseguita prima del controllo visivo; ",
 }
 # Default:
 # {
 #     RU_CODE: "Стилоскопирование проведено раньше ВИК; ",
-#     GB_CODE: "Styloscopy is performed before visual control",
-#     IT_CODE: "Stiloscopia eseguita prima del controllo visivo",
+#     GB_CODE: "Styloscopy is performed before visual control; ",
+#     IT_CODE: "Stiloscopia eseguita prima del controllo visivo; ",
 # }
 note_st_lt_vmc = {
     RU_CODE: "Стилоскопирование проведено раньше ВИК; ",
-    GB_CODE: "Styloscopy is performed before visual control",
-    IT_CODE: "Stiloscopia eseguita prima del controllo visivo",
+    GB_CODE: "Styloscopy is performed before visual control; ",
+    IT_CODE: "Stiloscopia eseguita prima del controllo visivo; ",
 }
 # Default:
 # {
 #     RU_CODE: "Стилоскопирование проведено раньше замеров твердости; ",
-#     GB_CODE: "Styloscopy is performed before hardness measurements",
-#     IT_CODE: "Stiloscopia eseguita prima delle misure di durezza",
+#     GB_CODE: "Styloscopy is performed before hardness measurements; ",
+#     IT_CODE: "Stiloscopia eseguita prima delle misure di durezza; ",
 # }
 note_st_lt_hb = {
     RU_CODE: "Стилоскопирование проведено раньше замеров твердости; ",
-    GB_CODE: "Styloscopy is performed before hardness measurements",
-    IT_CODE: "Stiloscopia eseguita prima delle misure di durezza",
+    GB_CODE: "Styloscopy is performed before hardness measurements; ",
+    IT_CODE: "Stiloscopia eseguita prima delle misure di durezza; ",
 }
 # Default:
 # {
 #     RU_CODE: "РК или УЗК проведено раньше ВИК; ",
 #     GB_CODE:
-#         "Radiography or Ultrasonic are performed before visual control",
-#     IT_CODE: "Radiografia o Ultrasuoni eseguiti prima del controllo visivo",
+#         "Radiography or Ultrasonic are performed before visual control; ",
+#     IT_CODE:
+#         "Radiografia o Ultrasuoni eseguiti prima del controllo visivo; ",
 # }
 note_rc_lt_vmc = {
     RU_CODE: "РК или УЗК проведено раньше ВИК; ",
     GB_CODE:
-        "Radiography or Ultrasonic are performed before visual control",
-    IT_CODE: "Radiografia o Ultrasuoni eseguiti prima del controllo visivo",
+        "Radiography or Ultrasonic are performed before visual control; ",
+    IT_CODE:
+        "Radiografia o Ultrasuoni eseguiti prima del controllo visivo; ",
 }
 # Default:
 # {
 #     RU_CODE: "РК или УЗК проведено раньше замеров твердости; ",
-#     GB_CODE: "Radiography or Ultrasonic are performed before Hardness",
+#     GB_CODE: "Radiography or Ultrasonic are performed before Hardness; ",
 #     IT_CODE:
-#         "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza",
+#         "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza; ",
 # }
 note_rc_lt_hb = {
     RU_CODE: "РК или УЗК проведено раньше замеров твердости; ",
-    GB_CODE: "Radiography or Ultrasonic are performed before Hardness",
+    GB_CODE: "Radiography or Ultrasonic are performed before Hardness; ",
     IT_CODE:
-        "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza",
+        "Radiografia o Ultrasuoni eseguiti prima delle misure di durezza; ",
 }
 # Default:
 # {
 #     RU_CODE: "РК или УЗК проведено раньше стилоскопирования; ",
-#     GB_CODE: "Radiography or Ultrasound are performed before Styloscopy",
-#     IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia",
+#     GB_CODE: "Radiography or Ultrasound are performed before Styloscopy; ",
+#     IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia; ",
 # }
 note_rc_lt_st = {
     RU_CODE: "РК или УЗК проведено раньше стилоскопирования; ",
-    GB_CODE: "Radiography or Ultrasound are performed before Styloscopy",
-    IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia",
+    GB_CODE: "Radiography or Ultrasound are performed before Styloscopy; ",
+    IT_CODE: "Radiografia o Ultrasuoni eseguiti prima della Stiloscopia; ",
 }
 # Default:
 # {
 #     RU_CODE: "ЦД проведена раньше ВИК; ",
-#     GB_CODE: "Color flaw detection is performed before visual control",
-#     IT_CODE: "Difetti di colore eseguiti prima del controllo visivo",
+#     GB_CODE: "Color flaw detection is performed before visual control; ",
+#     IT_CODE: "Difetti di colore eseguiti prima del controllo visivo; ",
 # }
 note_cd_lt_vmc = {
     RU_CODE: "ЦД проведена раньше ВИК; ",
-    GB_CODE: "Color flaw detection is performed before visual control",
-    IT_CODE: "Difetti di colore eseguiti prima del controllo visivo",
+    GB_CODE: "Color flaw detection is performed before visual control; ",
+    IT_CODE: "Difetti di colore eseguiti prima del controllo visivo; ",
 }
 # Default:
 # {
 #     RU_CODE: "ЦД проведена раньше замеров твердости; ",
-#     GB_CODE: "Color flaw detection is performed before hardness",
-#     IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza",
+#     GB_CODE: "Color flaw detection is performed before hardness; ",
+#     IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza; ",
 # }
 note_cd_lt_hb = {
     RU_CODE: "ЦД проведена раньше замеров твердости; ",
-    GB_CODE: "Color flaw detection is performed before hardness",
-    IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza",
+    GB_CODE: "Color flaw detection is performed before hardness; ",
+    IT_CODE: "Difetti di colore eseguiti prima delle misure di durezza; ",
 }
 # Default:
 # {
 #     RU_CODE: "ЦД проведена раньше замеров стилоскопирования; ",
-#     GB_CODE: "Color flaw detection is performed before Styloscopy",
-#     IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia",
+#     GB_CODE: "Color flaw detection is performed before Styloscopy; ",
+#     IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia; ",
 # }
 note_cd_lt_st = {
     RU_CODE: "ЦД проведена раньше замеров стилоскопирования; ",
-    GB_CODE: "Color flaw detection is performed before Styloscopy",
-    IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia",
+    GB_CODE: "Color flaw detection is performed before Styloscopy; ",
+    IT_CODE: "Difetti di colore eseguiti prima della Stiloscopia; ",
 }
 # Default:
 # {
 #     RU_CODE: "ЦД проведена раньше замеров РК или УЗК; ",
 #     GB_CODE:
-#         "Color flaw detection is performed before Radiography or Ultrasound",
-#     IT_CODE: "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni",
+#         "Color flaw control is performed before Radiography or Ultrasound; ",
+#     IT_CODE:
+#         "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni; ",
 # }
 note_cd_lt_rc = {
     RU_CODE: "ЦД проведена раньше замеров РК или УЗК; ",
     GB_CODE:
-        "Color flaw detection is performed before Radiography or Ultrasound",
-    IT_CODE: "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni",
+        "Color flaw control is performed before Radiography or Ultrasound; ",
+    IT_CODE:
+        "Difetti di colore eseguiti prima dei Radiografia e Ultrasuoni; ",
 }
 # Default:
 # {
@@ -723,11 +762,8 @@ note_vmc_does_not_exist = {
 }
 
 """
-==============================================================================
-"""
-
-"""
 =====================Константы и переменные логирования=======================
+======================Logging constants and variables=========================
 """
 
 # =====================Статические сообщения для логов========================
