@@ -40,9 +40,9 @@ LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 # Имя окна настроек
 # Default:
 # {
-#     RU_ICON_CODE: "Настройки",
-#     GB_ICON_CODE: "Settings",
-#     IT_ICON_CODE: "Impostazioni"
+#     RU_CODE: "Настройки",
+#     GB_CODE: "Settings",
+#     IT_CODE: "Impostazioni"
 # }
 settings_window_title = {
     RU_CODE: "Настройки",
@@ -145,7 +145,7 @@ saved_file_success_message = {
 #     GB_ICON_CODE: "Browse",
 #     IT_ICON_CODE: "Navigazione"
 # }
-browse_button_text = {
+browse_button_name = {
     RU_CODE: "Обзор",
     GB_CODE: "Browse",
     IT_CODE: "Navigazione"
@@ -218,7 +218,7 @@ go_button_name = {
 #     GB_CODE: "Clear",
 #     IT_CODE: "Cancellare"
 # }
-clean_button_name = {
+clear_button_name = {
     RU_CODE: "Забить",
     GB_CODE: "Clear",
     IT_CODE: "Cancellare"
@@ -247,7 +247,7 @@ settings_button_name = {
 start_buttons_name_to_process = {
     code: {
         go_button_name[code]: "start_process",
-        clean_button_name[code]: "clear_entries",
+        clear_button_name[code]: "clear_entries",
         settings_button_name[code]: "open_settings"
     }
     for code in LANG_CODES

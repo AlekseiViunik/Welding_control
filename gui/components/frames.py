@@ -22,7 +22,7 @@ class Frame:
 
         button = tk.Button(
             frame,
-            text=set.browse_button_text[self.instance.lang_code],
+            text=set.browse_button_name[self.instance.lang_code],
             command=lambda: self.browse_file(entry, choose_directory)
         )
         button.pack(

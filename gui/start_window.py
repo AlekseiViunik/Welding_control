@@ -77,7 +77,7 @@ class App:
 
         buttons_args = {
             set.go_button_name[self.lang_code]: [],
-            set.clean_button_name[self.lang_code]: [],
+            set.clear_button_name[self.lang_code]: [],
             set.settings_button_name[self.lang_code]: []
         }
 
