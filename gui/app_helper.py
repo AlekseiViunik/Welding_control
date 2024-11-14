@@ -1,22 +1,14 @@
 import tkinter as tk
 from tkinter import filedialog
 
-from settings.gui.components import (
-    buttons as btn,
-    labels as lbl,
-    textfield as txt,
-    frames as fr
-)
-from settings.gui.windows import (
-    windows as win,
-    info_windows as info
-)
+from settings import settings as set
 
 
 class AppHelper:
-    def __init__(self, root):
+    def __init__(self, root, lang_code):
         self.root = root
         self.info_window = None
+        self.lang_code = lang_code
 
     def center_window(self, window, width, height):
         """Центрирует окно на экране."""
@@ -36,65 +28,24 @@ class AppHelper:
     def show_info_window(self):
         """Показывает информационное окно о начале работы."""
         self.info_window = tk.Toplevel(self.root)
-        self.info_window.title(info.INFO_WINDOW_TITLE)
+        title = set.info_window_title[self.lang_code]
+        self.info_window.title(title)
         self.info_window.geometry(
-            f"{info.INFO_WINDOW_WIDTH}x{info.INFO_WINDOW_HEIGHT}"
+            f"{set.INFO_WINDOW_WIDTH}x{set.INFO_WINDOW_HEIGHT}"
         )
         self.center_window(
             self.info_window,
-            info.INFO_WINDOW_WIDTH,
-            info.INFO_WINDOW_HEIGHT
+            set.INFO_WINDOW_WIDTH,
+            set.INFO_WINDOW_HEIGHT
         )
 
         label = tk.Label(
             self.info_window,
-            text=lbl.INFO_LABEL_TEXT,
-            padx=lbl.INFO_LABEL_PADX,
-            pady=lbl.INFO_LABEL_PADY
+            text=set.info_label_text[self.lang_code],
+            padx=set.INFO_LABEL_PADX,
+            pady=set.INFO_LABEL_PADY
         )
         label.pack()
-
-    def create_label_entry_frame(
-        self,
-        parent,
-        label_text,
-        hint='',
-        choose_directory=False
-    ):
-        """Создает фрейм с лейблом и текстовым полем."""
-        frame = tk.Frame(parent)
-        frame.pack(fill=fr.FRAME_FILL_AXIS, padx=fr.FRAME_PADX)
-
-        label = tk.Label(frame, text=label_text)
-        label.pack(anchor=lbl.LABEL_ANCHOR)
-
-        entry = tk.Entry(
-            frame,
-            textvariable=hint,
-            width=txt.ENTRY_WIDTH
-        )
-        entry.pack(
-            side=txt.ENTRY_FRAME_SIDE,
-            fill=txt.ENTRY_FILL_AXIS,
-            expand=txt.ENTRY_EXPAND
-        )
-
-        button = tk.Button(
-            frame,
-            text=btn.BROWSE_BUTTON_TEXT,
-            command=lambda e=entry: self.browse_file(
-                e,
-                choose_directory,
-                parent
-            )
-        )
-        button.pack(
-            side=btn.BROWSE_BUTTON_SIDE,
-            padx=(btn.BROWSE_BUTTON_LEFT_PADX, btn.BROWSE_BUTTON_RIGHT_PADX)
-        )
-        divider = tk.Frame(parent, height=fr.DIVIDER_HEIGHT)
-        divider.pack(fill=fr.DIVIDER_FILL_AXIS)
-        return entry
 
     def browse_file(self, entry, choose_directory=False, parent=None):
         """Открывает диалог выбора файла или директории."""
@@ -107,14 +58,14 @@ class AppHelper:
             # Открываем диалог выбора директории
             path = filedialog.askdirectory()
             if path:  # Проверяем, что пользователь выбрал директорию
-                entry.delete(win.FIRST_ELEMENT, tk.END)
-                entry.insert(win.FIRST_ELEMENT, path)  # Убираем разделитель
+                entry.delete(set.FIRST_ELEMENT, tk.END)
+                entry.insert(set.FIRST_ELEMENT, path)  # Убираем разделитель
         else:
             # Открываем диалог выбора файла
             paths = filedialog.askopenfilenames()
             if paths:  # Проверяем, что пользователь выбрал файлы
-                entry.delete(win.FIRST_ELEMENT, tk.END)
-                entry.insert(win.FIRST_ELEMENT, win.PATH_DIVIDER.join(paths))
+                entry.delete(set.FIRST_ELEMENT, tk.END)
+                entry.insert(set.FIRST_ELEMENT, set.PATH_DIVIDER.join(paths))
 
         if parent:  # Устанавливаем фокус обратно на текущее окно
             parent.attributes('-topmost', False)

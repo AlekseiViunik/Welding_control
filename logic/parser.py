@@ -26,14 +26,17 @@ from datetime import datetime
 
 import openpyxl
 
-from settings import logic_settings as ls
+from settings import settings as set
 
 
 class Parser:
-    def __init__(self):
+    def __init__(self, lang_code):
         # TODO подключить Redis(?) для хранения данных вместо словаря
+        self.lang_code = lang_code
         self.welds_data = {}
-        self.weld_number_pattern = re.compile(ls.WELD_ID_REGEXP)
+        self.weld_number_pattern = (
+            re.compile(set.joint_id_regexp[self.lang_code])
+        )
 
     def parse_weld_data(self, paths, key):
         """Парсим все страницы переданных файлов в поисках номеров швов и дат
@@ -52,9 +55,9 @@ class Parser:
                     ):
                         date_found = False
                         weld_number_ru = (
-                            (ls.REPLACEMENT_DICT[weld_number[0]] +
+                            (set.REPLACEMENT_DICT[weld_number[0]] +
                              weld_number[1:])
-                            if weld_number[0] in ls.REPLACEMENT_DICT
+                            if weld_number[0] in set.REPLACEMENT_DICT
                             else weld_number
                         )
                         if weld_number_ru not in self.welds_data.keys():
@@ -63,14 +66,14 @@ class Parser:
                             cell_value = cell.value
                             if isinstance(cell_value, datetime):
                                 self.welds_data[weld_number_ru][key] = (
-                                    cell_value.strftime(ls.DATE_FORMAT)
+                                    cell_value.strftime(set.DATE_FORMAT)
                                 )
                                 date_found = True
                                 break
                             elif (
                                 isinstance(cell_value, str) and
                                 re.search(
-                                    ls.DATE_REGEXP,
+                                    set.DATE_REGEXP,
                                     cell_value
                                 )
                             ):
@@ -79,10 +82,10 @@ class Parser:
                                     date_found = True
                                     date = datetime.strptime(
                                         cell_value,
-                                        ls.DATE_FORMAT
+                                        set.DATE_FORMAT
                                     )
                                     self.welds_data[weld_number_ru] = {
-                                        key: date.strftime(ls.DATE_FORMAT)
+                                        key: date.strftime(set.DATE_FORMAT)
                                     }
                                     break
                                 except ValueError:

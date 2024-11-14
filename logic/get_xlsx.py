@@ -19,42 +19,46 @@ import logging
 import openpyxl
 
 from gui.messagebox import MessageBox
-from settings import logging_settings as log
-from settings import logic_settings as ls
-from settings.gui.windows import windows as win
+from settings import settings as set
 from .create_summary import CreateSummary
 from .parser import Parser
 
 
 class GetXlsx:
-    def __init__(self, vmc, hb, rc, st, cd, save_path):
+    def __init__(self, vmc, hb, rc, st, cd, save_path, lang_code):
         self.vmc = vmc
         self.hb = hb
         self.rc = rc
         self.st = st
         self.cd = cd
         self.save_path = save_path
+        self.lang_code = lang_code
         self.message_box = MessageBox()
         self.files_dict = {
-            ls.VMC: {
-                "path": vmc.split(win.PATH_DIVIDER) if vmc else [],
-                "check": ls.VMC_CHECK_KEYS
+            set.VMC: {
+                set.FILES_DICT_PATH_KEY:
+                    vmc.split(set.PATH_DIVIDER) if vmc else [],
+                set.FILES_DICT_CHECK_KEY: set.VMC_CHECK_KEYS
             },
-            ls.HB: {
-                "path": hb.split(win.PATH_DIVIDER) if hb else [],
-                "check": ls.HB_CHECK_KEYS
+            set.HB: {
+                set.FILES_DICT_PATH_KEY:
+                    hb.split(set.PATH_DIVIDER) if hb else [],
+                set.FILES_DICT_CHECK_KEY: set.HB_CHECK_KEYS
             },
-            ls.RC: {
-                "path": rc.split(win.PATH_DIVIDER) if rc else [],
-                "check": ls.RC_CHECK_KEYS
+            set.RC: {
+                set.FILES_DICT_PATH_KEY:
+                    rc.split(set.PATH_DIVIDER) if rc else [],
+                set.FILES_DICT_CHECK_KEY: set.RC_CHECK_KEYS
             },
-            ls.ST: {
-                "path": st.split(win.PATH_DIVIDER) if st else [],
-                "check": ls.ST_CHECK_KEYS
+            set.ST: {
+                set.FILES_DICT_PATH_KEY:
+                    st.split(set.PATH_DIVIDER) if st else [],
+                set.FILES_DICT_CHECK_KEY: set.ST_CHECK_KEYS
             },
-            ls.CD: {
-                "path": cd.split(win.PATH_DIVIDER) if cd else [],
-                "check": ls.CD_CHECK_KEYS
+            set.CD: {
+                set.FILES_DICT_PATH_KEY:
+                    cd.split(set.PATH_DIVIDER) if cd else [],
+                set.FILES_DICT_CHECK_KEY: set.CD_CHECK_KEYS
             },
         }
 
@@ -65,38 +69,39 @@ class GetXlsx:
         # Удаляем ключи, у которых значения пустые массивы
         self.files_dict = {
             key: value for key, value in self.files_dict.items() if value[
-                'path'
+                set.FILES_DICT_PATH_KEY
             ]
         }
 
         # Проверка переданных файлов
-        logging.info(log.LOG_CHECK_FILES_START)
-        logging.info(log.LOG_CHECK_FILES_CALL)
+        logging.info(set.log_check_files_start[self.lang_code])
+        logging.info(set.log_check_files_call[self.lang_code])
         for field, file_info in self.files_dict.items():
             if not self.check_files(
-                file_info['path'],
-                file_info['check'],
+                file_info[set.FILES_DICT_PATH_KEY],
+                file_info[set.FILES_DICT_CHECK_KEY],
                 field
             ):
                 return False
-        logging.info(log.LOG_CHECK_FILES_DONE)
+        logging.info(set.log_check_files_done[self.lang_code])
 
         # Получение данных и запихивание их в словарь
-        logging.info(log.LOG_PARSE_START)
-        logging.info(log.LOG_PARSE_CALL)
-        parser = Parser()
+        logging.info(set.log_parse_start[self.lang_code])
+        logging.info(set.log_parse_call[self.lang_code])
+        parser = Parser(self.lang_code)
         for key, value in self.files_dict.items():
-            parser.parse_weld_data(value['path'], key)
+            parser.parse_weld_data(value[set.FILES_DICT_PATH_KEY], key)
         logging.info(
-            f"Парсинг выполнен. Количесвто элементов: {len(parser.welds_data)}"
+            f"{set.log_parse_done_el_amount[self.lang_code]}"
+            f"{len(parser.welds_data)}"
         )
 
         # Составление итоговой таблицы
-        logging.info(log.LOG_TABLE_START)
-        logging.info(log.LOG_TABLE_METHOD_CALL)
-        create_summary = CreateSummary()
+        logging.info(set.log_table_start[self.lang_code])
+        logging.info(set.log_table_method_call[self.lang_code])
+        create_summary = CreateSummary(self.lang_code)
         create_summary.create_summary_excel(parser.welds_data, self.save_path)
-        logging.info(log.LOG_TABLE_DONE)
+        logging.info(set.log_table_done[self.lang_code])
         return True
 
     def check_files(self, paths, check_keys, field):
@@ -104,15 +109,20 @@ class GetXlsx:
            строках. Это необходимо, чтобы понять, в том ли текстовом поле
            загружен файл. Это важно для последующей обработки файлов."""
         for path in paths:
-            filename = path.split(ls.FILEPATH_DIVIDER)[-1]
-            file_extension = filename.split(ls.EXTENSION_DIVIDER)[-1]
-            if file_extension not in ls.EXTENSIONS:
+            filename = path.split(set.FILEPATH_DIVIDER)[-1]
+            file_extension = filename.split(set.EXTENSION_DIVIDER)[-1]
+            if file_extension not in set.EXTENSIONS:
                 message = (
-                    f"Какой-то непонятный файл тут: {path}\n"
-                    "Приложение закроется!"
+                    f"{set.unnknown_file_error[self.lang_code]}{path}\n"
+                    f"{set.close_app_error[self.lang_code]}"
                 )
-                self.message_box.show_error(message)
-                logging.error(f"Файл с недопустимым разрешением: {path}")
+                self.message_box.show_error(
+                    message,
+                    self.lang_code
+                )
+                logging.error(
+                    f"{set.log_unacceptable_extension[self.lang_code]}{path}"
+                )
                 return False
             try:
                 wb = openpyxl.load_workbook(path)
@@ -123,8 +133,8 @@ class GetXlsx:
 
                 # Проверяем первые N строк первого столбца
                 for row in range(
-                    ls.MIN_ROW_RANGE_VALUE,
-                    ls.MAX_ROW_RANGE_VALUE
+                    set.MIN_ROW_RANGE_VALUE,
+                    set.MAX_ROW_RANGE_VALUE
                 ):
                     cell_value = sheet.cell(row=row, column=1).value
                     if cell_value and any(
@@ -135,20 +145,30 @@ class GetXlsx:
 
                 if not found:
                     message = (
-                        f"Я не верю, что {filename} находится в нужном "
-                        "поле.\nПриложение закроется!"
+                        set.check_failed_error[self.lang_code].
+                        format(filename, set.close_app_error[self.lang_code])
                     )
-                    self.message_box.show_error(message)
+                    self.message_box.show_error(
+                        message,
+                        self.lang_code
+                    )
+
                     log_message = (
-                        f"Файл не на своем месте: {path} загружен для "
-                        f"поля {field}"
+                        set.log_check_failed_error[self.lang_code].
+                        format(path, field)
                     )
+
                     logging.error(log_message)
                     return False
 
             except Exception as e:
-                message = f"Ошибка при проверке файла {path}: {e}"
-                self.message_box.show_error(message)
-                logging.error(f"Ошибка при проверке файла {path}: {e}")
+                message = (
+                    set.file_check_error[self.lang_code].format(path, e)
+                )
+                self.message_box.show_error(
+                    message,
+                    self.lang_code
+                )
+                logging.error(message)
                 return False
         return True

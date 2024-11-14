@@ -1,9 +1,8 @@
 """
-GUI гллавного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
+GUI главного экрана. На нем мы выбираем файлы для проверки и рисуем кнопки
 Также тут описаны главные параметры экрана и действия нажатия кнопок.
 """
 import ctypes
-import json
 import logging
 import os
 import sys
@@ -12,76 +11,110 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-from logic.get_xlsx import GetXlsx
-from settings import logging_settings as log
-from settings import user_settings as us
-from settings.gui.components import (
-    buttons as btn,
-    labels as lbl
-)
-from settings.gui.windows import windows as win
 from gui.components.frames import Frame
+from gui.components.buttons import LangButton
+from logic.get_xlsx import GetXlsx
+from logic.settings_handler import SettingsHandler
+from settings import settings as set
+
 from .app_helper import AppHelper
 
 
 class App:
-    def __init__(self, root, save_path):
+    def __init__(self, root):
         self.root = root
-        self.save_path = save_path
+        self.save_path = ''
+        self.lang_code = ''
+        self.lang_settings = {}
+        self.helper = None
+        self.settings = None
+        self.main_frame = None
+        self.lang_button = None
+        self.settings_handler = SettingsHandler()
+
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.helper = AppHelper(root)
-        self.settings = SettingsWindow(root)
-        self.root.title(win.START_WINDOW_TITLE)
-        self.root.geometry(f"{win.WINDOW_WIDTH}x{win.WINDOW_HEIGHT}")
-        self.set_window_icon()
-        self.helper.center_window(
-            self.root,
-            win.WINDOW_WIDTH,
-            win.WINDOW_HEIGHT
-        )
-        self.file_paths = []
+        self.root.title(set.START_WINDOW_TITLE)
+        self.root.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
         self.threads = []
         self.stop_threads = False
 
-        buttons_args = {
-            btn.GO_BUTTON_NAME: [],
-            btn.CLEAN_BUTTON_NAME: [],
-            btn.SETTINGS_BUTTON_NAME: []
-        }
+        self.set_window_icon()
+        self.render_main_frame()
 
-        frame = Frame(root, self)
+    def render_main_frame(self):
+        if hasattr(self, 'main_frame') and self.main_frame:
+            self.main_frame.destroy()
+        settings = self.settings_handler.file_read()
+        self.lang_settings = settings[set.DEFAULT_LANG_KEY]
+        self.lang_code = self.lang_settings[set.DEFAULT_LANG_CODE_KEY]
+        self.save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
+
+        self.settings = SettingsWindow(self.root, self.lang_code)
+        self.helper = AppHelper(self.root, self.lang_code)
+
+        self.helper.center_window(
+            self.root,
+            set.WINDOW_WIDTH,
+            set.WINDOW_HEIGHT
+        )
+
+        self.main_frame = tk.Frame(self.root)
+        self.main_frame.pack(fill=tk.BOTH, expand=True)
+
+        self.file_paths = []
+        frame = Frame(self.main_frame, self)
+
+        self.lang_button = LangButton(
+            self.main_frame,
+            self.lang_settings,
+            self
+        )
 
         # Создание фреймов с полем для ввода и кнопкой "Обзор"
-        for label_text in lbl.LABELS:
+        for label_text in set.labels[self.lang_code]:
             entry = frame.create_entry_frame(label_text)
             self.file_paths.append(entry)
 
+        buttons_args = {
+            set.go_button_name[self.lang_code]: [],
+            set.clear_button_name[self.lang_code]: [],
+            set.settings_button_name[self.lang_code]: []
+        }
+
         # Кнопки "Погнали", "Забей" и "Настройки"
         frame.create_button_frame(
-            btn.start_buttons_name_to_process,
+            set.start_buttons_name_to_process[self.lang_code],
             buttons_args
         )
 
-        label = tk.Label(root, text=lbl.AUTHOR_LABEL_TEXT,)
+        label = tk.Label(self.main_frame, text=set.AUTHOR_LABEL_TEXT,)
         label.place(
-            relx=lbl.AUTHOR_RELX,
-            rely=lbl.AUTHOR_RELY,
-            anchor=lbl.AUTHOR_ANCHOR,
-            y=lbl.AUTHOR_PADY,
+            relx=set.AUTHOR_RELX,
+            rely=set.AUTHOR_RELY,
+            anchor=set.AUTHOR_ANCHOR,
+            y=set.AUTHOR_PADY,
         )
+
+        # Кнопка смены языка
+        self.lang_button.create_lang_button()
 
     def start_process(self):
         """Запускает процесс обработки и отображает информационное окно."""
-        logging.info(log.LOG_DIVIDER)
-        logging.info(log.LOG_START)
-        logging.info(
-            f"Выбранные файлы: VMC: {self.file_paths[0].get()}, "
-            f"RC: {self.file_paths[1].get()}, ST: {self.file_paths[2].get()},"
-            f"CD: {self.file_paths[3].get()}, HB: {self.file_paths[4].get()}"
+        logging.info(set.LOG_DIVIDER)
+        logging.info(set.log_start[self.lang_code])
+        log_message = (
+            set.log_chosen_files[self.lang_code].format(
+                self.file_paths[0].get(),
+                self.file_paths[1].get(),
+                self.file_paths[2].get(),
+                self.file_paths[3].get(),
+                self.file_paths[4].get()
+            )
         )
-        logging.info(f"Путь для сохранения итогового файла: {self.save_path}")
+        logging.info(log_message)
+        logging.info(f"{set.log_save_path_is[self.lang_code]}{self.save_path}")
         self.helper.show_info_window()
-        logging.info(log.LOG_CALCULATE_DATES_CALL)
+        logging.info(set.log_calculate_dates_call[self.lang_code])
         thread = Thread(target=self.calculate_dates)
         thread.daemon = True
         thread.start()
@@ -98,40 +131,33 @@ class App:
         cd_paths = self.file_paths[3].get()
         hb_paths = self.file_paths[4].get()
 
-        self.get_save_path()
-
         # Вызываем функцию из get_xlsx с нашим словарем
-        logging.info(log.LOG_HANDLE_REQUEST_CALL)
+        logging.info(set.log_handle_request_call[self.lang_code])
         get_xlsx = GetXlsx(
             vmc_paths,
             hb_paths,
             rc_paths,
             st_paths,
             cd_paths,
-            self.save_path
+            self.save_path,
+            self.lang_code
         )
         if not get_xlsx.handle_request():
-            logging.error(log.LOG_ERROR_MSG)
+            logging.error(set.log_error_msg[self.lang_code])
             self.on_closing()
 
         # Закрываем информационное окно по завершении работы
         if self.helper.info_window:
             self.helper.info_window.destroy()
 
-    def get_save_path(self):
-        with open(us.SETTINGS_FILE_NAME, 'r') as f:
-            settings = json.load(f)
-            self.save_path = settings[us.SAVE_PATH_KEY]
-
     def clear_entries(self):
         """Очищает все текстовые поля."""
         for entry in self.file_paths:
-            entry.delete(win.FIRST_ELEMENT, tk.END)
+            entry.delete(set.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
         """Открывает окно настроек."""
         self.settings.create_window()
-        self.get_save_path()
 
     def set_window_icon(self):
         """Устанавливает иконку для окна."""
@@ -143,18 +169,18 @@ class App:
             # Если запущено как исполняемое приложение
             icon_path_png = os.path.join(
                 sys._MEIPASS,
-                win.ICONS_FOLDER_NAME,
-                win.PNG_ICON_FILENAME
+                set.ICONS_FOLDER_NAME,
+                set.PNG_ICON_FILENAME
             )
             icon_path_ico = os.path.join(
                 sys._MEIPASS,
-                win.ICONS_FOLDER_NAME,
-                win.ICO_ICON_FILENAME
+                set.ICONS_FOLDER_NAME,
+                set.ICO_ICON_FILENAME
             )
         else:
             # Если запущено из исходников
-            icon_path_png = win.PNG_ICON_FILEPATH
-            icon_path_ico = win.ICO_ICON_FILEPATH
+            icon_path_png = set.PNG_ICON_FILEPATH
+            icon_path_ico = set.ICO_ICON_FILEPATH
 
         self.icon = PhotoImage(file=icon_path_png)
         self.root.iconphoto(True, self.icon)
