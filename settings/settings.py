@@ -4,16 +4,21 @@
 import os
 
 # Код языка РФ
+# RF language code
 RU_CODE = 'ru'
 
 # Код языка Великобритании
+# Great Britain language code
 GB_CODE = 'gb'
 
 # Код языка Италии
+# Italy language code
 IT_CODE = 'it'
 
 # Список доступных кодов
 # Сюда добавлять все константы кодов выше
+# Available codes list
+# Here to put all the code constants from above
 LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 
 """
@@ -31,104 +36,124 @@ LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 """
 """
 ================Константы и переменные графического интерфейса================
+================Constants & variables of the graphic interface================
 """
 # ============================================================================
 # ==========================          ОКНА          ==========================
 # ==========================     Основные окна      ==========================
+# ==========================        WINDOWS         ==========================
+# ==========================    Primary windows     ==========================
 # ============================================================================
 
 # Имя окна настроек
+# Settings window title
+#
 # Default:
 # {
 #     RU_CODE: "Настройки",
 #     GB_CODE: "Settings",
-#     IT_CODE: "Impostazioni"
+#     IT_CODE: "Impostazioni",
 # }
 settings_window_title = {
     RU_CODE: "Настройки",
     GB_CODE: "Settings",
-    IT_CODE: "Impostazioni"
+    IT_CODE: "Impostazioni",
 }
 
 # ============================================================================
 # ==========================          ОКНА          ==========================
 # ==========================  Второстепенные окна   ==========================
+# ==========================        WINDOWS         ==========================
+# ==========================   Secondary windows    ==========================
 # ============================================================================
 
 
 # =========================Настройки для MessageBox===========================
+# ============================MessageBox settings=============================
 
 # Заголовок окна об ошибке
+# Error window title
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Ошибка",
-#     GB_ICON_CODE: "Error",
-#     IT_ICON_CODE: "Errore"
+#     RU_CODE: "Ошибка",
+#     GB_CODE: "Error",
+#     IT_CODE: "Errore",
 # }
 error_message_title = {
     RU_CODE: "Ошибка",
     GB_CODE: "Error",
-    IT_CODE: "Errore"
+    IT_CODE: "Errore",
 }
 
 # =========================Настройки для InfoWindow===========================
+# ===========================InfoWindow settings==============================
 # Это окно вылезает, когда начинается процесс обработки файлов и предупреждает
 # юзера, что работа пошла, чтобы юзер не подумал, что приложение зависло.
+# This window pops up when the file processing begins to inform the users that
+# the process has started, so they don't think the application has frozen.
 
 # Заголовок инфобокса
+# Info window title
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Для справки!",
-#     GB_ICON_CODE: "For your information!",
-#     IT_ICON_CODE: "Per l'informazione"
+#     RU_CODE: "Для справки!",
+#     GB_CODE: "For your information!",
+#     IT_CODE: "Per l'informazione",
 # }
 info_window_title = {
     RU_CODE: "Для справки!",
     GB_CODE: "For your information!",
-    IT_CODE: "Per l'informazione"
+    IT_CODE: "Per l'informazione",
 }
 
 # =============Настройки информационных окон об успехе===============
+# ==================Success info window settings=====================
 
 # Заголовок окна об успехе
+# Success info window title
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Успех!",
-#     GB_ICON_CODE: "Success!",
-#     IT_ICON_CODE: "Successo!"
+#     RU_CODE: "Успех!",
+#     GB_CODE: "Success!",
+#     IT_CODE: "Successo!",
 # }
 success_title = {
     RU_CODE: "Успех!",
     GB_CODE: "Success!",
-    IT_CODE: "Successo!"
+    IT_CODE: "Successo!",
 }
 
 # Сообщение окна об успехе сохранения файла настроек
+# Info window message abot successful saving the settings file
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Настройки сохранены!",
-#     GB_ICON_CODE: "The settings are saved!",
-#     IT_ICON_CODE: "Impostazioni salvate!"
+#     RU_CODE: "Настройки сохранены!",
+#     GB_CODE: "The settings are saved!",
+#     IT_CODE: "Impostazioni salvate!",
 # }
 saved_settings_success_message = {
     RU_CODE: "Настройки сохранены!",
     GB_CODE: "The settings are saved!",
-    IT_CODE: "Le impostazioni sono salvate!"
+    IT_CODE: "Le impostazioni sono salvate!",
 }
 
-# Сообщение окна об успехе сохранения настроек
-# Это сообщение составляется из 2х частей: этой и
-# пути из настроек в settings.json
+# Сообщение окна об успехе сохранения итоговой таблицы
+# Info window message about saving the summary table
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Итоговая таблица сохранена в ",
-#     GB_ICON_CODE: "The final table is saved in",
-#     IT_ICON_CODE: "La tabella finale è salvata in"
+#     RU_CODE: "Итоговая таблица сохранена в {}",
+#     GB_CODE: "The final table is saved in {}",
+#     IT_CODE: "La tabella finale è salvata in {}",
 # }
 saved_file_success_message = {
-    RU_CODE: "Итоговая таблица сохранена в ",
-    GB_CODE: "The final table is saved in ",
-    IT_CODE: "La tabella finale è salvata in "
+    RU_CODE: "Итоговая таблица сохранена в {}",
+    GB_CODE: "The final table is saved in {}",
+    IT_CODE: "La tabella finale è salvata in {},"
 }
 
 # ============================================================================
