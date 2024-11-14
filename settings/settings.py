@@ -4,21 +4,32 @@
 import os
 
 # Код языка РФ
+# ****************************************************************************
 # RF language code
-RU_CODE = 'ru'
+# ****************************************************************************
+
+RU_CODE = 'ru'  # Default: 'ru'
 
 # Код языка Великобритании
+# ****************************************************************************
 # Great Britain language code
-GB_CODE = 'gb'
+# ****************************************************************************
+
+GB_CODE = 'gb'  # Default: 'gb'
 
 # Код языка Италии
+# ****************************************************************************
 # Italy language code
-IT_CODE = 'it'
+# ****************************************************************************
+IT_CODE = 'it'  # Default: 'it'
 
 # Список доступных кодов
 # Сюда добавлять все константы кодов выше
+# ****************************************************************************
 # Available codes list
 # Here to put all the code constants from above
+# ****************************************************************************
+# Default: [RU_CODE, GB_CODE, IT_CODE]
 LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 
 """
@@ -46,7 +57,9 @@ LANG_CODES = [RU_CODE, GB_CODE, IT_CODE]
 # ============================================================================
 
 # Имя окна настроек
+# ****************************************************************************
 # Settings window title
+# ****************************************************************************
 #
 # Default:
 # {
@@ -72,7 +85,9 @@ settings_window_title = {
 # ============================MessageBox settings=============================
 
 # Заголовок окна об ошибке
+# ****************************************************************************
 # Error window title
+# ****************************************************************************
 #
 # Default:
 # {
@@ -90,11 +105,14 @@ error_message_title = {
 # ===========================InfoWindow settings==============================
 # Это окно вылезает, когда начинается процесс обработки файлов и предупреждает
 # юзера, что работа пошла, чтобы юзер не подумал, что приложение зависло.
+# ****************************************************************************
 # This window pops up when the file processing begins to inform the users that
 # the process has started, so they don't think the application has frozen.
 
 # Заголовок инфобокса
+# ****************************************************************************
 # Info window title
+# ****************************************************************************
 #
 # Default:
 # {
@@ -112,7 +130,9 @@ info_window_title = {
 # ==================Success info window settings=====================
 
 # Заголовок окна об успехе
+# ****************************************************************************
 # Success info window title
+# ****************************************************************************
 #
 # Default:
 # {
@@ -127,7 +147,9 @@ success_title = {
 }
 
 # Сообщение окна об успехе сохранения файла настроек
+# ****************************************************************************
 # Info window message abot successful saving the settings file
+# ****************************************************************************
 #
 # Default:
 # {
@@ -142,7 +164,9 @@ saved_settings_success_message = {
 }
 
 # Сообщение окна об успехе сохранения итоговой таблицы
+# ****************************************************************************
 # Info window message about saving the summary table
+# ****************************************************************************
 #
 # Default:
 # {
@@ -153,59 +177,80 @@ saved_settings_success_message = {
 saved_file_success_message = {
     RU_CODE: "Итоговая таблица сохранена в {}",
     GB_CODE: "The final table is saved in {}",
-    IT_CODE: "La tabella finale è salvata in {},"
+    IT_CODE: "La tabella finale è salvata in {}",
 }
 
 # ============================================================================
 # ==========================       КОМПОНЕНТЫ       ==========================
 # ==========================         Кнопки         ==========================
+# ==========================       COMPONENTS       ==========================
+# ==========================        Buttons         ==========================
 # ============================================================================
 
-# ====================Настройки для кнопки "Обзор"===================
+# ========================Настройки для кнопки "Обзор"========================
+# ========================="Browse" button settings===========================
 
-# Текст кнопки
+# Название кнопки
+# ****************************************************************************
+# Button name
+# ****************************************************************************
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Обзор",
-#     GB_ICON_CODE: "Browse",
-#     IT_ICON_CODE: "Navigazione"
+#     RU_CODE: "Обзор",
+#     GB_CODE: "Browse",
+#     IT_CODE: "Navigazione",
 # }
 browse_button_name = {
     RU_CODE: "Обзор",
     GB_CODE: "Browse",
-    IT_CODE: "Navigazione"
+    IT_CODE: "Navigazione",
 }
 
-# ============Настройки для кнопок фрейма окна настроек==============
+# =================Настройки для кнопок фрейма окна настроек==================
+# =======================Settings_window frame settings=======================
 
 # Имя кнопки для сохранения
+# ****************************************************************************
+# Save button name
+# ****************************************************************************
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Сохранить",
-#     GB_ICON_CODE: "Save",
-#     IT_ICON_CODE: "Salvare"
+#     RU_CODE: "Сохранить",
+#     GB_CODE: "Save",
+#     IT_CODE: "Salvare",
 # }
 save_button_name = {
     RU_CODE: "Сохранить",
     GB_CODE: "Save",
-    IT_CODE: "Salvare"
+    IT_CODE: "Salvare",
 }
 
 # Имя кнопки для отмены
+# ****************************************************************************
+# Cancel button name
+# ****************************************************************************
+#
 # Default:
 # {
-#     RU_ICON_CODE: "Отмена",
-#     GB_ICON_CODE: "Cancel",
-#     IT_ICON_CODE: "Annullare"
+#     RU_CODE: "Отмена",
+#     GB_CODE: "Cancel",
+#     IT_CODE: "Annullare",
 # }
 cancel_button_name = {
     RU_CODE: "Отмена",
     GB_CODE: "Cancel",
-    IT_CODE: "Annullare"
+    IT_CODE: "Annullare",
 }
 
 # Текст, отображаемый на кнопках окна настроек.
-# И процесс, запускаемый для каждой кнопки
+# И процесс, запускаемый для каждой кнопки.
+# ****************************************************************************
+# Button text displayed in the settings window.
+# And the process triggered by each button.
+# ****************************************************************************
+#
 # Default:
 # {
 #     code: {
@@ -222,58 +267,79 @@ settings_buttons_name_to_process = {
     for code in LANG_CODES
 }
 
-# ==============Настройки фрейма кнопок стартового окна==============
+# ===================Настройки фрейма кнопок стартового окна==================
+# =====================Start window buttons frame settings====================
 
 # Имя кнопки для запуска процесса обработки файлов
+# ****************************************************************************
+# Run files handling button name
+# ****************************************************************************
+#
 # Default:
 # {
 #     RU_CODE: "Погнали",
 #     GB_CODE: "Run",
-#     IT_CODE: "Vai"
+#     IT_CODE: "Vai",
 # }
 go_button_name = {
     RU_CODE: "Погнали",
     GB_CODE: "Run",
-    IT_CODE: "Vai"
+    IT_CODE: "Vai",
 }
 
 # Имя кнопки для очистки всех текстовых полей
+# ****************************************************************************
+# Clear textfields button name
+# ****************************************************************************
+#
+# Default:
 # {
 #     RU_CODE: "Забить",
 #     GB_CODE: "Clear",
-#     IT_CODE: "Cancellare"
+#     IT_CODE: "Cancellare",
 # }
 clear_button_name = {
     RU_CODE: "Забить",
     GB_CODE: "Clear",
-    IT_CODE: "Cancellare"
+    IT_CODE: "Cancellare",
 }
 
 # Имя кнопки для открытия окна настроек
+# ****************************************************************************
+# Open settings window button name
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Настройки",
 #     GB_CODE: "Settings",
-#     IT_CODE: "Impostazioni"
+#     IT_CODE: "Impostazioni",
 # }
 settings_button_name = {
     RU_CODE: "Настройки",
     GB_CODE: "Settings",
-    IT_CODE: "Impostazioni"
+    IT_CODE: "Impostazioni",
 }
 
-# Текст, отображаемый на кнопках в порядке указания элементов в массиве
+# Текст, отображаемый на кнопках стартового окна
 # И процесс, запускаемый для каждой кнопки
-# Default: BUTTON_TEXTS = {
-#    "Погнали": "start_process",
-#    "Забить": "clear_entries",
-#    "Настройки": "open_settings",
-#    }
+# ****************************************************************************
+# Button text displayed in the start window.
+# And the process triggered by each button.
+# ****************************************************************************
+# Default:
+# {
+#     code: {
+#         go_button_name[code]: "start_process",
+#         clear_button_name[code]: "clear_entries",
+#         settings_button_name[code]: "open_settings",
+#     }
+#     for code in LANG_CODES
+# }
 start_buttons_name_to_process = {
     code: {
         go_button_name[code]: "start_process",
         clear_button_name[code]: "clear_entries",
-        settings_button_name[code]: "open_settings"
+        settings_button_name[code]: "open_settings",
     }
     for code in LANG_CODES
 }
@@ -281,43 +347,61 @@ start_buttons_name_to_process = {
 # ============================================================================
 # ==========================       КОМПОНЕНТЫ       ==========================
 # ==========================         Лейблы         ==========================
+# ==========================       COMPONENTS       ==========================
+# ==========================         Labels         ==========================
 # ============================================================================
 
-# =============Настройки для Лейбла информационного окна=============
+# =================Настройки для Лейбла информационного окна==================
+# =========================Info window label settings=========================
+
 # Текст информационного сообщения
+# ****************************************************************************
+# Info message text
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Работа пошла.\nПодожди немного!",
 #     GB_CODE: "The work has started.\nWait a bit!",
-#     IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!"
+#     IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!",
 # }
 info_label_text = {
     RU_CODE: "Работа пошла.\nПодожди немного!",
     GB_CODE: "The work has started.\nWait a bit!",
-    IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!"
+    IT_CODE: "Il lavoro è iniziato.\nAspetta un attimo!",
 }
 
-# ================Настройки лейбла для окна настроек=================
+# ====================Настройки лейбла для окна настроек======================
+# ======================Settings_window label settings========================
 
 # Текст для лейбла окна настроек
+# ****************************************************************************
+# Settings window label text
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Куда сохранять итоговый файл?",
 #     GB_CODE: "Where should I save the final file?",
-#     IT_CODE: "Dove salvare il file finale?"
+#     IT_CODE: "Dove salvare il file finale?",
 # }
 where_to_save = {
     RU_CODE: "Куда сохранять итоговый файл?",
     GB_CODE: "Where should I save the final file?",
-    IT_CODE: "Dove salvare il file finale?"
+    IT_CODE: "Dove salvare il file finale?",
 }
 
-# ==============Настройки для лейблов стартового окна================
+# ===================Настройки для лейблов стартового окна====================
+# ========================Start_window label settings=========================
 
 # Тексты для лейблов (описание, какой файл необходимо выбрать)
 # Будут расположены в том же порядке, в котором перечислены в списке
 # Порядок лучше не менять, иначе все по пизде пойдет.
 # Это будет исправлено в будущем.
+# ****************************************************************************
+# Labels for file descriptions (indicating which file needs to be selected)
+# They will be listed in the same order as in the list.
+# It’s better not to change the order, or everything will go to hell.
+# This will be fixed in the future.
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: [
@@ -325,21 +409,21 @@ where_to_save = {
 #         "Выбери файлы Радиографического контроля",
 #         "Выбери файлы Стилоскопирования",
 #         "Выбери файлы Цветной дефектоскопии",
-#         "Выбери файлы Твердости"
+#         "Выбери файлы Твердости",
 #     ],
 #     GB_CODE: [
 #         "Select Visual Inspection files",
 #         "Select Radiographic Inspection files",
 #         "Select Styloscopy files",
 #         "Select the Color Flaw detection files",
-#         "Select the Hardness measurement files"
+#         "Select the Hardness measurement files",
 #     ],
 #     IT_CODE: [
 #         "Scegli i file di controllo visivo",
 #         "Scegli i file di controllo radiografico",
 #         "Scegli i file di Styloscoping",
 #         "Scegli i file di rilevamento dei difetti A Colori",
-#         "Scegli i file di misurazione della durezza"
+#         "Scegli i file di misurazione della durezza",
 #     ],
 # }
 labels = {
@@ -348,34 +432,35 @@ labels = {
         "Выбери файлы Радиографического контроля",
         "Выбери файлы Стилоскопирования",
         "Выбери файлы Цветной дефектоскопии",
-        "Выбери файлы Твердости"
+        "Выбери файлы Твердости",
     ],
     GB_CODE: [
         "Select Visual Inspection files",
         "Select Radiographic Inspection files",
         "Select Styloscopy files",
         "Select the Color Flaw detection files",
-        "Select the Hardness measurement files"
+        "Select the Hardness measurement files",
     ],
     IT_CODE: [
         "Scegli i file di controllo visivo",
         "Scegli i file di controllo radiografico",
         "Scegli i file di Styloscoping",
         "Scegli i file di rilevamento dei difetti A Colori",
-        "Scegli i file di misurazione della durezza"
+        "Scegli i file di misurazione della durezza",
     ],
 }
 
 """
-==============================================================================
-"""
-
-"""
 ========================Константы и переменные логики=========================
+=====================Constants & variables of the logic=======================
 """
 # =========================Настройки для get_xlsx.py==========================
+# ============================get_xlsx.py settings============================
 
 # Сообщение о том, что приложение закроется.
+# ****************************************************************************
+# Message about closing the App.
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Приложение закроется!",
@@ -389,6 +474,9 @@ close_app_error = {
 }
 
 # Сообщение о том, что загружен файл с непонятным разрешением
+# ****************************************************************************
+# Unnknown file extension message
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Какой-то непонятный файл тут: ",
@@ -402,6 +490,9 @@ unnknown_file_error = {
 }
 
 # Сообщает, что файл находится не в нужном поле
+# ****************************************************************************
+# Message about the wrong place for a file
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: "Я не верю, что {} находится в нужном поле.\n{}",
@@ -414,6 +505,16 @@ check_failed_error = {
     IT_CODE: "Non credo che {} si trovi al posto giusto.\n{}",
 }
 
+# Сообщает о неотслеженной ошибке при проверке файла
+# ****************************************************************************
+# Message about an untracked error while checking a file
+# ****************************************************************************
+# Default:
+# {
+#     RU_CODE: "Ошибка при проверке файла {}: {}",
+#     GB_CODE: "File check error {}: {}",
+#     IT_CODE: "Errore durante la convalida del file {}: {}",
+# }
 file_check_error = {
     RU_CODE: "Ошибка при проверке файла {}: {}",
     GB_CODE: "File check error {}: {}",
@@ -421,33 +522,20 @@ file_check_error = {
 }
 
 # ==========================Настройки для parser.py===========================
+# ============================parser.py settings==============================
 
 # Регулярное выражение для поиска номера шва. Обычно название шва состоит из
 # одной буквы кириллицы, означающей тип шва и случайного набора чисел,
 # чередующихся с дефисами.
-# Варианты букв могут быть только определенные:
-# С криллица или латиница - стыковой шов
-# Н криллица или латиница - нахлесточный шов
-# Т криллица или латиница - тавровый шов
-# У или Y (редко) - угловой шов
-# N - нестандартный шов
-# Примеры наименования швов, подходящих под регулярное выражение:
-# C-1
-# T12-1-1
-# N3-3
-# Номера швов, которые не встречаются, но тоже подходят:
-# C---1
-# H11-1-
-# T-
-# Номера швов, которые не подойдут:
-# A1-1
-# Это_номер_шва
-# TT-1-1-1
+# ****************************************************************************
+# The regexp for the welding joint id searching. Usually joint id is a capital
+# letter and random number of the numbers with dashes
+# ****************************************************************************
 # Default:
 # {
 #     RU_CODE: r'^[CYTNHСНТУ][-\d]*$',
-#     GB_CODE: r'^[a-zA-Z][-\d]*$',
-#     IT_CODE: r'^[a-zA-Z][-\d]*$',
+#     GB_CODE: r'^[a-zA-ZСНТУ][-\d]*$',
+#     IT_CODE: r'^[a-zA-ZСНТУ][-\d]*$',
 # }
 joint_id_regexp = {
     RU_CODE: r'^[CYTNHСНТУ][-\d]*$',
