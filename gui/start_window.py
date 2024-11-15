@@ -91,7 +91,7 @@ class App:
         label.place(
             relx=set.AUTHOR_RELX,
             rely=set.AUTHOR_RELY,
-            anchor=set.AUTHOR_ANCHOR,
+            anchor=tk.S,
             y=set.AUTHOR_PADY,
         )
 

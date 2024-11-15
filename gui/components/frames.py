@@ -15,7 +15,7 @@ class Frame:
         frame.pack(fill=tk.X, padx=set.FRAME_PADX)
 
         label = tk.Label(frame, text=label_text)
-        label.pack(anchor=set.LABEL_ANCHOR)
+        label.pack(anchor=tk.W)
 
         entry = tk.Entry(frame, textvariable=hint, width=set.ENTRY_WIDTH)
         entry.pack(side=tk.LEFT, fill=tk.X, expand=set.ENTRY_EXPAND)
@@ -30,7 +30,7 @@ class Frame:
             padx=(set.BROWSE_BUTTON_LEFT_PADX, set.BROWSE_BUTTON_RIGHT_PADX)
         )
         divider = tk.Frame(self.root, height=set.DIVIDER_HEIGHT)
-        divider.pack(fill=set.DIVIDER_FILL_AXIS)
+        divider.pack(fill=tk.X)
 
         return entry
 
