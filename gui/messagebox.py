@@ -10,7 +10,7 @@ class MessageBox:
         pass
 
     def show_error(self, message: str, lang_code):
-        """Отображает всплывающее окно с сообщением об ошибке."""
+        """Creates a pop up error window."""
         root = tk.Tk()
         root.withdraw()
         title = set.error_message_title[lang_code]
@@ -18,6 +18,7 @@ class MessageBox:
         root.destroy()
 
     def show_message(self, title, message):
+        """Creates a pop up info window."""
         root = tk.Tk()
         root.withdraw()
         messagebox.showinfo(

@@ -16,7 +16,7 @@ class SettingsWindow:
         self.lang_code = lang_code
 
     def create_window(self):
-        """Открывает окно настроек."""
+        """Opens settings window."""
         settings_window = tk.Toplevel(self.root)
         settings_window.title(set.settings_window_title[self.lang_code])
         settings_window.geometry(f"{set.WINDOW_WIDTH}x{set.WINDOW_HEIGHT}")
@@ -28,14 +28,14 @@ class SettingsWindow:
             value=save_path
         )
 
-        # Фрейм с лейблом, текстовым полем для ввода и кнопкой "Обзор"
+        # Browse frame creation
         frame.create_entry_frame(
             set.where_to_save[self.lang_code],
             current_path,
             True
         )
 
-        # Фрейм с кнопками "Сохранить" и "Отмена"
+        # Buttons "Save" and "Cancel"
         buttons_args = {
             set.save_button_name[self.lang_code]: [
                 current_path, settings_window
@@ -50,7 +50,7 @@ class SettingsWindow:
         )
 
     def save_settings(self, path, window):
-        """Сохраняет настройки в JSON файл."""
+        """Saves new params to the settings. Closes settings window."""
         settings = self.settings_handler.file_read()
         settings[set.DEFAULT_SAVE_PATH_KEY] = path.get()
 
@@ -63,4 +63,5 @@ class SettingsWindow:
         window.destroy()
 
     def destroy(self, instance):
+        """Closes window."""
         instance.destroy()
