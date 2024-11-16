@@ -165,7 +165,7 @@ class App:
             entry.delete(set.FIRST_ELEMENT, tk.END)
 
     def open_settings(self):
-        """Открывает окно настроек."""
+        """Opens settings window."""
         self.settings.create_window()
 
     def set_window_icon(self):

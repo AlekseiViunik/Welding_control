@@ -55,7 +55,7 @@ class LangButton:
         lang_window.title(set.lang_window_title[self.lang_code])
 
         for lang_code, icon_path in set.lang.items():
-            # Создаем кнопку для каждого языка
+            # Create a button for each available language
             self.create_lang_button(
                 lang_window,
                 icon_path,
