@@ -1,4 +1,4 @@
-# Welding_control v1.0.0
+# iWant v1.0.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
 ## Оглавление/Table of Contents
 - ![🇷🇺](files/icons/ru.png)[Описание](#Описание)
