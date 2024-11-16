@@ -31,7 +31,6 @@ from settings import settings as set
 
 class Parser:
     def __init__(self, lang_code):
-        # TODO подключить Redis(?) для хранения данных вместо словаря
         self.lang_code = lang_code
         self.welds_data = {}
         self.weld_number_pattern = (
@@ -39,11 +38,10 @@ class Parser:
         )
 
     def parse_weld_data(self, paths, key):
-        """Парсим все страницы переданных файлов в поисках номеров швов и дат
-           контроля. Поскольку файлов много, как и страниц в каждом файле,
-           как и самих швов на страницах, то операция будет проходить довольно
-           долго."""
-
+        """
+        Parse all pages of the provided files in search of joint ids and their
+        control dates.
+        """
         for path in paths:
             wb = openpyxl.load_workbook(path, read_only=True)
             for sheet in wb.worksheets:

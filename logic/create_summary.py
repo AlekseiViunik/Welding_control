@@ -21,18 +21,16 @@ class CreateSummary:
             save_path,
             output_file=set.SAVE_FILE_NAME
             ):
-        """Создает итоговую таблицу в формате Excel на основе данных о швах."""
+        """Creates a summary excel table based on joints data."""
         logging.info(set.log_table_creating[self.lang_code])
         wb = openpyxl.Workbook()
         ws = wb.active
 
-        # Записываем заголовки в таблицу
         logging.info(set.log_add_headers[self.lang_code])
         ws.append(set.headers[self.lang_code])
 
         logging.info(set.log_add_data[self.lang_code])
         for weld_number, control_dates in welds_data.items():
-            # Получаем даты контроля по ключам
             hb = datetime.strptime(
                 control_dates.get(set.HB, ""), set.DATE_FORMAT
             ) if control_dates.get(set.HB, "") else None
@@ -49,10 +47,8 @@ class CreateSummary:
                 control_dates.get(set.CD, ""), set.DATE_FORMAT
             ) if control_dates.get(set.CD, "") else None
 
-            # Примечание по умолчанию
             note = set.NOTE
 
-            # Сравнение дат
             if vmc:
                 if hb and hb < vmc:
                     note += set.note_hb_lt_vmc[self.lang_code]
@@ -80,8 +76,6 @@ class CreateSummary:
             else:
                 note = set.note_vmc_does_not_exist[self.lang_code]
 
-            # Записываем данные в строку таблицы
-            # используем символ " ' ", чтобы дата не записалась как число
             row = [
                 weld_number,
                 (set.EXCEL_ESCAPING_SYMBOL +

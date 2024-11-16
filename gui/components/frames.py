@@ -10,7 +10,10 @@ class Frame:
         self.instance = instance
 
     def create_entry_frame(self, label_text, hint='', choose_directory=False):
-        """Создает фрейм с лейблом и текстовым полем."""
+        """
+        Creates browse frame with a textfield, its label and a "Browse"
+        button.
+        """
         frame = tk.Frame(self.root)
         frame.pack(fill=tk.X, padx=set.FRAME_PADX)
 
@@ -35,7 +38,7 @@ class Frame:
         return entry
 
     def create_button_frame(self, buttons_name_and_process, buttons_args=None):
-        """Создает фрейм с кнопками."""
+        """Creates a buttons frame."""
         if buttons_args is None:
             buttons_args = {}
 
@@ -54,25 +57,22 @@ class Frame:
             button.pack(side=tk.LEFT, padx=set.FRAME_BUTTONS_PADX)
 
     def browse_file(self, entry, choose_directory=False, parent=None):
-        """Открывает диалог выбора файла или директории."""
+        """Opens a browse dialog for file or folder."""
         if parent:
-            # Устанавливаем окно на передний план
             parent.attributes('-topmost', True)
             parent.focus_force()
 
         if choose_directory:
-            # Открываем диалог выбора директории
             path = filedialog.askdirectory()
-            if path:  # Проверяем, что пользователь выбрал директорию
+            if path:
                 entry.delete(set.FIRST_ELEMENT, tk.END)
-                entry.insert(set.FIRST_ELEMENT, path)  # Убираем разделитель
+                entry.insert(set.FIRST_ELEMENT, path)
         else:
-            # Открываем диалог выбора файла
             paths = filedialog.askopenfilenames()
-            if paths:  # Проверяем, что пользователь выбрал файлы
+            if paths:
                 entry.delete(set.FIRST_ELEMENT, tk.END)
                 entry.insert(set.FIRST_ELEMENT, set.PATH_DIVIDER.join(paths))
 
-        if parent:  # Устанавливаем фокус обратно на текущее окно
+        if parent:
             parent.attributes('-topmost', False)
             parent.focus_set()

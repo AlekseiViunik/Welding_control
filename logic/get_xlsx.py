@@ -62,18 +62,17 @@ class GetXlsx:
             },
         }
 
-    # TODO Добавить аннотации.
     def handle_request(self):
-        """Обработка файлов с путями."""
+        """Handling files provided."""
 
-        # Удаляем ключи, у которых значения пустые массивы
+        # Remove the keys for the control types which paths are still empty
         self.files_dict = {
             key: value for key, value in self.files_dict.items() if value[
                 set.FILES_DICT_PATH_KEY
             ]
         }
 
-        # Проверка переданных файлов
+        # Provided files checking
         logging.info(set.log_check_files_start[self.lang_code])
         logging.info(set.log_check_files_call[self.lang_code])
         for field, file_info in self.files_dict.items():
@@ -85,7 +84,7 @@ class GetXlsx:
                 return False
         logging.info(set.log_check_files_done[self.lang_code])
 
-        # Получение данных и запихивание их в словарь
+        # Parse data and put it in the dict
         logging.info(set.log_parse_start[self.lang_code])
         logging.info(set.log_parse_call[self.lang_code])
         parser = Parser(self.lang_code)
@@ -96,7 +95,7 @@ class GetXlsx:
             f"{len(parser.welds_data)}"
         )
 
-        # Составление итоговой таблицы
+        # Summary table creation
         logging.info(set.log_table_start[self.lang_code])
         logging.info(set.log_table_method_call[self.lang_code])
         create_summary = CreateSummary(self.lang_code)
@@ -105,9 +104,12 @@ class GetXlsx:
         return True
 
     def check_files(self, paths, check_keys, field):
-        """Проверяет каждый файл в paths на наличие check_keys в первых 10
-           строках. Это необходимо, чтобы понять, в том ли текстовом поле
-           загружен файл. Это важно для последующей обработки файлов."""
+        """
+        Checks each file in paths for check_keys in the first 10
+        lines. This is necessary to understand if the text field is in the
+        right place the file has been uploaded. This is important for
+        subsequent file processing.
+        """
         for path in paths:
             filename = path.split(set.FILEPATH_DIVIDER)[-1]
             file_extension = filename.split(set.EXTENSION_DIVIDER)[-1]
@@ -126,12 +128,10 @@ class GetXlsx:
                 return False
             try:
                 wb = openpyxl.load_workbook(path)
-                sheet = wb.active  # Получаем первую страницу
+                sheet = wb.active
 
-                # Флаг, чтобы определить, найдено ли совпадение
                 found = False
 
-                # Проверяем первые N строк первого столбца
                 for row in range(
                     set.MIN_ROW_RANGE_VALUE,
                     set.MAX_ROW_RANGE_VALUE
