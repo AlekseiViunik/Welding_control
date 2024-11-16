@@ -11,8 +11,18 @@ class Frame:
 
     def create_entry_frame(self, label_text, hint='', choose_directory=False):
         """
-        Creates browse frame with a textfield, its label and a "Browse"
+        Creates a frame containing a text field, a label, and a "Browse"
         button.
+
+        Args:
+            label_text (str): The text to display on the label.
+            hint (str, optional): A placeholder or initial text for the text
+                field.
+            choose_directory (bool, optional): If True, the "Browse" button
+                opens a directory dialog. Defaults to False.
+
+        Returns:
+            tk.Entry: The text field widget for user input.
         """
         frame = tk.Frame(self.root)
         frame.pack(fill=tk.X, padx=set.FRAME_PADX)
@@ -38,7 +48,16 @@ class Frame:
         return entry
 
     def create_button_frame(self, buttons_name_and_process, buttons_args=None):
-        """Creates a buttons frame."""
+        """
+        Creates a frame containing multiple buttons.
+
+        Args:
+            buttons_name_and_process (dict): A dictionary where keys are button
+                labels, and values are the names of methods to call.
+            buttons_args (dict, optional): A dictionary with button labels as
+                keys and lists of arguments for the corresponding methods.
+                Defaults to None.
+        """
         if buttons_args is None:
             buttons_args = {}
 
@@ -57,7 +76,18 @@ class Frame:
             button.pack(side=tk.LEFT, padx=set.FRAME_BUTTONS_PADX)
 
     def browse_file(self, entry, choose_directory=False, parent=None):
-        """Opens a browse dialog for file or folder."""
+        """
+        Opens a file or folder browse dialog and updates the associated text
+        field.
+
+        Args:
+            entry (tk.Entry): The text field to update with the selected file
+                or folder path.
+            choose_directory (bool, optional): If True, opens a directory
+                selection dialog. Defaults to False.
+            parent (tk.Tk or tk.Toplevel, optional): The parent window for the
+                dialog. Defaults to None, using the root window.
+        """
         if parent:
             parent.attributes('-topmost', True)
             parent.focus_force()
