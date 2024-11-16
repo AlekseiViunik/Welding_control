@@ -22,8 +22,8 @@
 - ![IT](files/icons/it.png)[Descrizione](#descrizione)
 - ![IT](files/icons/it.png)[Principio di funzionamento](#principio-di-funzionamento)
 - ![IT](files/icons/it.png)[Istruzioni di installazione per Windows](#istruzioni-di-installazione-per-windows)
-  - ![GB](files/icons/gb.png)[Metodo semplice](#metodo-semplice)
-  - ![GB](files/icons/gb.png)[Metodo complesso](#metodo-complesso)
+  - ![IT](files/icons/it.png)[Metodo semplice](#metodo-semplice)
+  - ![IT](files/icons/it.png)[Metodo complesso](#metodo-complesso)
 - ![IT](files/icons/it.png)[Istruzioni per l'uso](#istruzioni-per-luso)
 - ![IT](files/icons/it.png)[Cosa c'è di nuovo](#cosa-cè-di-nuovo) 
 
