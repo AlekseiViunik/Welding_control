@@ -7,7 +7,7 @@ from threading import Thread
 from tkinter import PhotoImage
 
 from gui.settings_window import SettingsWindow
-from gui.components.frames import Frame
+from gui.components.frames import BrowseFrame, ButtonsFrame
 from gui.components.buttons import LangButton
 from logic.get_xlsx import GetXlsx
 from logic.settings_handler import SettingsHandler
@@ -66,7 +66,9 @@ class App:
         self.main_frame = tk.Frame(self.root)
         self.main_frame.pack(fill=tk.BOTH, expand=True)
         self.file_paths = []
-        frame = Frame(self.main_frame, self)
+        # frame = Frame(self.main_frame, self)
+        browse_frame = BrowseFrame(self.main_frame, self)
+        buttons_frame = ButtonsFrame(self.main_frame, self)
 
         self.lang_button = LangButton(
             self.main_frame,
@@ -76,7 +78,7 @@ class App:
 
         # Browse frame creation
         for label_text in set.labels[self.lang_code]:
-            entry = frame.create_entry_frame(label_text)
+            entry = browse_frame.create_frame(label_text)
             self.file_paths.append(entry)
 
         buttons_args = {
@@ -86,7 +88,7 @@ class App:
         }
 
         # Buttons "Go", "Clear" and "Settings"
-        frame.create_button_frame(
+        buttons_frame.create_frame(
             set.start_buttons_name_to_process[self.lang_code],
             buttons_args
         )

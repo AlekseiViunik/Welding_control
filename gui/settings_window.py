@@ -2,7 +2,7 @@ import tkinter as tk
 
 from gui.app_helper import AppHelper
 from gui.messagebox import MessageBox
-from gui.components.frames import Frame
+from gui.components.frames import BrowseFrame, ButtonsFrame
 from logic.settings_handler import SettingsHandler
 from settings import settings as set
 
@@ -23,13 +23,14 @@ class SettingsWindow:
         settings = self.settings_handler.file_read()
         save_path = settings[set.DEFAULT_SAVE_PATH_KEY]
 
-        frame = Frame(settings_window, self)
+        browse_frame = BrowseFrame(settings_window, self)
+        buttons_frame = ButtonsFrame(settings_window, self)
         current_path = tk.StringVar(
             value=save_path
         )
 
         # Browse frame creation
-        frame.create_entry_frame(
+        browse_frame.create_frame(
             set.where_to_save[self.lang_code],
             current_path,
             True
@@ -44,7 +45,7 @@ class SettingsWindow:
                 settings_window
             ]
         }
-        frame.create_button_frame(
+        buttons_frame.create_frame(
             set.settings_buttons_name_to_process[self.lang_code],
             buttons_args
         )
