@@ -1,6 +1,6 @@
 # iWant v1.0.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
-## Оглавление/Table of Contents
+## Оглавление/Table of Contents/Sommario
 - ![🇷🇺](files/icons/ru.png)[Описание](#Описание)
 - ![🇷🇺](files/icons/ru.png)[Принцип работы](#Принцип-работы)
 - ![🇷🇺](files/icons/ru.png)[Инструкция по установке для Windows](#Инструкция-по-установке-для-Windows)
