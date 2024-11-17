@@ -87,9 +87,9 @@
 1. Скачать к себе в отдельную папку в любом месте исполняемый `exe` файл любой версии [отсюда](https://github.com/AlekseiViunik/iWantApp/tree/main/dist).
 2. Запустить исполняемый `exe` файл.
 
-### Сложный способ
+### Сложный способ (для последней версии)
 1. [Скачать](https://www.python.org/downloads/) and [установить](https://docs.python.org/3/using/index.html) Python версии не ниже 3.10
-2. Склонировать репозиторий к себе c Гитхаба.
+2. Склонировать репозиторий с последней версией к себе c Гитхаба.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -148,6 +148,12 @@ python main.py
 
 ### v1.0.0
 - Это самая первая версия. Тут никаких изменений, фиксов и дополнений.
+### v1.1.0
+- Добавлена кнопка выбора языка на стартовом окне. При выборе языка поменяются все текстовые элементы, включая логирование, информацию об ошибках, текст в генерируемом файле excel и пр.
+- Добавлена поддержа английского и итальянского языков.
+- Изменена структура кода. Теперь в стартовом окне и окне настроек только один фрейм, в котором расположены все остальные компоненты
+- Fix: При нажатии кнопки обзор в окне настроек, окно обозревателя теперь появляется относительно окна настроек, а не стартового окна.
+
 
 ## Description
 This is a non-commercial application developed for “ALITER-AXI” Co.Ltd.
@@ -211,13 +217,13 @@ For each of the control methods mentioned in the description, one or more files 
 
 ### Easy Way
 
-1. Download the executable `exe` file to a separate folder anywhere on your computer.
-2. Run the executable `exe` file.
+1. Download the executable `exe` file of any version from [here](https://github.com/AlekseiViunik/iWantApp/tree/main/dist) and save it to a separate folder anywhere on your computer.
+3. Run the executable `exe` file.
 
-### Advanced Way
+### Advanced Way (for the latest version)
 
 1. [Download](https://www.python.org/downloads/) and [install](https://docs.python.org/3/using/index.html) Python version 3.10 or higher.
-2. Clone the repository from GitHub.
+2. Clone the repository with the latest version from GitHub.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -272,6 +278,11 @@ Nuances:
 
 ### v1.0.0
 - This is the very first version. There are no changes, fixes, or additions here.
+### v1.1.0
+- Added a language selection button on the main window. When a language is selected, all text elements, including logging, error messages, text in the generated Excel file, and more, will be updated.
+- Added support for English and Italian languages.
+- Changed code structure. Now both the main window and the settings window have only one frame containing all the components.
+- Fix: When clicking the "Browse" button in the settings window, the file explorer now opens relative to the settings window instead of the main window.
 
 ## Descrizione
 
