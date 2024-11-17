@@ -118,6 +118,7 @@ python main.py
 8. Если п.6 выполнен, то в корневой директории появится папка `dist` с исполняемым файлом - запустить его.
 
 ## Инструкция по использованию
+
 - Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0ru.md)
 
 ## Что нового
@@ -227,28 +228,7 @@ python main.py
 
 ## Usage Instructions
 
-After launching the file, a window will appear:<br>
-![alt text](files/images/image-1.png)<br>
-1. In the top left corner, the name of the application and its version are displayed. The name is constant and will not change regardless of what name you assign to the executable file.
-2. Next, there are 5 input text fields with hints above each and an `Browse` button on the left. Here, you enter the paths to the files for verification. It is not necessary to enter them manually. Simply click the Browse button to select <u>one or multiple files at once</u> of the same control type. Unused fields can also be left empty. The application will ignore them.
-3. The `Go` button starts the verification process, which may take several minutes. During the verification, a window will appear warning that the verification has started and will disappear once the verification is complete:<br>
-![alt text](files/images/image-2.png)<br>
-After the verification and the creation of the result table, another informational window will appear, indicating that the task has been completed and showing where the result table has been saved. This window needs to be closed by confirming with the `OK` button:<br>
-![alt text](files/images/image-3.png)<br>
-4. The `Clear` button clears all filled fields.
-5. The `Settings` button opens the settings window:<br>
-![alt text](files/images/image-4.png)<br>
-Currently, in the settings, you can only specify the folder where the resulting table will be saved.
-
-Nuances:
-1. Do not start processing files for several contracts at once. One contract - one analysis. The same joint ids may appear in different contracts, which can lead to incorrect application behavior.
-2. You can simultaneously select multiple files of the same control type. They must be located in the same folder. To select multiple files, hold `Ctrl` to add another file to the selection or `Shift` to add a range of consecutive files.
-3. You must select files of the specific control type in the field designated for that type of control. If it says `Select Inspection Files`, do not insert `hardness test protocols` into this field; otherwise, an error window will pop up when you click the `Go` button:<br>
-![alt text](files/images/image-5.png)
-4. Each file can have an unlimited number of pages. The main thing is that these should be pages of the same control type.
-5. Each page can have an unlimited number of joint ids. The main thing is that the text indicating the type of control must be in the first 10 rows on the first page. You do not need to check this manually. If the text is missing, an error will pop up (see point 3).
-6. Joint ids must be specified in column A. If the cells with joint ids are merged across several columns, column A must be the first in the merge. This also does not need to be checked manually. If the joint ids are in another column, the application will simply not find them.
-7. The joint control date must be to the right of the joint in the same row.
+You can read the instructions for v1.0.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0en.md).
 
 ## What's New
 
@@ -352,32 +332,7 @@ python main.py
 
 ## Istruzioni per l'uso
 
-Dopo aver avviato il file, si aprirà la finestra:<br>
-![alt text](files/images/image-1.png)<br>
-
-1. Nell'angolo in alto a sinistra viene indicato il nome dell'applicazione e la sua versione. Il nome è fisso e non cambierà in base al nome che assegnerai al file eseguibile.
-2. Seguono 5 campi di testo per l'inserimento con suggerimenti sopra ciascuno e un pulsante `Sfoglia` a sinistra. Qui vengono inseriti i percorsi dei file da controllare. Non è necessario inserirli manualmente. È sufficiente fare clic sul pulsante Sfoglia per selezionare <u>uno o più file</u> dello stesso tipo di controllo. I campi non utilizzati possono anche essere lasciati vuoti. L'applicazione li ignorerà.
-3. Il pulsante `Iniziamo` avvia il processo di verifica, che può richiedere diversi minuti. Durante la verifica apparirà una finestra che avverte che la verifica è iniziata e scomparirà al termine della verifica:<br>
-![alt text](files/images/image-2.png)<br>
-
-Al termine della verifica e della creazione della tabella dei risultati, apparirà un'altra finestra informativa che indicherà che il lavoro è completato e dove è stata salvata la tabella dei risultati. Questa finestra deve essere chiusa confermando con il pulsante `OK`:<br>
-![alt text](files/images/image-3.png)<br>
-
-4. Il pulsante `Cancella` pulisce tutti i campi compilati.
-5. Il pulsante `Impostazioni` apre la finestra delle impostazioni:<br>
-![alt text](files/images/image-4.png)<br>
-Attualmente, nelle impostazioni è possibile solo specificare la cartella in cui sarà salvata la tabella dei risultati.
-
-Note:
-
-1. Non è necessario avviare il lavoro su file di più contratti contemporaneamente. Un contratto - un'analisi. Nei diversi contratti potrebbero ripetersi i numeri delle saldature e ciò potrebbe portare a un funzionamento errato dell'applicazione.
-2. È possibile selezionare contemporaneamente più file dello stesso tipo di controllo. Devono trovarsi nella stessa cartella. La selezione di più file deve essere effettuata nella finestra di esplorazione dei file tenendo premuto `Ctrl` per aggiungere un altro file alla selezione o `Shift` per aggiungere un intervallo di file consecutivi.
-3. È necessario selezionare file di un tipo specifico di controllo nel campo destinato a quel tipo di controllo. Se è scritto `Seleziona file di Stiloscopia`, non bisogna inserire in quel campo i protocolli delle `misurazioni di durezza`, altrimenti si aprirà una finestra con un errore quando si fa clic sul pulsante `Iniziamo`:<br>
-![alt text](files/images/image-5.png)
-4. Ogni file può contenere un numero illimitato di pagine. L'importante è che siano pagine dello stesso tipo di controllo.
-5. In ogni pagina può esserci un numero illimitato di numeri di saldatura. L'importante è che nelle prime 10 righe della prima pagina ci sia un testo che indica il tipo di controllo. Non è necessario controllare manualmente. Se il testo non è presente, si aprirà un errore come al punto 3.
-6. I numeri di saldatura devono essere indicati nella colonna A. Se le celle con i numeri di saldatura sono unite su più colonne, la prima deve essere la colonna A dell'unione. Anche questo non è necessario controllarlo manualmente. Se i numeri di saldatura si trovano in un'altra colonna, l'applicazione semplicemente non li troverà.
-7. La data di controllo della saldatura deve essere a destra della saldatura nella stessa riga.
+Puoi leggere le istruzioni per la versione v1.0.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0it.md).
 
 ## Cosa c'è di nuovo
 
