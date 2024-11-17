@@ -152,7 +152,7 @@ python main.py
 - Добавлена кнопка выбора языка на стартовом окне. При выборе языка поменяются все текстовые элементы, включая логирование, информацию об ошибках, текст в генерируемом файле excel и пр.
 - Добавлена поддержа английского и итальянского языков.
 - Изменена структура кода. Теперь в стартовом окне и окне настроек только один фрейм, в котором расположены все остальные компоненты
-- Fix: При нажатии кнопки обзор в окне настроек, окно обозревателя теперь появляется относительно окна настроек, а не стартового окна.
+- Fix: При нажатии кнопки `Обзор` в окне настроек, окно обозревателя теперь появляется относительно окна настроек, а не стартового окна.
 
 
 ## Description
@@ -282,7 +282,7 @@ Nuances:
 - Added a language selection button on the main window. When a language is selected, all text elements, including logging, error messages, text in the generated Excel file, and more, will be updated.
 - Added support for English and Italian languages.
 - Changed code structure. Now both the main window and the settings window have only one frame containing all the components.
-- Fix: When clicking the "Browse" button in the settings window, the file explorer now opens relative to the settings window instead of the main window.
+- Fix: When clicking the `Browse` button in the settings window, the file explorer now opens relative to the settings window instead of the main window.
 
 ## Descrizione
 
@@ -411,4 +411,4 @@ Note:
 - Aggiunto un pulsante per la selezione della lingua nella finestra principale. Quando viene selezionata una lingua, tutti gli elementi di testo, inclusi i log, i messaggi di errore, il testo nel file Excel generato e altro, verranno aggiornati.
 - Aggiunto supporto per le lingue inglese e italiana.
 - Modificata la struttura del codice. Ora sia la finestra principale che quella delle impostazioni contengono un solo frame con tutti i componenti.
-- Fix: Cliccando sul pulsante "Sfoglia" nella finestra delle impostazioni, l'esplora file ora si apre in relazione alla finestra delle impostazioni invece che alla finestra principale.
+- Fix: Cliccando sul pulsante `Navigazione` nella finestra delle impostazioni, l'esplora file ora si apre in relazione alla finestra delle impostazioni invece che alla finestra principale.
