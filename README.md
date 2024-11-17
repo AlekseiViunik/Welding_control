@@ -343,12 +343,12 @@ Per ciascuno dei metodi di controllo indicati nella descrizione, viene caricato 
 ## Istruzioni di installazione per Windows
 
 ### Metodo semplice
-1. Scarica il file eseguibile `exe` in una cartella separata in qualsiasi posizione.
+1. Scarica il file eseguibile `exe` di qualsiasi versione [da qui](https://github.com/AlekseiViunik/iWantApp/tree/main/dist) e salvalo in una cartella separata in qualsiasi posizione sul tuo computer.
 2. Avvia il file eseguibile `exe`.
 
-### Metodo complesso
+### Metodo complesso (per l'ultima versione)
 1. [Scarica](https://www.python.org/downloads/) e [installa](https://docs.python.org/3/using/index.html) Python versione 3.10 o superiore.
-2. Clona il repository sul tuo computer da GitHub.
+2. Clona il repository con l'ultima versione da GitHub.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -407,3 +407,8 @@ Note:
 
 ### v1.0.0
 - Questa è la prima versione. Non ci sono modifiche, correzioni o aggiunte.
+### v1.1.0
+- Aggiunto un pulsante per la selezione della lingua nella finestra principale. Quando viene selezionata una lingua, tutti gli elementi di testo, inclusi i log, i messaggi di errore, il testo nel file Excel generato e altro, verranno aggiornati.
+- Aggiunto supporto per le lingue inglese e italiana.
+- Modificata la struttura del codice. Ora sia la finestra principale che quella delle impostazioni contengono un solo frame con tutti i componenti.
+- Fix: Cliccando sul pulsante "Sfoglia" nella finestra delle impostazioni, l'esplora file ora si apre in relazione alla finestra delle impostazioni invece che alla finestra principale.
