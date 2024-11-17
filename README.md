@@ -119,7 +119,8 @@ python main.py
 
 ## Инструкция по использованию
 
-- Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0ru.md)
+- Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0ru.md).
+- Инструкцию для v1.1.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0ru.md).
 
 ## Что нового
 
@@ -228,7 +229,8 @@ python main.py
 
 ## Usage Instructions
 
-You can read the instructions for v1.0.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0en.md).
+- You can read the instructions for v1.0.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0en.md).
+- You can read the instructions for v1.1.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0en.md).
 
 ## What's New
 
@@ -333,6 +335,7 @@ python main.py
 ## Istruzioni per l'uso
 
 Puoi leggere le istruzioni per la versione v1.0.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0it.md).
+Puoi leggere le istruzioni per la versione v1.1.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0it.md).
 
 ## Cosa c'è di nuovo
 
