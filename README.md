@@ -118,7 +118,7 @@ python main.py
 8. Если п.6 выполнен, то в корневой директории появится папка `dist` с исполняемым файлом - запустить его.
 
 ## Инструкция по использованию
-- Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0en.md)
+- Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0ru.md)
 
 ## Что нового
 
