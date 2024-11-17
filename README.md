@@ -334,8 +334,8 @@ python main.py
 
 ## Istruzioni per l'uso
 
-Puoi leggere le istruzioni per la versione v1.0.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0it.md).
-Puoi leggere le istruzioni per la versione v1.1.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0it.md).
+- Puoi leggere le istruzioni per la versione v1.0.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0it.md).
+- Puoi leggere le istruzioni per la versione v1.1.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0it.md).
 
 ## Cosa c'è di nuovo
 
