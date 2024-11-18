@@ -1,4 +1,4 @@
-# iWant v1.0.0
+# iWant v1.1.0
 ![Python version](https://img.shields.io/badge/python-3.10-green)
 ## Оглавление/Table of Contents/Sommario
 - ![🇷🇺](files/icons/ru.png)[Описание](#Описание)
@@ -84,12 +84,12 @@
 ## Инструкция по установке для Windows
 
 ### Простой способ
-1. Скачать к себе в отдельную папку в любом месте исполняемый `exe` файл.
+1. Скачать к себе в отдельную папку в любом месте исполняемый `exe` файл любой версии [отсюда](https://github.com/AlekseiViunik/iWantApp/tree/main/dist).
 2. Запустить исполняемый `exe` файл.
 
-### Сложный способ
+### Сложный способ (для последней версии)
 1. [Скачать](https://www.python.org/downloads/) and [установить](https://docs.python.org/3/using/index.html) Python версии не ниже 3.10
-2. Склонировать репозиторий к себе c Гитхаба.
+2. Склонировать репозиторий с последней версией к себе c Гитхаба.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -118,36 +118,20 @@ python main.py
 8. Если п.6 выполнен, то в корневой директории появится папка `dist` с исполняемым файлом - запустить его.
 
 ## Инструкция по использованию
-После запуска файла запустится окно:<br>
-![alt text](files/images/image-1.png)<br>
 
-1. В верхнем левом углу указано имя приложения и его версия. Имя постоянное. Оно не будет меняться в зависимости от того, какое Вы имя назначите исполняемому файлу.
-2. Далее идут 5 текстовых полей для ввода с подсказкой над каждым и кнопкой `Обзор` слева. Сюда вносятся пути к файлам для проверки. Вручную их вносить необязательно. Достаточно нажать кнопку обзор для выбора <u>одного или нескольких сразу</u> файлов одного типа контроля. Также невостребованные поля можно оставить пустыми. Приложение их проигнорирует.
-3. Кнопка `Погнали` запускает процесс проверки, который может занять до нескольких минут. на время проверки появится окно, предупреждающее о том, что проверка началась и исчезнет само по окончании проверки:<br>
-![alt text](files/images/image-2.png)<br>
-По окончании проверки и создании результирующей таблицы появится еще одно информирующее окно, которое скажет, что работа выполнена и укажет, где сохранена результирующая таблица. Это окно нужно закрыть подтверждением, нажав кнопку `OK`:<br>
-![alt text](files/images/image-3.png)<br>
-4. Кнопка `Забей` очищает все заполненные поля.
-5. Кнопка `Настройки` открывает окно настроек:<br>
-![alt text](files/images/image-4.png)<br>
-
-На данный момент в настройках можно только указать папку, куда будет сохранена результирующая таблица.
-
-Нюансы:
-1. Не надо запускать в работу файлы по нескольким договорам сразу. Один договор - один анализ. В разных договорах могут повторяться номера швов и это может привести к неправильной работе приложения.
-2. Можно одновременно выбирать сразу несколько файлов одного и того же вида контроля. Они должны находиться в одной и той же папке. Выбор нескольких файлов необходимо делать в окне обзора файлов с зажатой `Ctrl` для добавления к выбору еще одного файла или `Shift` для добавления сразу диапазона идущих подряд файлов.
-3. Необходимо выбирать файлы конкретного типа контроля в поле, которое предназначено для этого типа контроля. Если написано `Выберите файлы Стилоскопирования`, то не надо в это поле пихать протоколы замеров твердости, иначе выскочит окно с ошибкой при нажатии на кнопку `Погнали`:<br>
-![alt text](files/images/image-5.png)
-4. В каждом файле может быть сколько угодно страниц. Главное, чтобы это были страницы с одним и тем же типом контроля.
-5. На каждой странице может быть сколько угодно номеров швов. Главное, чтобы в первых 10 строчках на первой странице был текст, указывающий на тип контроля. Это не надо вручную проверять. Если текста не будет, выскочит ошибка п.3
-6. Номера швов везде должны быть указаны в столбце А. Если ячейки с номерами швов объединены несколькими столбцами, то первым должен быть столбец А в объединении. Это тоже не надо проверять вручную. Если номера швов будут в другом столбце, то приложение их просто не найдет.
-7. Дата контроля шва должна быть справа от шва в той же строке.
-
+- Инструкцию для v1.0.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0ru.md).
+- Инструкцию для v1.1.0 можно почитать [здесь](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0ru.md).
 
 ## Что нового
 
 ### v1.0.0
 - Это самая первая версия. Тут никаких изменений, фиксов и дополнений.
+### v1.1.0
+- Добавлена кнопка выбора языка на стартовом окне. При выборе языка поменяются все текстовые элементы, включая логирование, информацию об ошибках, текст в генерируемом файле excel и пр.
+- Добавлена поддержа английского и итальянского языков.
+- Изменена структура кода. Теперь в стартовом окне и окне настроек только один фрейм, в котором расположены все остальные компоненты
+- Fix: При нажатии кнопки `Обзор` в окне настроек, окно обозревателя теперь появляется относительно окна настроек, а не стартового окна.
+
 
 ## Description
 This is a non-commercial application developed for “ALITER-AXI” Co.Ltd.
@@ -211,13 +195,13 @@ For each of the control methods mentioned in the description, one or more files 
 
 ### Easy Way
 
-1. Download the executable `exe` file to a separate folder anywhere on your computer.
-2. Run the executable `exe` file.
+1. Download the executable `exe` file of any version from [here](https://github.com/AlekseiViunik/iWantApp/tree/main/dist) and save it to a separate folder anywhere on your computer.
+3. Run the executable `exe` file.
 
-### Advanced Way
+### Advanced Way (for the latest version)
 
 1. [Download](https://www.python.org/downloads/) and [install](https://docs.python.org/3/using/index.html) Python version 3.10 or higher.
-2. Clone the repository from GitHub.
+2. Clone the repository with the latest version from GitHub.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -245,33 +229,18 @@ python main.py
 
 ## Usage Instructions
 
-After launching the file, a window will appear:<br>
-![alt text](files/images/image-1.png)<br>
-1. In the top left corner, the name of the application and its version are displayed. The name is constant and will not change regardless of what name you assign to the executable file.
-2. Next, there are 5 input text fields with hints above each and an `Browse` button on the left. Here, you enter the paths to the files for verification. It is not necessary to enter them manually. Simply click the Browse button to select <u>one or multiple files at once</u> of the same control type. Unused fields can also be left empty. The application will ignore them.
-3. The `Go` button starts the verification process, which may take several minutes. During the verification, a window will appear warning that the verification has started and will disappear once the verification is complete:<br>
-![alt text](files/images/image-2.png)<br>
-After the verification and the creation of the result table, another informational window will appear, indicating that the task has been completed and showing where the result table has been saved. This window needs to be closed by confirming with the `OK` button:<br>
-![alt text](files/images/image-3.png)<br>
-4. The `Clear` button clears all filled fields.
-5. The `Settings` button opens the settings window:<br>
-![alt text](files/images/image-4.png)<br>
-Currently, in the settings, you can only specify the folder where the resulting table will be saved.
-
-Nuances:
-1. Do not start processing files for several contracts at once. One contract - one analysis. The same joint ids may appear in different contracts, which can lead to incorrect application behavior.
-2. You can simultaneously select multiple files of the same control type. They must be located in the same folder. To select multiple files, hold `Ctrl` to add another file to the selection or `Shift` to add a range of consecutive files.
-3. You must select files of the specific control type in the field designated for that type of control. If it says `Select Inspection Files`, do not insert `hardness test protocols` into this field; otherwise, an error window will pop up when you click the `Go` button:<br>
-![alt text](files/images/image-5.png)
-4. Each file can have an unlimited number of pages. The main thing is that these should be pages of the same control type.
-5. Each page can have an unlimited number of joint ids. The main thing is that the text indicating the type of control must be in the first 10 rows on the first page. You do not need to check this manually. If the text is missing, an error will pop up (see point 3).
-6. Joint ids must be specified in column A. If the cells with joint ids are merged across several columns, column A must be the first in the merge. This also does not need to be checked manually. If the joint ids are in another column, the application will simply not find them.
-7. The joint control date must be to the right of the joint in the same row.
+- You can read the instructions for v1.0.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0en.md).
+- You can read the instructions for v1.1.0 [here](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0en.md).
 
 ## What's New
 
 ### v1.0.0
 - This is the very first version. There are no changes, fixes, or additions here.
+### v1.1.0
+- Added a language selection button on the main window. When a language is selected, all text elements, including logging, error messages, text in the generated Excel file, and more, will be updated.
+- Added support for English and Italian languages.
+- Changed code structure. Now both the main window and the settings window have only one frame containing all the components.
+- Fix: When clicking the `Browse` button in the settings window, the file explorer now opens relative to the settings window instead of the main window.
 
 ## Descrizione
 
@@ -332,12 +301,12 @@ Per ciascuno dei metodi di controllo indicati nella descrizione, viene caricato 
 ## Istruzioni di installazione per Windows
 
 ### Metodo semplice
-1. Scarica il file eseguibile `exe` in una cartella separata in qualsiasi posizione.
+1. Scarica il file eseguibile `exe` di qualsiasi versione [da qui](https://github.com/AlekseiViunik/iWantApp/tree/main/dist) e salvalo in una cartella separata in qualsiasi posizione sul tuo computer.
 2. Avvia il file eseguibile `exe`.
 
-### Metodo complesso
+### Metodo complesso (per l'ultima versione)
 1. [Scarica](https://www.python.org/downloads/) e [installa](https://docs.python.org/3/using/index.html) Python versione 3.10 o superiore.
-2. Clona il repository sul tuo computer da GitHub.
+2. Clona il repository con l'ultima versione da GitHub.
 ```
 git clone git@github.com:AlekseiViunik/Welding_control.git
 ```
@@ -365,34 +334,15 @@ python main.py
 
 ## Istruzioni per l'uso
 
-Dopo aver avviato il file, si aprirà la finestra:<br>
-![alt text](files/images/image-1.png)<br>
-
-1. Nell'angolo in alto a sinistra viene indicato il nome dell'applicazione e la sua versione. Il nome è fisso e non cambierà in base al nome che assegnerai al file eseguibile.
-2. Seguono 5 campi di testo per l'inserimento con suggerimenti sopra ciascuno e un pulsante `Sfoglia` a sinistra. Qui vengono inseriti i percorsi dei file da controllare. Non è necessario inserirli manualmente. È sufficiente fare clic sul pulsante Sfoglia per selezionare <u>uno o più file</u> dello stesso tipo di controllo. I campi non utilizzati possono anche essere lasciati vuoti. L'applicazione li ignorerà.
-3. Il pulsante `Iniziamo` avvia il processo di verifica, che può richiedere diversi minuti. Durante la verifica apparirà una finestra che avverte che la verifica è iniziata e scomparirà al termine della verifica:<br>
-![alt text](files/images/image-2.png)<br>
-
-Al termine della verifica e della creazione della tabella dei risultati, apparirà un'altra finestra informativa che indicherà che il lavoro è completato e dove è stata salvata la tabella dei risultati. Questa finestra deve essere chiusa confermando con il pulsante `OK`:<br>
-![alt text](files/images/image-3.png)<br>
-
-4. Il pulsante `Cancella` pulisce tutti i campi compilati.
-5. Il pulsante `Impostazioni` apre la finestra delle impostazioni:<br>
-![alt text](files/images/image-4.png)<br>
-Attualmente, nelle impostazioni è possibile solo specificare la cartella in cui sarà salvata la tabella dei risultati.
-
-Note:
-
-1. Non è necessario avviare il lavoro su file di più contratti contemporaneamente. Un contratto - un'analisi. Nei diversi contratti potrebbero ripetersi i numeri delle saldature e ciò potrebbe portare a un funzionamento errato dell'applicazione.
-2. È possibile selezionare contemporaneamente più file dello stesso tipo di controllo. Devono trovarsi nella stessa cartella. La selezione di più file deve essere effettuata nella finestra di esplorazione dei file tenendo premuto `Ctrl` per aggiungere un altro file alla selezione o `Shift` per aggiungere un intervallo di file consecutivi.
-3. È necessario selezionare file di un tipo specifico di controllo nel campo destinato a quel tipo di controllo. Se è scritto `Seleziona file di Stiloscopia`, non bisogna inserire in quel campo i protocolli delle `misurazioni di durezza`, altrimenti si aprirà una finestra con un errore quando si fa clic sul pulsante `Iniziamo`:<br>
-![alt text](files/images/image-5.png)
-4. Ogni file può contenere un numero illimitato di pagine. L'importante è che siano pagine dello stesso tipo di controllo.
-5. In ogni pagina può esserci un numero illimitato di numeri di saldatura. L'importante è che nelle prime 10 righe della prima pagina ci sia un testo che indica il tipo di controllo. Non è necessario controllare manualmente. Se il testo non è presente, si aprirà un errore come al punto 3.
-6. I numeri di saldatura devono essere indicati nella colonna A. Se le celle con i numeri di saldatura sono unite su più colonne, la prima deve essere la colonna A dell'unione. Anche questo non è necessario controllarlo manualmente. Se i numeri di saldatura si trovano in un'altra colonna, l'applicazione semplicemente non li troverà.
-7. La data di controllo della saldatura deve essere a destra della saldatura nella stessa riga.
+- Puoi leggere le istruzioni per la versione v1.0.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.0.0/v1.0.0it.md).
+- Puoi leggere le istruzioni per la versione v1.1.0 [qui](https://github.com/AlekseiViunik/iWantApp/blob/main/instructions/v1.1.0/v1.1.0it.md).
 
 ## Cosa c'è di nuovo
 
 ### v1.0.0
 - Questa è la prima versione. Non ci sono modifiche, correzioni o aggiunte.
+### v1.1.0
+- Aggiunto un pulsante per la selezione della lingua nella finestra principale. Quando viene selezionata una lingua, tutti gli elementi di testo, inclusi i log, i messaggi di errore, il testo nel file Excel generato e altro, verranno aggiornati.
+- Aggiunto supporto per le lingue inglese e italiana.
+- Modificata la struttura del codice. Ora sia la finestra principale che quella delle impostazioni contengono un solo frame con tutti i componenti.
+- Fix: Cliccando sul pulsante `Navigazione` nella finestra delle impostazioni, l'esplora file ora si apre in relazione alla finestra delle impostazioni invece che alla finestra principale.
