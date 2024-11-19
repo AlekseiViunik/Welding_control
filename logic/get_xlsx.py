@@ -1,6 +1,7 @@
 import logging
 import openpyxl
 
+from logic.settings_handler import SettingsHandler
 from gui.messagebox import MessageBox
 from settings import settings as set
 from .create_summary import CreateSummary
@@ -8,15 +9,16 @@ from .parser import Parser
 
 
 class GetXlsx:
-    def __init__(self, vmc, hb, rc, st, cd, save_path, lang_code):
+    def __init__(self, vmc, hb, rc, st, cd, lang_code):
         self.vmc = vmc
         self.hb = hb
         self.rc = rc
         self.st = st
         self.cd = cd
-        self.save_path = save_path
         self.lang_code = lang_code
         self.message_box = MessageBox()
+        self.settings_handler = SettingsHandler()
+        self.save_path = ''
         self.files_dict = {
             set.VMC: {
                 set.FILES_DICT_PATH_KEY:
@@ -47,7 +49,9 @@ class GetXlsx:
 
     def handle_request(self):
         """Handling files provided."""
-
+        self.save_path = self.settings_handler.file_read(
+            set.DEFAULT_SAVE_PATH_KEY
+        )
         # Remove the keys for the control types which paths are still empty
         self.files_dict = {
             key: value for key, value in self.files_dict.items() if value[

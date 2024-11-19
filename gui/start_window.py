@@ -150,7 +150,6 @@ class App:
             rc_paths,
             st_paths,
             cd_paths,
-            self.save_path,
             self.lang_code
         )
         if not get_xlsx.handle_request():
