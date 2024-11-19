@@ -1,3 +1,5 @@
+import os
+import sys
 import tkinter as tk
 
 from logic.settings_handler import SettingsHandler
@@ -22,13 +24,14 @@ class LangButton:
         up automatically.
         """
         if not icon_path:
-            img_photo = tk.PhotoImage(
-                file=self.lang_settings[set.DEFAULT_LANG_ICON_PATH_KEY]
+            icon_path = self.get_resource_path(
+                self.lang_settings[set.DEFAULT_LANG_ICON_PATH_KEY]
             )
         else:
-            img_photo = tk.PhotoImage(
-                file=icon_path
-            )
+            icon_path = self.get_resource_path(icon_path)
+
+        img_photo = tk.PhotoImage(file=icon_path)
+
         if not command:
             command = self.open_lang_settings
 
@@ -79,3 +82,23 @@ class LangButton:
         self.instance.lang_code = lang_code
         self.instance.render_main_frame()
         win.destroy()
+
+    def get_resource_path(self, relative_path):
+        """
+        Returns the absolute path to a resource, considering whether the app
+        is running as a script or as an executable.
+
+        Args:
+            relative_path (str): The relative path to the resource.
+
+        Returns:
+            str: The absolute path to the resource.
+        """
+        if getattr(sys, 'frozen', False):
+            # If running as a bundled executable
+            base_path = sys._MEIPASS
+        else:
+            # If running as a Python script
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
